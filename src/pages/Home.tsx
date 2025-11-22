@@ -74,7 +74,7 @@ export default function Home() {
 
         {/* Текст под каруселью */}
         <div className="flex justify-center mt-12 px-6">
-          <p className="text-gray-800" style={{ fontSize: "24px", maxWidth: "600px", textAlign: "center" }}>
+          <p className="text-gray-800" style={{ fontSize: "24px", maxWidth: "900px", textAlign: "center" }}>
             Надёжное средство для профилактики и лечения начальных этапов заболеваний! А так же рекомендуем к применению в комплексной терапии!
           </p>
         </div>

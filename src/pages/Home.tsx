@@ -28,23 +28,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: softGreen[50] }}>
-      {/* Header - компактный */}
-      <header className="py-3 bg-white shadow-sm">
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-center">
-          <div className="flex items-center justify-between w-full max-w-4xl">
-            <h1 className="text-xl font-bold" style={{ color: softGreen[600] }}>
-              Лечебный пластырь
-            </h1>
-            <a
-              href="https://наш.магазин"
-              className="px-5 py-2 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: softGreen[500] }}
-            >
-              Заказать
-            </a>
-          </div>
-        </div>
-      </header>
 
       {/* Hero - Карусель 3:4 */}
       <section className="py-12 bg-white">
@@ -90,8 +73,8 @@ export default function Home() {
         </div>
 
         {/* Текст под каруселью */}
-        <div className="text-center mt-12 px-6" style={{ fontSize: "24px" }}>
-          <p className="font-bold text-gray-800">
+        <div className="flex justify-center mt-12 px-6">
+          <p className="text-gray-800" style={{ fontSize: "24px", maxWidth: "600px", textAlign: "center" }}>
             Надёжное средство для профилактики и лечения начальных этапов заболеваний! А так же рекомендуем к применению в комплексной терапии!
           </p>
         </div>

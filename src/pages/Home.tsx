@@ -276,7 +276,7 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="relative w-full px-6 md:px-10 lg:px-16">
-            <div className="overflow-visible" ref={emblaRef}>
+            <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex -ml-1.5 md:-ml-2">
                 {carouselImages.map((image) => (
                   <div

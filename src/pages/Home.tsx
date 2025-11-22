@@ -32,7 +32,7 @@ export default function Home() {
       <div className="h-5"></div>
 
       {/* Hero - Карусель 3:4 */}
-      <section className="pb-8 md:pb-12 bg-white">
+      <section className="pb-8 md:pb-12 mb-12 md:mb-16 bg-white">
         <div className="w-full flex justify-center">
           <div className="relative w-full px-4 md:px-6" style={{ maxWidth: "calc(100vw - 32px)" }}>
             <div className="overflow-hidden" ref={emblaRef}>
@@ -98,12 +98,12 @@ export default function Home() {
               Как это работает?
             </h2>
             
-            <div className="flex flex-col lg:flex-row gap-6 md:gap-8 items-center">
-              {/* Картинка слева (сверху на мобильных) */}
-              <div className="w-full lg:w-1/2 max-w-md lg:max-w-none">
+            <div className="flex flex-col lg:flex-row gap-6 md:gap-8 items-center lg:items-start">
+              {/* Картинка слева (сверху на мобильных) - уменьшена на 40% */}
+              <div className="w-full lg:w-auto lg:flex-shrink-0">
                 <div
-                  className="w-full rounded-xl overflow-hidden"
-                  style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
+                  className="w-full rounded-xl overflow-hidden mx-auto"
+                  style={{ aspectRatio: "3/4", backgroundColor: softGreen[300], maxWidth: "280px" }}
                 >
                   <div className="w-full h-full flex items-center justify-center text-white text-xl md:text-2xl font-semibold">
                     Фото продукта
@@ -112,7 +112,7 @@ export default function Home() {
               </div>
 
               {/* Текст справа (снизу на мобильных) */}
-              <div className="w-full lg:w-1/2">
+              <div className="w-full lg:flex-1">
                 <div className="space-y-4 md:space-y-6">
                   <div>
                     <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3" style={{ color: softGreen[600] }}>

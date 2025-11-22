@@ -89,14 +89,10 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Заголовок под каруселью */}
-        <div className="text-center mt-8 px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
-            Гармония природы и науки
-          </h2>
-          <p className="text-base text-gray-600 max-w-xl mx-auto">
-            Откройте для себя целительную силу природы в современной форме.
-            Лечебный пластырь для вашего благополучия.
+        {/* Большой текст под каруселью */}
+        <div className="text-center mt-12 px-6" style={{ fontSize: "24rem" }}>
+          <p className="font-bold text-gray-800 leading-tight">
+            Надёжное средство для профилактики и лечения начальных этапов заболеваний! А так же рекомендуем к применению в комплексной терапии!
           </p>
         </div>
       </section>

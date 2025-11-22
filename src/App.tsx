@@ -1,19 +1,10 @@
-import { Route, Switch, Link, Redirect } from "wouter";
-import { useEffect } from "react";
-import Landing6 from "./pages/Landing6";
-
-function LandingRedirect() {
-  useEffect(() => {
-    window.location.href = "/landing/6";
-  }, []);
-  return null;
-}
+import { Route, Switch, Link } from "wouter";
+import Home from "./pages/Home";
 
 export default function App() {
   return (
     <Switch>
-      <Route path="/" component={LandingRedirect} />
-      <Route path="/landing/6" component={Landing6} />
+      <Route path="/" component={Home} />
       <Route>
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
           <div className="text-center">

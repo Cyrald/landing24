@@ -262,7 +262,7 @@ export default function Home() {
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
-  const carouselImages = Array.from({ length: 8 }, (_, i) => ({
+  const carouselImages = Array.from({ length: 6 }, (_, i) => ({
     id: i + 1,
     alt: `Пластырь ${i + 1}`,
   }));
@@ -281,7 +281,7 @@ export default function Home() {
                 {carouselImages.map((image) => (
                   <div
                     key={image.id}
-                    className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 min-w-0 flex-shrink-0 pl-1.5 md:pl-2 pr-1.5 md:pr-2"
+                    className="basis-full sm:basis-1/2 md:basis-1/3 min-w-0 flex-shrink-0 pl-1.5 md:pl-2 pr-1.5 md:pr-2"
                   >
                     <div
                       className="w-full rounded-xl overflow-hidden"

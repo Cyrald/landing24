@@ -98,11 +98,11 @@ export default function Home() {
               Как это работает?
             </h2>
             
-            <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center lg:items-start">
+            <div className="flex flex-col sm:flex-row gap-6 sm:gap-6 md:gap-8">
               {/* Картинка слева (сверху на мобильных) - адаптивная */}
-              <div className="mx-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-none lg:w-[30%] flex-shrink-0 lg:ml-[35px]">
+              <div className="flex justify-center sm:justify-start sm:basis-[40%] sm:max-w-[40%] lg:basis-[30%] lg:max-w-[30%] lg:ml-[35px] flex-shrink-0">
                 <div
-                  className="w-full rounded-xl overflow-hidden"
+                  className="w-5/6 sm:w-full max-w-md lg:max-w-none rounded-xl overflow-hidden"
                   style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
                 >
                   <div className="w-full h-full flex items-center justify-center text-white text-xl md:text-2xl font-semibold">
@@ -112,7 +112,7 @@ export default function Home() {
               </div>
 
               {/* Текст справа (снизу на мобильных) */}
-              <div className="w-full md:flex-1 md:self-stretch md:pl-6 lg:pl-8 min-w-0">
+              <div className="sm:flex-1 min-w-0 sm:pl-4 md:pl-6 lg:pl-8">
                 <div className="space-y-4 md:space-y-6">
                   <div>
                     <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3" style={{ color: softGreen[600] }}>

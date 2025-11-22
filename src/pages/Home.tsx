@@ -34,14 +34,13 @@ export default function Home() {
       {/* Hero - Карусель 3:4 */}
       <section className="pb-12 md:pb-20 mb-16 md:mb-24 bg-white">
         <div className="w-full flex justify-center">
-          <div className="relative w-full px-4 md:px-6" style={{ maxWidth: "calc(100vw - 32px)" }}>
+          <div className="relative w-full max-w-6xl mx-auto px-4 md:px-6">
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex gap-3 md:gap-4">
-                {carouselImages.map((image, idx) => (
+                {carouselImages.map((image) => (
                   <div
                     key={image.id}
-                    className="flex-[0_0_calc(100%-12px)] sm:flex-[0_0_calc(50%-12px)] md:flex-[0_0_calc(33.333%-12px)] lg:flex-[0_0_calc(25%-12px)] min-w-0"
-                    style={idx === carouselImages.length - 1 ? { marginRight: "12px" } : {}}
+                    className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 min-w-0 flex-shrink-0"
                   >
                     <div
                       className="w-full rounded-xl overflow-hidden"
@@ -59,26 +58,38 @@ export default function Home() {
             {/* Кнопки навигации */}
             <button
               onClick={scrollPrev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
+              className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
               aria-label="Предыдущий слайд"
+              data-testid="button-carousel-prev"
             >
-              <ChevronLeft className="w-5 h-5" style={{ color: softGreen[600] }} />
+              <ChevronLeft className="w-6 h-6" style={{ color: softGreen[600] }} />
             </button>
             <button
               onClick={scrollNext}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
+              className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
               aria-label="Следующий слайд"
+              data-testid="button-carousel-next"
             >
-              <ChevronRight className="w-5 h-5" style={{ color: softGreen[600] }} />
+              <ChevronRight className="w-6 h-6" style={{ color: softGreen[600] }} />
             </button>
           </div>
         </div>
 
         {/* Текст под каруселью */}
-        <div className="flex justify-center mt-8 md:mt-12 px-4 md:px-6">
-          <p className="text-gray-800 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed" style={{ maxWidth: "900px", textAlign: "center" }}>
+        <div className="flex flex-col items-center mt-8 md:mt-12 px-4 md:px-6">
+          <p className="text-gray-800 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed text-center max-w-4xl mb-8">
             Надёжное средство для профилактики и лечения начальных этапов заболеваний! А так же рекомендуем к применению в комплексной терапии!
           </p>
+          <a 
+            href="https://example.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block px-8 py-4 text-white font-semibold text-lg rounded-lg hover:opacity-90 transition-opacity shadow-lg"
+            style={{ backgroundColor: softGreen[600] }}
+            data-testid="button-cta-hero"
+          >
+            Узнать больше
+          </a>
         </div>
       </section>
 
@@ -98,11 +109,11 @@ export default function Home() {
               Как это работает?
             </h2>
             
-            <div className="flex flex-col sm:flex-row gap-6 sm:gap-6 md:gap-8">
+            <div className="flex flex-col sm:flex-row gap-6 md:gap-8">
               {/* Картинка слева (сверху на мобильных) - адаптивная */}
-              <div className="flex justify-center sm:justify-start sm:basis-[40%] sm:max-w-[40%] lg:basis-[30%] lg:max-w-[30%] lg:ml-[35px] flex-shrink-0">
+              <div className="flex justify-center sm:justify-start w-full max-w-sm sm:max-w-full sm:basis-2/5 lg:basis-1/3 mx-auto sm:mx-0 flex-shrink-0">
                 <div
-                  className="w-5/6 sm:w-full max-w-md lg:max-w-none rounded-xl overflow-hidden"
+                  className="w-full rounded-xl overflow-hidden"
                   style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
                 >
                   <div className="w-full h-full flex items-center justify-center text-white text-xl md:text-2xl font-semibold">
@@ -112,7 +123,7 @@ export default function Home() {
               </div>
 
               {/* Текст справа (снизу на мобильных) */}
-              <div className="sm:flex-1 min-w-0 sm:pl-4 md:pl-6 lg:pl-8">
+              <div className="sm:flex-1 min-w-0">
                 <div className="space-y-4 md:space-y-6">
                   <div>
                     <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3" style={{ color: softGreen[600] }}>
@@ -156,7 +167,7 @@ export default function Home() {
 
           <div className="space-y-16 md:space-y-24">
             {/* Продукт 1 - Фото слева */}
-            <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-10 md:items-start">
               {/* Галерея фото */}
               <div className="w-full md:w-5/12 flex-shrink-0">
                 <ProductGallery productId={1} />
@@ -190,7 +201,7 @@ export default function Home() {
             </div>
 
             {/* Продукт 2 - Фото справа */}
-            <div className="flex flex-col md:flex-row-reverse gap-6 md:gap-10 items-center">
+            <div className="flex flex-col md:flex-row-reverse gap-6 md:gap-10 md:items-start">
               <div className="w-full md:w-5/12 flex-shrink-0">
                 <ProductGallery productId={2} />
               </div>
@@ -222,7 +233,7 @@ export default function Home() {
             </div>
 
             {/* Продукт 3 - Фото слева */}
-            <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-10 md:items-start">
               <div className="w-full md:w-5/12 flex-shrink-0">
                 <ProductGallery productId={3} />
               </div>
@@ -254,7 +265,7 @@ export default function Home() {
             </div>
 
             {/* Продукт 4 - Фото справа */}
-            <div className="flex flex-col md:flex-row-reverse gap-6 md:gap-10 items-center">
+            <div className="flex flex-col md:flex-row-reverse gap-6 md:gap-10 md:items-start">
               <div className="w-full md:w-5/12 flex-shrink-0">
                 <ProductGallery productId={4} />
               </div>
@@ -286,7 +297,7 @@ export default function Home() {
             </div>
 
             {/* Продукт 5 - Фото слева */}
-            <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-10 md:items-start">
               <div className="w-full md:w-5/12 flex-shrink-0">
                 <ProductGallery productId={5} />
               </div>
@@ -318,7 +329,7 @@ export default function Home() {
             </div>
 
             {/* Продукт 6 - Фото справа */}
-            <div className="flex flex-col md:flex-row-reverse gap-6 md:gap-10 items-center">
+            <div className="flex flex-col md:flex-row-reverse gap-6 md:gap-10 md:items-start">
               <div className="w-full md:w-5/12 flex-shrink-0">
                 <ProductGallery productId={6} />
               </div>
@@ -604,28 +615,28 @@ function ProductGallery({ productId }: { productId: number }) {
       {/* Кнопки навигации */}
       <button
         onClick={scrollPrev}
-        className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+        className="absolute left-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
         aria-label="Предыдущее фото"
         data-testid={`button-prev-${productId}`}
       >
-        <ChevronLeft className="w-5 h-5" style={{ color: softGreen[600] }} />
+        <ChevronLeft className="w-6 h-6" style={{ color: softGreen[600] }} />
       </button>
       <button
         onClick={scrollNext}
-        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+        className="absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
         aria-label="Следующее фото"
         data-testid={`button-next-${productId}`}
       >
-        <ChevronRight className="w-5 h-5" style={{ color: softGreen[600] }} />
+        <ChevronRight className="w-6 h-6" style={{ color: softGreen[600] }} />
       </button>
 
       {/* Индикаторы */}
-      <div className="flex justify-center gap-2 mt-4">
+      <div className="flex justify-center gap-3 mt-4">
         {images.map((_, idx) => (
           <button
             key={idx}
             onClick={() => emblaApi && emblaApi.scrollTo(idx)}
-            className="w-2 h-2 rounded-full transition-all"
+            className="w-3 h-3 rounded-full transition-all"
             style={{ 
               backgroundColor: idx === 0 ? softGreen[600] : softGreen[200],
             }}

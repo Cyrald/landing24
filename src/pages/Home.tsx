@@ -89,9 +89,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Большой текст под каруселью */}
-        <div className="text-center mt-12 px-6" style={{ fontSize: "24rem" }}>
-          <p className="font-bold text-gray-800 leading-tight">
+        {/* Текст под каруселью */}
+        <div className="text-center mt-12 px-6" style={{ fontSize: "24px" }}>
+          <p className="font-bold text-gray-800">
             Надёжное средство для профилактики и лечения начальных этапов заболеваний! А так же рекомендуем к применению в комплексной терапии!
           </p>
         </div>

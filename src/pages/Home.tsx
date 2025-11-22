@@ -1,5 +1,6 @@
+import { useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Check, Star, ChevronDown } from "lucide-react";
 
 const softGreen = {
   50: "#f0f7f3",
@@ -18,6 +19,8 @@ export default function Home() {
     align: "center",
   });
 
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
@@ -30,6 +33,33 @@ export default function Home() {
     { id: 6, alt: "Пластырь 6" },
     { id: 7, alt: "Пластырь 7" },
     { id: 8, alt: "Пластырь 8" },
+  ];
+
+  const benefits = [
+    "Натуральные компоненты",
+    "Быстрое действие (15-20 минут)",
+    "Безопасен для чувствительной кожи",
+    "Действие до 12 часов",
+  ];
+
+  const mechanism = [
+    { step: 1, title: "Активация", desc: "При нанесении пластырь активируется" },
+    { step: 2, title: "Проникновение", desc: "Компоненты проникают в глубокие слои" },
+    { step: 3, title: "Действие", desc: "Начинается облегчение боли и воспаления" },
+    { step: 4, title: "Восстановление", desc: "Долгоиграющий эффект восстановления" },
+  ];
+
+  const reviews = [
+    { name: "Анна М.", rating: 5, text: "Отличный результат! Боль прошла за 20 минут" },
+    { name: "Иван С.", rating: 5, text: "Использую уже месяц, очень доволен эффектом" },
+    { name: "Елена К.", rating: 5, text: "Натуральный состав, не раздражает кожу" },
+  ];
+
+  const faqs = [
+    { q: "Как долго действует пластырь?", a: "Пластырь действует 8-12 часов в зависимости от характера проблемы" },
+    { q: "Можно ли использовать детям?", a: "Да, пластырь безопасен для детей старше 3 лет под присмотром взрослых" },
+    { q: "Есть ли побочные эффекты?", a: "При правильном использовании побочных эффектов не выявлено" },
+    { q: "Как хранить пластырь?", a: "Хранить в прохладном, сухом месте при температуре 15-25°C" },
   ];
 
   return (

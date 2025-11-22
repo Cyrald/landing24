@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -27,29 +26,31 @@ export default function Home() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: softGreen[50] }}>
       {/* Header - компактный */}
-      <header className="py-4 bg-white shadow-sm">
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold" style={{ color: softGreen[600] }}>
-            Лечебный пластырь
-          </h1>
-          <a
-            href="https://наш.магазин"
-            className="px-6 py-2 rounded-full text-white font-semibold hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: softGreen[500] }}
-          >
-            Заказать
-          </a>
+      <header className="py-3 bg-white shadow-sm">
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-center">
+          <div className="flex items-center justify-between w-full max-w-4xl">
+            <h1 className="text-xl font-bold" style={{ color: softGreen[600] }}>
+              Лечебный пластырь
+            </h1>
+            <a
+              href="https://наш.магазин"
+              className="px-5 py-2 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+              style={{ backgroundColor: softGreen[500] }}
+            >
+              Заказать
+            </a>
+          </div>
         </div>
       </header>
 
       {/* Hero - Карусель 3:4 */}
       <section className="py-12 bg-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="relative">
-            <div className="overflow-hidden" ref={emblaRef}>
+        <div className="w-full flex justify-center px-6">
+          <div className="relative w-full max-w-sm">
+            <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
               <div className="flex">
                 {carouselImages.map((image) => (
-                  <div key={image.id} className="flex-[0_0_100%] min-w-0 px-2">
+                  <div key={image.id} className="flex-[0_0_100%] min-w-0">
                     <div
                       className="relative w-full rounded-2xl overflow-hidden"
                       style={{ aspectRatio: "3/4" }}
@@ -69,30 +70,30 @@ export default function Home() {
             {/* Кнопки навигации */}
             <button
               onClick={scrollPrev}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10"
               aria-label="Предыдущий слайд"
             >
-              <ChevronLeft className="w-6 h-6" style={{ color: softGreen[600] }} />
+              <ChevronLeft className="w-5 h-5" style={{ color: softGreen[600] }} />
             </button>
             <button
               onClick={scrollNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors z-10"
               aria-label="Следующий слайд"
             >
-              <ChevronRight className="w-6 h-6" style={{ color: softGreen[600] }} />
+              <ChevronRight className="w-5 h-5" style={{ color: softGreen[600] }} />
             </button>
           </div>
+        </div>
 
-          {/* Заголовок под каруселью */}
-          <div className="text-center mt-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-              Гармония природы и науки
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Откройте для себя целительную силу природы в современной форме.
-              Лечебный пластырь для вашего благополучия.
-            </p>
-          </div>
+        {/* Заголовок под каруселью */}
+        <div className="text-center mt-8 px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+            Гармония природы и науки
+          </h2>
+          <p className="text-base text-gray-600 max-w-xl mx-auto">
+            Откройте для себя целительную силу природы в современной форме.
+            Лечебный пластырь для вашего благополучия.
+          </p>
         </div>
       </section>
 

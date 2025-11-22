@@ -52,8 +52,12 @@ export default function Home() {
           <div className="relative w-full px-6" style={{ maxWidth: "calc(100vw - 48px)" }}>
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex gap-4">
-                {carouselImages.map((image) => (
-                  <div key={image.id} className="flex-[0_0_calc(25%-12px)] min-w-0">
+                {carouselImages.map((image, idx) => (
+                  <div
+                    key={image.id}
+                    className="flex-[0_0_calc(25%-12px)] min-w-0"
+                    style={idx === carouselImages.length - 1 ? { marginRight: "16px" } : {}}
+                  >
                     <div
                       className="w-full rounded-xl overflow-hidden"
                       style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}

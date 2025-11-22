@@ -330,7 +330,7 @@ export default function Home() {
                 {carouselImages.map((image) => (
                   <div
                     key={image.id}
-                    className="basis-[70%] sm:basis-1/2 md:basis-1/3 min-w-0 flex-shrink-0 pl-1.5 md:pl-2 pr-1.5 md:pr-2"
+                    className="basis-1/2 md:basis-1/3 min-w-0 flex-shrink-0 pl-1.5 md:pl-2 pr-1.5 md:pr-2"
                   >
                     <div
                       className="w-full rounded-xl overflow-hidden"

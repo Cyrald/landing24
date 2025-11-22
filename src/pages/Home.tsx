@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { getImages, getImagePath } from "../utils/imageLoader";
 
 const softGreen = {
   50: "#f0f7f3",
@@ -126,10 +127,7 @@ function ProductGallery({ productId }: { productId: number }) {
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
-  const images = Array.from({ length: 5 }, (_, i) => ({
-    id: `${productId}-${i + 1}`,
-    alt: `Продукт ${productId}, фото ${i + 1}`,
-  }));
+  const images = getImages(`products/product-${productId}`, 5);
 
   return (
     <div className="relative bg-white rounded-xl p-[4%] md:p-[5%]">
@@ -141,8 +139,22 @@ function ProductGallery({ productId }: { productId: number }) {
                 className="w-full rounded-xl overflow-hidden"
                 style={{ aspectRatio: "3/4", backgroundColor: softGreen[200] }}
               >
-                <div className="w-full h-full flex items-center justify-center text-gray-600 text-lg font-semibold">
-                  {image.alt}
+                <img
+                  src={image.src}
+                  alt={`Продукт ${productId}, фото ${image.id}`}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Показываем плейсхолдер если изображение не загрузилось
+                    e.currentTarget.style.display = 'none';
+                    const placeholder = e.currentTarget.nextElementSibling as HTMLElement;
+                    if (placeholder) placeholder.style.display = 'flex';
+                  }}
+                />
+                <div 
+                  className="w-full h-full items-center justify-center text-gray-600 text-lg font-semibold" 
+                  style={{ display: 'none' }}
+                >
+                  Продукт {productId}, фото {image.id}
                 </div>
               </div>
             </div>
@@ -311,10 +323,7 @@ export default function Home() {
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
-  const carouselImages = Array.from({ length: 6 }, (_, i) => ({
-    id: i + 1,
-    alt: `Пластырь ${i + 1}`,
-  }));
+  const carouselImages = getImages('carousel', 6);
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: softGreen[50] }}>
@@ -336,7 +345,20 @@ export default function Home() {
                       className="w-full rounded-xl overflow-hidden"
                       style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
                     >
-                      <div className="w-full h-full flex items-center justify-center text-white text-2xl md:text-3xl font-bold">
+                      <img
+                        src={image.src}
+                        alt={`Пластырь ${image.id}`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const placeholder = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (placeholder) placeholder.style.display = 'flex';
+                        }}
+                      />
+                      <div 
+                        className="w-full h-full items-center justify-center text-white text-2xl md:text-3xl font-bold"
+                        style={{ display: 'none' }}
+                      >
                         {image.id}
                       </div>
                     </div>
@@ -405,7 +427,20 @@ export default function Home() {
                   className="w-full rounded-xl overflow-hidden"
                   style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
                 >
-                  <div className="w-full h-full flex items-center justify-center text-white text-xl md:text-2xl font-semibold">
+                  <img
+                    src={getImagePath('how-it-works', 1)}
+                    alt="Фото продукта - как это работает"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      const placeholder = e.currentTarget.nextElementSibling as HTMLElement;
+                      if (placeholder) placeholder.style.display = 'flex';
+                    }}
+                  />
+                  <div 
+                    className="w-full h-full items-center justify-center text-white text-xl md:text-2xl font-semibold"
+                    style={{ display: 'none' }}
+                  >
                     Фото продукта
                   </div>
                 </div>

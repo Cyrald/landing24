@@ -34,7 +34,7 @@ export default function Home() {
       {/* Hero - Карусель 3:4 */}
       <section className="pb-12 md:pb-20 mb-16 md:mb-24 bg-white">
         <div className="w-full flex justify-center">
-          <div className="relative w-full max-w-6xl mx-auto px-4 md:px-6">
+          <div className="relative w-full px-4 md:px-6" style={{ maxWidth: "calc(100vw - 32px)" }}>
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex gap-3 md:gap-4">
                 {carouselImages.map((image) => (
@@ -76,20 +76,10 @@ export default function Home() {
         </div>
 
         {/* Текст под каруселью */}
-        <div className="flex flex-col items-center mt-8 md:mt-12 px-4 md:px-6">
-          <p className="text-gray-800 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed text-center max-w-4xl mb-8">
+        <div className="flex justify-center mt-8 md:mt-12 px-4 md:px-6">
+          <p className="text-gray-800 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed text-center max-w-4xl">
             Надёжное средство для профилактики и лечения начальных этапов заболеваний! А так же рекомендуем к применению в комплексной терапии!
           </p>
-          <a 
-            href="https://example.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-block px-8 py-4 text-white font-semibold text-lg rounded-lg hover:opacity-90 transition-opacity shadow-lg"
-            style={{ backgroundColor: softGreen[600] }}
-            data-testid="button-cta-hero"
-          >
-            Узнать больше
-          </a>
         </div>
       </section>
 

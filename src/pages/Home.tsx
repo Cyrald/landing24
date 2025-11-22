@@ -153,7 +153,7 @@ function ProductGallery({ productId }: { productId: number }) {
       {/* Кнопки навигации */}
       <button
         onClick={scrollPrev}
-        className="absolute left-8 sm:left-10 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+        className="absolute left-8 sm:left-10 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-md hidden md:flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
         aria-label="Предыдущее фото"
         data-testid={`button-prev-${productId}`}
       >
@@ -161,7 +161,7 @@ function ProductGallery({ productId }: { productId: number }) {
       </button>
       <button
         onClick={scrollNext}
-        className="absolute right-8 sm:right-10 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+        className="absolute right-8 sm:right-10 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-md hidden md:flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
         aria-label="Следующее фото"
         data-testid={`button-next-${productId}`}
       >
@@ -252,7 +252,7 @@ function TestimonialsCarousel() {
       {/* Кнопки навигации */}
       <button
         onClick={scrollPrev}
-        className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+        className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg hidden md:flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
         aria-label="Предыдущий отзыв"
         data-testid="button-testimonials-prev"
       >
@@ -260,7 +260,7 @@ function TestimonialsCarousel() {
       </button>
       <button
         onClick={scrollNext}
-        className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+        className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg hidden md:flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
         aria-label="Следующий отзыв"
         data-testid="button-testimonials-next"
       >
@@ -348,7 +348,7 @@ export default function Home() {
             {/* Кнопки навигации */}
             <button
               onClick={scrollPrev}
-              className="absolute left-1 md:left-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
+              className="absolute left-1 md:left-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg hidden md:flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
               aria-label="Предыдущий слайд"
               data-testid="button-carousel-prev"
             >
@@ -356,7 +356,7 @@ export default function Home() {
             </button>
             <button
               onClick={scrollNext}
-              className="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
+              className="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg hidden md:flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
               aria-label="Следующий слайд"
               data-testid="button-carousel-next"
             >

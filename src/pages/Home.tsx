@@ -428,7 +428,7 @@ export default function Home() {
                   style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
                 >
                   <img
-                    src={getImagePath('how-it-works', 1)}
+                    src={getImagePath('how-it-works', 1, 'jpg')}
                     alt="Фото продукта - как это работает"
                     className="w-full h-full object-cover"
                     onError={(e) => {

@@ -82,6 +82,71 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Блок 2: Тезис и Как это работает */}
+      <section className="py-8 md:py-16 px-4 md:px-6">
+        <div className="max-w-6xl mx-auto">
+          {/* Тезис */}
+          <div className="mb-12 md:mb-16">
+            <p className="text-gray-800 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold leading-relaxed text-center">
+              Пластырь MediPatch создан для тех, кто ищет быстрое и эффективное решение для облегчения боли и ускорения восстановления организма
+            </p>
+          </div>
+
+          {/* Как это работает */}
+          <div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-8 md:mb-12 text-center">
+              Как это работает?
+            </h2>
+            
+            <div className="flex flex-col lg:flex-row gap-6 md:gap-8 items-center">
+              {/* Картинка слева (сверху на мобильных) */}
+              <div className="w-full lg:w-1/2 max-w-md lg:max-w-none">
+                <div
+                  className="w-full rounded-xl overflow-hidden"
+                  style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
+                >
+                  <div className="w-full h-full flex items-center justify-center text-white text-xl md:text-2xl font-semibold">
+                    Фото продукта
+                  </div>
+                </div>
+              </div>
+
+              {/* Текст справа (снизу на мобильных) */}
+              <div className="w-full lg:w-1/2">
+                <div className="space-y-4 md:space-y-6">
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3" style={{ color: softGreen[600] }}>
+                      Активные компоненты
+                    </h3>
+                    <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+                      Пластырь содержит уникальную формулу натуральных экстрактов, которые проникают глубоко в ткани и начинают действовать уже через 15-20 минут после нанесения.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3" style={{ color: softGreen[600] }}>
+                      Принцип действия
+                    </h3>
+                    <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+                      Благодаря трансдермальной технологии, активные вещества постепенно высвобождаются и обеспечивают длительный терапевтический эффект в течение 8-12 часов.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3" style={{ color: softGreen[600] }}>
+                      Результат применения
+                    </h3>
+                    <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+                      Снятие болевого синдрома, улучшение микроциркуляции крови, уменьшение воспаления и ускорение процессов регенерации тканей.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

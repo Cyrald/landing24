@@ -277,11 +277,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="relative w-full px-6 md:px-10 lg:px-16">
             <div className="overflow-visible" ref={emblaRef}>
-              <div className="flex gap-3 md:gap-4">
+              <div className="flex -ml-1.5 md:-ml-2">
                 {carouselImages.map((image) => (
                   <div
                     key={image.id}
-                    className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 min-w-0 flex-shrink-0"
+                    className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 min-w-0 flex-shrink-0 pl-1.5 md:pl-2 pr-1.5 md:pr-2"
                   >
                     <div
                       className="w-full rounded-xl overflow-hidden"

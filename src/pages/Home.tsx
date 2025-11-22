@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getImages, getImagePath } from "../utils/imageLoader";
+import { getImages, getImageSources } from "../utils/imageLoader";
+import { SmartImage } from "../components/SmartImage";
 
 const softGreen = {
   50: "#f0f7f3",
@@ -139,23 +140,16 @@ function ProductGallery({ productId }: { productId: number }) {
                 className="w-full rounded-xl overflow-hidden"
                 style={{ aspectRatio: "3/4", backgroundColor: softGreen[200] }}
               >
-                <img
-                  src={image.src}
+                <SmartImage
+                  sources={image.sources}
                   alt={`Продукт ${productId}, фото ${image.id}`}
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    // Показываем плейсхолдер если изображение не загрузилось
-                    e.currentTarget.style.display = 'none';
-                    const placeholder = e.currentTarget.nextElementSibling as HTMLElement;
-                    if (placeholder) placeholder.style.display = 'flex';
-                  }}
+                  placeholderContent={
+                    <div className="w-full h-full flex items-center justify-center text-gray-600 text-lg font-semibold">
+                      Продукт {productId}, фото {image.id}
+                    </div>
+                  }
                 />
-                <div 
-                  className="w-full h-full items-center justify-center text-gray-600 text-lg font-semibold" 
-                  style={{ display: 'none' }}
-                >
-                  Продукт {productId}, фото {image.id}
-                </div>
               </div>
             </div>
           ))}
@@ -345,22 +339,16 @@ export default function Home() {
                       className="w-full rounded-xl overflow-hidden"
                       style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
                     >
-                      <img
-                        src={image.src}
+                      <SmartImage
+                        sources={image.sources}
                         alt={`Пластырь ${image.id}`}
                         className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          const placeholder = e.currentTarget.nextElementSibling as HTMLElement;
-                          if (placeholder) placeholder.style.display = 'flex';
-                        }}
+                        placeholderContent={
+                          <div className="w-full h-full flex items-center justify-center text-white text-2xl md:text-3xl font-bold">
+                            {image.id}
+                          </div>
+                        }
                       />
-                      <div 
-                        className="w-full h-full items-center justify-center text-white text-2xl md:text-3xl font-bold"
-                        style={{ display: 'none' }}
-                      >
-                        {image.id}
-                      </div>
                     </div>
                   </div>
                 ))}
@@ -427,22 +415,16 @@ export default function Home() {
                   className="w-full rounded-xl overflow-hidden"
                   style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
                 >
-                  <img
-                    src={getImagePath('how-it-works', 1, 'jpg')}
+                  <SmartImage
+                    sources={getImageSources('how-it-works', 1)}
                     alt="Фото продукта - как это работает"
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      const placeholder = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (placeholder) placeholder.style.display = 'flex';
-                    }}
+                    placeholderContent={
+                      <div className="w-full h-full flex items-center justify-center text-white text-xl md:text-2xl font-semibold">
+                        Фото продукта
+                      </div>
+                    }
                   />
-                  <div 
-                    className="w-full h-full items-center justify-center text-white text-xl md:text-2xl font-semibold"
-                    style={{ display: 'none' }}
-                  >
-                    Фото продукта
-                  </div>
                 </div>
               </div>
 

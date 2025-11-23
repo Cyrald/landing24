@@ -203,34 +203,33 @@ function ProductsCarousel() {
     <div className="relative">
       <div className="flex flex-row gap-4 md:gap-10 items-start">
         {/* Фото слева */}
-        <div className="w-5/12 md:w-5/12 flex-shrink-0">
-          <div className="relative bg-white rounded-xl p-[4%] md:p-[5%]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentProduct.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
+        <div className="flex justify-center sm:justify-start w-full max-w-sm sm:max-w-full sm:basis-2/5 lg:basis-1/3 mx-auto sm:mx-0 flex-shrink-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentProduct.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full"
+            >
+              <div
+                className="w-full rounded-xl overflow-hidden"
+                style={{ aspectRatio: "3/4", backgroundColor: softGreen[200] }}
               >
-                <div
-                  className="w-full rounded-xl overflow-hidden"
-                  style={{ aspectRatio: "3/4", backgroundColor: softGreen[200] }}
-                >
-                  <SmartImage
-                    sources={imageSources}
-                    alt={`${currentProduct.name}`}
-                    className="w-full h-full object-cover"
-                    placeholderContent={
-                      <div className="w-full h-full flex items-center justify-center text-gray-600 text-lg font-semibold">
-                        {currentProduct.name}
-                      </div>
-                    }
-                  />
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+                <SmartImage
+                  sources={imageSources}
+                  alt={`${currentProduct.name}`}
+                  className="w-full h-full object-cover"
+                  placeholderContent={
+                    <div className="w-full h-full flex items-center justify-center text-gray-600 text-lg font-semibold">
+                      {currentProduct.name}
+                    </div>
+                  }
+                />
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Текст справа */}

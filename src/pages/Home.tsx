@@ -203,7 +203,7 @@ function ProductsCarousel() {
     <div className="relative">
       <div className="flex flex-row gap-4 md:gap-10 items-start">
         {/* Фото слева */}
-        <div className="flex justify-center sm:justify-start w-full max-w-sm sm:max-w-full sm:basis-2/5 lg:basis-1/3 mx-auto sm:mx-0 flex-shrink-0">
+        <div className="flex justify-center sm:justify-start w-full max-w-sm sm:max-w-full sm:basis-[34%] lg:basis-[28%] mx-auto sm:mx-0 flex-shrink-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentProduct.id}
@@ -541,9 +541,9 @@ export default function Home() {
               Как это работает?
             </h2>
             
-            <div className="flex flex-col sm:flex-row gap-6 md:gap-8">
-              {/* Картинка слева (сверху на мобильных) - адаптивная */}
-              <div className="flex justify-center sm:justify-start w-full max-w-sm sm:max-w-full sm:basis-2/5 lg:basis-1/3 mx-auto sm:mx-0 flex-shrink-0">
+            <div className="flex flex-row gap-4 md:gap-6 lg:gap-8">
+              {/* Картинка слева - всегда слева */}
+              <div className="flex justify-start w-full max-w-[200px] sm:max-w-xs sm:basis-[34%] lg:basis-[28%] flex-shrink-0">
                 <div
                   className="w-full rounded-xl overflow-hidden"
                   style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
@@ -553,7 +553,7 @@ export default function Home() {
                     alt="Фото продукта - как это работает"
                     className="w-full h-full object-cover"
                     placeholderContent={
-                      <div className="w-full h-full flex items-center justify-center text-white text-xl md:text-2xl font-semibold">
+                      <div className="w-full h-full flex items-center justify-center text-white text-sm sm:text-lg md:text-xl font-semibold">
                         Фото продукта
                       </div>
                     }
@@ -561,32 +561,32 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Текст справа (снизу на мобильных) */}
-              <div className="sm:flex-1 min-w-0">
-                <div className="space-y-4 md:space-y-6">
+              {/* Текст справа - всегда справа */}
+              <div className="flex-1 min-w-0">
+                <div className="space-y-3 md:space-y-4 lg:space-y-6">
                   <div>
-                    <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3" style={{ color: softGreen[600] }}>
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-900 mb-2" style={{ color: softGreen[600] }}>
                       Активные компоненты
                     </h3>
-                    <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+                    <p className="text-gray-700 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed">
                       Пластырь содержит уникальную формулу натуральных экстрактов, которые проникают глубоко в ткани и начинают действовать уже через 15-20 минут после нанесения.
                     </p>
                   </div>
 
                   <div>
-                    <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3" style={{ color: softGreen[600] }}>
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-900 mb-2" style={{ color: softGreen[600] }}>
                       Принцип действия
                     </h3>
-                    <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+                    <p className="text-gray-700 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed">
                       Благодаря трансдермальной технологии, активные вещества постепенно высвобождаются и обеспечивают длительный терапевтический эффект в течение 8-12 часов.
                     </p>
                   </div>
 
                   <div>
-                    <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3" style={{ color: softGreen[600] }}>
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-900 mb-2" style={{ color: softGreen[600] }}>
                       Результат применения
                     </h3>
-                    <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+                    <p className="text-gray-700 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed">
                       Снятие болевого синдрома, улучшение микроциркуляции крови, уменьшение воспаления и ускорение процессов регенерации тканей.
                     </p>
                   </div>

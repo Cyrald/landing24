@@ -174,7 +174,8 @@ const testimonials = [
 // Компонент карусели продуктов
 function ProductsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showHint, setShowHint] = useState(true);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   const currentProduct = products[currentIndex];
 
@@ -190,18 +191,41 @@ function ProductsCarousel() {
     setCurrentIndex(index);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowHint(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  // Swipe handlers
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe) {
+      goToNext();
+    }
+    if (isRightSwipe) {
+      goToPrevious();
+    }
+  };
 
   const imageSources = getImageSources(`products/product-${currentProduct.id}`, 1);
 
   return (
     <div className="relative">
-      <div className="flex flex-row gap-4 md:gap-10 items-start">
+      <div 
+        className="flex flex-row gap-4 md:gap-10 items-start"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         {/* Фото слева */}
         <div className="flex justify-center sm:justify-start w-full max-w-sm sm:max-w-full sm:basis-[39%] lg:basis-[33%] mx-auto sm:mx-0 flex-shrink-0">
           <AnimatePresence mode="wait">
@@ -264,45 +288,9 @@ function ProductsCarousel() {
         </div>
       </div>
 
-      {/* Стрелки навигации */}
-      <motion.button
-        onClick={goToPrevious}
-        className="absolute left-0 md:left-4 top-[20%] md:top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
-        aria-label="Предыдущий продукт"
-        data-testid="button-products-prev"
-        animate={showHint ? { scale: [1, 1.1, 1] } : { scale: 1 }}
-        transition={showHint ? { repeat: Infinity, duration: 1.5 } : {}}
-      >
-        <ChevronLeft className="w-7 h-7 md:w-8 md:h-8" style={{ color: softGreen[600] }} />
-      </motion.button>
-      
-      <motion.button
-        onClick={goToNext}
-        className="absolute right-0 md:right-4 top-[20%] md:top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
-        aria-label="Следующий продукт"
-        data-testid="button-products-next"
-        animate={showHint ? { scale: [1, 1.1, 1] } : { scale: 1 }}
-        transition={showHint ? { repeat: Infinity, duration: 1.5, delay: 0.3 } : {}}
-      >
-        <ChevronRight className="w-7 h-7 md:w-8 md:h-8" style={{ color: softGreen[600] }} />
-      </motion.button>
-
-      {/* Подсказка */}
-      {showHint && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full mb-2 bg-white px-4 py-2 rounded-lg shadow-md z-30 hidden md:block"
-        >
-          <p className="text-sm font-medium whitespace-nowrap" style={{ color: softGreen[600] }}>
-            Листайте товары ←→
-          </p>
-        </motion.div>
-      )}
-
-      {/* Индикаторы и счётчик */}
-      <div className="mt-8 flex flex-col items-center gap-3">
+      {/* Индикаторы, счётчик и навигация */}
+      <div className="mt-8 flex flex-col items-center gap-4">
+        {/* Точки */}
         <div className="flex justify-center gap-3">
           {products.map((_, idx) => (
             <button
@@ -317,8 +305,32 @@ function ProductsCarousel() {
             />
           ))}
         </div>
-        <div className="text-sm font-semibold" style={{ color: softGreen[600] }}>
-          {currentIndex + 1} из {products.length}
+
+        {/* Навигация и счётчик */}
+        <div className="flex items-center gap-4 flex-wrap justify-center">
+          <button
+            onClick={goToPrevious}
+            data-testid="button-products-prev"
+            className="flex items-center gap-1 px-4 py-2 rounded-md text-sm font-medium border transition-colors hover:bg-gray-50"
+            style={{ borderColor: softGreen[300], color: softGreen[600] }}
+          >
+            <ChevronLeft className="w-4 h-4" />
+            Предыдущий
+          </button>
+          
+          <div className="text-sm font-semibold px-2" style={{ color: softGreen[600] }}>
+            {currentIndex + 1} из {products.length}
+          </div>
+
+          <button
+            onClick={goToNext}
+            data-testid="button-products-next"
+            className="flex items-center gap-1 px-4 py-2 rounded-md text-sm font-medium border transition-colors hover:bg-gray-50"
+            style={{ borderColor: softGreen[300], color: softGreen[600] }}
+          >
+            Следующий
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </div>

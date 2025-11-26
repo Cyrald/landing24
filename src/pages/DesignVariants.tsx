@@ -332,7 +332,7 @@ export default function DesignVariants() {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
                 <div 
-                  className="w-full md:w-2/5 aspect-[3/4] flex items-center justify-center flex-shrink-0"
+                  className="w-full md:w-1/4 aspect-[3/4] flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: colors.bgAlt }}
                   data-testid={`img-product-${product.id}`}
                 >
@@ -341,7 +341,7 @@ export default function DesignVariants() {
                     <span style={{ color: colors.accent }}>Фото {product.name}</span>
                   </div>
                 </div>
-                <div className="w-full md:w-3/5 p-6">
+                <div className="w-full md:w-3/4 p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <span 
                       className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold"

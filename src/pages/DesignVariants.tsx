@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Leaf, TreePine, Flower2, Mountain, Sun, Sparkles, Droplets, Snowflake, Heart, Shield, Zap, Star, ChevronDown, ExternalLink, Glasses, CircleDot, Ribbon, Activity } from "lucide-react";
+import { ChevronLeft, ChevronRight, Leaf, TreePine, Flower2, Mountain, Sun, Sparkles, Droplets, Snowflake, Shield, Zap, Star, ChevronDown, ExternalLink, Glasses, CircleDot, Ribbon, Activity } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Общие данные для всех вариантов
@@ -227,46 +227,50 @@ function MorningDewVariant() {
       </section>
 
       {/* Как это работает */}
-      <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl md:text-4xl font-bold text-center mb-4" style={{ color: colors.text }}>
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
             Как это работает
           </h2>
-          <p className="text-center mb-12" style={{ color: colors.textSecondary }}>
-            Простой принцип — мощный результат
-          </p>
-          <div className="grid md:grid-cols-3 gap-8">
-            {howItWorks.map((item) => (
-              <div key={item.step} className="text-center">
-                <div 
-                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold"
-                  style={{ backgroundColor: colors.accent, color: "#fff" }}
-                >
-                  {item.step}
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1 space-y-6">
+              {howItWorks.map((item) => (
+                <div key={item.step} className="flex gap-4">
+                  <div 
+                    className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-xl font-bold"
+                    style={{ backgroundColor: colors.accent, color: "#fff" }}
+                  >
+                    {item.step}
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-1" style={{ color: colors.text }}>{item.title}</h3>
+                    <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold mb-2" style={{ color: colors.text }}>{item.title}</h3>
-                <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div 
+              className="w-full md:w-80 h-64 rounded-xl flex items-center justify-center"
+              style={{ backgroundColor: colors.cardBg }}
+            >
+              <span style={{ color: colors.accent }}>Иллюстрация</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Отзывы */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl md:text-4xl font-bold text-center mb-4" style={{ color: colors.text }}>
-            Отзывы наших клиентов
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Истории наших клиентов
           </h2>
-          <p className="text-center mb-12" style={{ color: colors.textSecondary }}>
-            Реальные истории реальных людей
-          </p>
           <div className="grid md:grid-cols-2 gap-6">
             {testimonials.map((t) => (
               <div 
                 key={t.id}
-                className="rounded-xl p-6"
-                style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
+                className="rounded-2xl p-6"
+                style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
               >
                 <div className="flex gap-1 mb-3">
                   {[1,2,3,4,5].map((s) => (
@@ -274,9 +278,9 @@ function MorningDewVariant() {
                   ))}
                 </div>
                 <p className="mb-4 leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <div 
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm"
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
                     style={{ backgroundColor: colors.accent }}
                   >
                     {t.name.charAt(0)}
@@ -487,22 +491,27 @@ function ForestPathVariant() {
       </section>
 
       {/* Отзывы */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
-            Голоса благодарности
+            Истории наших клиентов
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
             {testimonials.map((t) => (
               <div 
                 key={t.id}
-                className="rounded-xl p-6"
-                style={{ backgroundColor: colors.cardBg, borderLeft: `4px solid ${colors.accent}` }}
+                className="rounded-2xl p-6"
+                style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
               >
-                <p className="mb-4 leading-relaxed italic" style={{ color: colors.text }}>"{t.text}"</p>
+                <div className="flex gap-1 mb-3">
+                  {[1,2,3,4,5].map((s) => (
+                    <Star key={s} className="w-4 h-4 fill-current" style={{ color: colors.accent }} />
+                  ))}
+                </div>
+                <p className="mb-4 leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
                 <div className="flex items-center gap-3">
                   <div 
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm"
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
                     style={{ backgroundColor: colors.accent }}
                   >
                     {t.name.charAt(0)}
@@ -575,19 +584,19 @@ function ForestPathVariant() {
   );
 }
 
-// ==================== ВАРИАНТ 3: ЦВЕТУЩИЙ ЛУГ (заменил Японский сад) ====================
+// ==================== ВАРИАНТ 3: ЦВЕТУЩИЙ ЛУГ ====================
 const BloomingMeadowTheme = {
   name: "Цветущий луг",
   subtitle: "Нежные полевые цветы, летняя свежесть",
   icon: Flower2,
   colors: {
-    bg: "#fdf8f6",
-    bgAlt: "#fce7f3",
-    accent: "#db2777",
-    accentLight: "#fbcfe8",
-    accentDark: "#9d174d",
-    text: "#500724",
-    textSecondary: "#831843",
+    bg: "#faf8fc",
+    bgAlt: "#ede9fe",
+    accent: "#7c3aed",
+    accentLight: "#ddd6fe",
+    accentDark: "#5b21b6",
+    text: "#3b0764",
+    textSecondary: "#6b21a8",
     cardBg: "#ffffff",
   },
 };
@@ -650,7 +659,7 @@ function BloomingMeadowVariant() {
               <div 
                 key={product.id}
                 className="rounded-2xl p-6 text-center"
-                style={{ backgroundColor: colors.cardBg, boxShadow: '0 4px 20px rgba(219, 39, 119, 0.08)' }}
+                style={{ backgroundColor: colors.cardBg, boxShadow: '0 4px 20px rgba(124, 58, 237, 0.08)' }}
               >
                 <div 
                   className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
@@ -685,19 +694,29 @@ function BloomingMeadowVariant() {
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
             Как это работает
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {howItWorks.map((item) => (
-              <div key={item.step} className="text-center">
-                <div 
-                  className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"
-                  style={{ backgroundColor: colors.cardBg, border: `3px solid ${colors.accent}` }}
-                >
-                  <span className="text-2xl font-bold" style={{ color: colors.accent }}>{item.step}</span>
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1 space-y-6">
+              {howItWorks.map((item) => (
+                <div key={item.step} className="flex gap-4">
+                  <div 
+                    className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-xl font-bold"
+                    style={{ backgroundColor: colors.accent, color: "#fff" }}
+                  >
+                    {item.step}
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-1" style={{ color: colors.text }}>{item.title}</h3>
+                    <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold mb-2" style={{ color: colors.text }}>{item.title}</h3>
-                <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div 
+              className="w-full md:w-80 h-64 rounded-xl flex items-center justify-center"
+              style={{ backgroundColor: colors.cardBg }}
+            >
+              <span style={{ color: colors.accent }}>Иллюстрация</span>
+            </div>
           </div>
         </div>
       </section>
@@ -706,23 +725,32 @@ function BloomingMeadowVariant() {
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
-            Что говорят наши клиенты
+            Истории наших клиентов
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
             {testimonials.map((t) => (
               <div 
                 key={t.id}
                 className="rounded-2xl p-6"
-                style={{ backgroundColor: colors.bg }}
+                style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
               >
                 <div className="flex gap-1 mb-3">
                   {[1,2,3,4,5].map((s) => (
-                    <Heart key={s} className="w-4 h-4 fill-current" style={{ color: colors.accent }} />
+                    <Star key={s} className="w-4 h-4 fill-current" style={{ color: colors.accent }} />
                   ))}
                 </div>
                 <p className="mb-4 leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
-                <div className="font-semibold text-sm" style={{ color: colors.textSecondary }}>
-                  {t.name}, {t.city}
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
+                    style={{ backgroundColor: colors.accent }}
+                  >
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm" style={{ color: colors.text }}>{t.name}</div>
+                    <div className="text-xs" style={{ color: colors.textSecondary }}>{t.city}</div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -741,7 +769,7 @@ function BloomingMeadowVariant() {
               <div 
                 key={idx}
                 className="rounded-2xl overflow-hidden"
-                style={{ backgroundColor: colors.cardBg, boxShadow: '0 2px 10px rgba(219, 39, 119, 0.05)' }}
+                style={{ backgroundColor: colors.cardBg, boxShadow: '0 2px 10px rgba(124, 58, 237, 0.05)' }}
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
@@ -896,21 +924,31 @@ function HerbalPharmacyVariant() {
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
-            Принцип действия
+            Как это работает
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {howItWorks.map((item) => (
-              <div key={item.step} className="text-center p-6" style={{ backgroundColor: colors.cardBg }}>
-                <div 
-                  className="w-12 h-12 flex items-center justify-center mx-auto mb-4 text-xl font-bold"
-                  style={{ border: `2px solid ${colors.accent}`, color: colors.accent }}
-                >
-                  {item.step}
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1 space-y-6">
+              {howItWorks.map((item) => (
+                <div key={item.step} className="flex gap-4">
+                  <div 
+                    className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-xl font-bold"
+                    style={{ backgroundColor: colors.accent, color: "#fff" }}
+                  >
+                    {item.step}
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-1" style={{ color: colors.text }}>{item.title}</h3>
+                    <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold mb-2" style={{ color: colors.text }}>{item.title}</h3>
-                <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div 
+              className="w-full md:w-80 h-64 rounded-xl flex items-center justify-center"
+              style={{ backgroundColor: colors.cardBg }}
+            >
+              <span style={{ color: colors.accent }}>Иллюстрация</span>
+            </div>
           </div>
         </div>
       </section>
@@ -919,18 +957,32 @@ function HerbalPharmacyVariant() {
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
-            Свидетельства
+            Истории наших клиентов
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
             {testimonials.map((t) => (
               <div 
                 key={t.id}
-                className="p-6"
+                className="rounded-2xl p-6"
                 style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
               >
-                <p className="mb-4 leading-relaxed italic" style={{ color: colors.text }}>«{t.text}»</p>
-                <div className="text-sm" style={{ color: colors.textSecondary }}>
-                  — {t.name}, г. {t.city}
+                <div className="flex gap-1 mb-3">
+                  {[1,2,3,4,5].map((s) => (
+                    <Star key={s} className="w-4 h-4 fill-current" style={{ color: colors.accent }} />
+                  ))}
+                </div>
+                <p className="mb-4 leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
+                    style={{ backgroundColor: colors.accent }}
+                  >
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm" style={{ color: colors.text }}>{t.name}</div>
+                    <div className="text-xs" style={{ color: colors.textSecondary }}>{t.city}</div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -1110,29 +1162,34 @@ function MountainSpringVariant() {
       </section>
 
       {/* Как это работает */}
-      <section className="py-16 md:py-24" style={{ backgroundColor: colors.accentLight }}>
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
             Как это работает
           </h2>
-          <div className="flex flex-col md:flex-row gap-4">
-            {howItWorks.map((item, idx) => (
-              <div key={item.step} className="flex-1 flex items-start gap-4">
-                <div 
-                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-lg font-bold text-white"
-                  style={{ backgroundColor: colors.accent }}
-                >
-                  {item.step}
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1 space-y-6">
+              {howItWorks.map((item) => (
+                <div key={item.step} className="flex gap-4">
+                  <div 
+                    className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-xl font-bold"
+                    style={{ backgroundColor: colors.accent, color: "#fff" }}
+                  >
+                    {item.step}
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-1" style={{ color: colors.text }}>{item.title}</h3>
+                    <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-bold mb-1" style={{ color: colors.text }}>{item.title}</h3>
-                  <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
-                </div>
-                {idx < howItWorks.length - 1 && (
-                  <ChevronRight className="hidden md:block w-6 h-6 mt-2 flex-shrink-0" style={{ color: colors.accent }} />
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
+            <div 
+              className="w-full md:w-80 h-64 rounded-xl flex items-center justify-center"
+              style={{ backgroundColor: colors.cardBg }}
+            >
+              <span style={{ color: colors.accent }}>Иллюстрация</span>
+            </div>
           </div>
         </div>
       </section>
@@ -1141,18 +1198,18 @@ function MountainSpringVariant() {
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
-            Отзывы покупателей
+            Истории наших клиентов
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
             {testimonials.map((t) => (
               <div 
                 key={t.id}
-                className="rounded-xl p-6"
-                style={{ backgroundColor: colors.bg }}
+                className="rounded-2xl p-6"
+                style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
               >
                 <div className="flex gap-1 mb-3">
                   {[1,2,3,4,5].map((s) => (
-                    <Star key={s} className="w-4 h-4 fill-current" style={{ color: "#fbbf24" }} />
+                    <Star key={s} className="w-4 h-4 fill-current" style={{ color: colors.accent }} />
                   ))}
                 </div>
                 <p className="mb-4 leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
@@ -1348,23 +1405,29 @@ function SunnyMeadowVariant() {
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
             Как это работает
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {howItWorks.map((item) => (
-              <div 
-                key={item.step} 
-                className="text-center p-6 rounded-2xl"
-                style={{ backgroundColor: colors.cardBg }}
-              >
-                <div 
-                  className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold text-white"
-                  style={{ backgroundColor: colors.accent }}
-                >
-                  {item.step}
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1 space-y-6">
+              {howItWorks.map((item) => (
+                <div key={item.step} className="flex gap-4">
+                  <div 
+                    className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-xl font-bold"
+                    style={{ backgroundColor: colors.accent, color: "#fff" }}
+                  >
+                    {item.step}
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-1" style={{ color: colors.text }}>{item.title}</h3>
+                    <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold mb-2" style={{ color: colors.text }}>{item.title}</h3>
-                <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div 
+              className="w-full md:w-80 h-64 rounded-xl flex items-center justify-center"
+              style={{ backgroundColor: colors.cardBg }}
+            >
+              <span style={{ color: colors.accent }}>Иллюстрация</span>
+            </div>
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getImages, getImageSources } from "../utils/imageLoader";
+import { getImageSources } from "../utils/imageLoader";
 import { SmartImage } from "../components/SmartImage";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -437,104 +437,30 @@ function TestimonialsCarousel() {
 }
 
 export default function Home() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    slidesToScroll: 1,
-    align: "start",
-  });
-
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect();
-    emblaApi.on("select", onSelect);
-    return () => {
-      emblaApi.off("select", onSelect);
-    };
-  }, [emblaApi, onSelect]);
-
-  const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
-  const scrollNext = () => emblaApi && emblaApi.scrollNext();
-
-  const carouselImages = getImages('carousel', 6);
-
   return (
     <div className="min-h-screen" style={{ backgroundColor: softGreen[50] }}>
       {/* Отступ сверху */}
       <div className="h-10 md:h-16"></div>
 
-      {/* Hero - Карусель 3:4 */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative w-full px-6 md:px-10 lg:px-16">
-            <div className="overflow-hidden" ref={emblaRef}>
-              <div className="flex -ml-1.5 md:-ml-2">
-                {carouselImages.map((image) => (
-                  <div
-                    key={image.id}
-                    className="basis-1/2 md:basis-1/3 min-w-0 flex-shrink-0 pl-1.5 md:pl-2 pr-1.5 md:pr-2"
-                  >
-                    <div
-                      className="w-full rounded-xl overflow-hidden"
-                      style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
-                    >
-                      <SmartImage
-                        sources={image.sources}
-                        alt={`Пластырь ${image.id}`}
-                        className="w-full h-full object-cover"
-                        placeholderContent={
-                          <div className="w-full h-full flex items-center justify-center text-white text-2xl md:text-3xl font-bold">
-                            {image.id}
-                          </div>
-                        }
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Кнопки навигации */}
-            <button
-              onClick={scrollPrev}
-              className="absolute left-1 md:left-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg hidden md:flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
-              aria-label="Предыдущий слайд"
-              data-testid="button-carousel-prev"
-            >
-              <ChevronLeft className="w-6 h-6" style={{ color: softGreen[600] }} />
-            </button>
-            <button
-              onClick={scrollNext}
-              className="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg hidden md:flex items-center justify-center hover:bg-gray-100 transition-colors z-20"
-              aria-label="Следующий слайд"
-              data-testid="button-carousel-next"
-            >
-              <ChevronRight className="w-6 h-6" style={{ color: softGreen[600] }} />
-            </button>
-          </div>
-
-          {/* Индикаторы */}
-          <div className="flex justify-center gap-3 mt-8">
-            {carouselImages.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => emblaApi && emblaApi.scrollTo(idx)}
-                className="w-3 h-3 rounded-full transition-all duration-300"
-                style={{ 
-                  backgroundColor: idx === selectedIndex ? softGreen[600] : softGreen[200],
-                }}
-                aria-label={`Перейти к слайду ${idx + 1}`}
-              />
-            ))}
+      {/* Hero - Баннер 1920x500 */}
+      <section className="bg-white">
+        <div className="w-full">
+          <div
+            className="w-full"
+            style={{ aspectRatio: "1920/500", backgroundColor: softGreen[300] }}
+          >
+            <SmartImage
+              sources={getImageSources('banner', 1)}
+              alt="Баннер MediPatch"
+              className="w-full h-full object-cover"
+              placeholderContent={
+                <div className="w-full h-full flex items-center justify-center text-white text-2xl md:text-4xl font-bold">
+                  1920 x 500
+                </div>
+              }
+            />
           </div>
         </div>
-
       </section>
 
       {/* Блок 2: Тезис и Как это работает */}

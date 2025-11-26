@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Leaf, TreePine, Flower2, Mountain, Sun, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Leaf, TreePine, Flower2, Mountain, Sun, Sparkles, Droplets, Snowflake } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Вариант 1: Утренняя роса - свежий, лёгкий, мятные оттенки
@@ -699,9 +699,9 @@ function MountainSpringVariant({ theme }: ThemeProps) {
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: "💧", title: "Чистота", desc: "Только натуральные компоненты высшего качества" },
-              { icon: "🏔️", title: "Сила", desc: "Энергия горных трав и минералов" },
-              { icon: "❄️", title: "Свежесть", desc: "Освежающий и тонизирующий эффект" },
+              { Icon: Droplets, title: "Чистота", desc: "Только натуральные компоненты высшего качества" },
+              { Icon: Mountain, title: "Сила", desc: "Энергия горных трав и минералов" },
+              { Icon: Snowflake, title: "Свежесть", desc: "Освежающий и тонизирующий эффект" },
             ].map((item, idx) => (
               <div 
                 key={idx}
@@ -712,7 +712,7 @@ function MountainSpringVariant({ theme }: ThemeProps) {
                   className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center"
                   style={{ backgroundColor: colors.accentLight }}
                 >
-                  <Mountain className="w-6 h-6" style={{ color: colors.accent }} />
+                  <item.Icon className="w-6 h-6" style={{ color: colors.accent }} />
                 </div>
                 <h3 className="text-lg font-bold mb-2" style={{ color: colors.text }}>{item.title}</h3>
                 <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>

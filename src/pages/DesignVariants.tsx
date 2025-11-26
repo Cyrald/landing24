@@ -1,718 +1,248 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Leaf, TreePine, Flower2, Mountain, Sun, Sparkles, Droplets, Snowflake } from "lucide-react";
+import { ChevronLeft, ChevronRight, Leaf, TreePine, Flower2, Mountain, Sun, Sparkles, Droplets, Snowflake, Heart, Shield, Zap, Star, ChevronDown, ExternalLink, Glasses, CircleDot, Ribbon, Activity } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Вариант 1: Утренняя роса - свежий, лёгкий, мятные оттенки
+// Общие данные для всех вариантов
+const products = [
+  {
+    id: 1,
+    name: "Пластырь",
+    shortName: "Пластырь",
+    description: "Традиционный лечебный пластырь для наклеивания на проблемные зоны. Активные компоненты проникают через кожу и оказывают целебное воздействие на глубокие ткани.",
+    benefits: ["Глубокое проникновение", "До 12 часов действия", "Удобное применение"],
+    icon: CircleDot,
+  },
+  {
+    id: 2,
+    name: "Очиститель воды",
+    shortName: "Вода",
+    description: "Специальный состав для структурирования и очищения питьевой воды. Насыщает воду полезными минералами и улучшает её биодоступность для организма.",
+    benefits: ["Природная минерализация", "Улучшение вкуса воды", "Польза для организма"],
+    icon: Droplets,
+  },
+  {
+    id: 3,
+    name: "Очелье",
+    shortName: "Очелье",
+    description: "Лечебная повязка на голову с активными компонентами. Помогает при головных болях, снимает напряжение, улучшает кровообращение в области головы.",
+    benefits: ["Снятие головной боли", "Расслабление", "Улучшение сна"],
+    icon: Activity,
+  },
+  {
+    id: 4,
+    name: "Наочники",
+    shortName: "Наочники", 
+    description: "Накладки на глаза с целебными экстрактами. Снимают усталость глаз, уменьшают отёчность, освежают и тонизируют нежную кожу вокруг глаз.",
+    benefits: ["Снятие усталости глаз", "Уменьшение отёков", "Освежающий эффект"],
+    icon: Glasses,
+  },
+  {
+    id: 5,
+    name: "Кушак",
+    shortName: "Кушак",
+    description: "Широкий лечебный пояс для области живота и поясницы. Обеспечивает мягкое тепло, поддержку и оздоровительное воздействие на внутренние органы.",
+    benefits: ["Поддержка поясницы", "Мягкое прогревание", "Комфорт в движении"],
+    icon: Shield,
+  },
+  {
+    id: 6,
+    name: "Тесьма",
+    shortName: "Тесьма",
+    description: "Гибкая лечебная лента для обёртывания суставов и конечностей. Идеальна для локтей, запястий, коленей и других сложных зон тела.",
+    benefits: ["Гибкое применение", "Для любых суставов", "Надёжная фиксация"],
+    icon: Ribbon,
+  },
+];
+
+const testimonials = [
+  {
+    id: 1,
+    name: "Мария К.",
+    city: "Москва",
+    text: "Пользуюсь пластырями уже три месяца. Забыла о болях в спине после долгого рабочего дня. Натуральный состав — это именно то, что я искала.",
+    rating: 5,
+  },
+  {
+    id: 2,
+    name: "Андрей С.",
+    city: "Санкт-Петербург", 
+    text: "Очелье стало моим спасением от мигреней. Надеваю при первых признаках — и боль отступает. Рекомендую всем, кто страдает головными болями.",
+    rating: 5,
+  },
+  {
+    id: 3,
+    name: "Елена В.",
+    city: "Казань",
+    text: "Наочники — находка для тех, кто много работает за компьютером. Глаза отдыхают, отёки уходят. Использую каждый вечер.",
+    rating: 5,
+  },
+  {
+    id: 4,
+    name: "Дмитрий П.",
+    city: "Новосибирск",
+    text: "Кушак помог с хронической болью в пояснице. Ношу на работе под одеждой — никто не замечает, а эффект ощутимый.",
+    rating: 5,
+  },
+];
+
+const faqItems = [
+  {
+    q: "Из чего сделаны ваши продукты?",
+    a: "Все наши изделия созданы на основе натуральных компонентов: целебных трав, минералов и природных экстрактов. Мы не используем синтетические добавки.",
+  },
+  {
+    q: "Как быстро наступает эффект?",
+    a: "Первые ощущения появляются уже через 15-20 минут применения. Для достижения стойкого результата рекомендуем курсовое использование.",
+  },
+  {
+    q: "Можно ли использовать при чувствительной коже?",
+    a: "Да, наши продукты гипоаллергенны и подходят для чувствительной кожи. При индивидуальной непереносимости рекомендуем проконсультироваться с врачом.",
+  },
+  {
+    q: "Как долго длится эффект одного применения?",
+    a: "В зависимости от продукта, эффект сохраняется от 6 до 12 часов. Подробные рекомендации указаны в инструкции к каждому изделию.",
+  },
+  {
+    q: "Где можно приобрести вашу продукцию?",
+    a: "Полный каталог с ценами и возможностью заказа доступен на нашем основном сайте. Там же вы найдёте актуальные акции и специальные предложения.",
+  },
+];
+
+const howItWorks = [
+  {
+    step: 1,
+    title: "Природные компоненты",
+    desc: "Активные вещества из целебных растений и минералов начинают работать сразу при контакте с телом.",
+  },
+  {
+    step: 2,
+    title: "Постепенное высвобождение",
+    desc: "Компоненты медленно проникают в ткани, обеспечивая длительное и равномерное воздействие.",
+  },
+  {
+    step: 3,
+    title: "Целебный эффект",
+    desc: "Улучшение кровообращения, снятие напряжения и восстановление естественного баланса организма.",
+  },
+];
+
+// ==================== ВАРИАНТ 1: УТРЕННЯЯ РОСА ====================
 const MorningDewTheme = {
   name: "Утренняя роса",
-  description: "Свежесть раннего утра, капли росы на листьях",
-  icon: Leaf,
+  subtitle: "Свежесть раннего утра, капли росы на листьях",
+  icon: Droplets,
   colors: {
     bg: "#f0fdf4",
-    bgAlt: "#ffffff",
+    bgAlt: "#dcfce7",
     accent: "#10b981",
     accentLight: "#d1fae5",
     accentDark: "#059669",
     text: "#064e3b",
-    textSecondary: "#6b7280",
-  }
+    textSecondary: "#047857",
+    cardBg: "#ffffff",
+  },
 };
 
-// Вариант 2: Лесная тропа - тёплые земляные тона
-const ForestPathTheme = {
-  name: "Лесная тропа",
-  description: "Тёплые древесные тона, запах хвои и мха",
-  icon: TreePine,
-  colors: {
-    bg: "#fefce8",
-    bgAlt: "#ffffff",
-    accent: "#84cc16",
-    accentLight: "#ecfccb",
-    accentDark: "#65a30d",
-    text: "#365314",
-    textSecondary: "#78716c",
-  }
-};
+function MorningDewVariant() {
+  const colors = MorningDewTheme.colors;
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-// Вариант 3: Японский сад - минималистичный дзен
-const ZenGardenTheme = {
-  name: "Японский сад",
-  description: "Гармония и баланс, спокойствие камней и воды",
-  icon: Sparkles,
-  colors: {
-    bg: "#f5f5f4",
-    bgAlt: "#ffffff",
-    accent: "#78716c",
-    accentLight: "#e7e5e4",
-    accentDark: "#57534e",
-    text: "#292524",
-    textSecondary: "#a8a29e",
-  }
-};
-
-// Вариант 4: Травяная аптека - винтаж, ботаника
-const HerbalApothecaryTheme = {
-  name: "Травяная аптека",
-  description: "Мудрость природы, целебные травы",
-  icon: Flower2,
-  colors: {
-    bg: "#fef7ed",
-    bgAlt: "#fffbeb",
-    accent: "#b45309",
-    accentLight: "#fde68a",
-    accentDark: "#92400e",
-    text: "#451a03",
-    textSecondary: "#a16207",
-  }
-};
-
-// Вариант 5: Горный источник - чистота, прохлада
-const MountainSpringTheme = {
-  name: "Горный источник",
-  description: "Кристальная чистота горных вод",
-  icon: Mountain,
-  colors: {
-    bg: "#f0f9ff",
-    bgAlt: "#ffffff",
-    accent: "#0ea5e9",
-    accentLight: "#e0f2fe",
-    accentDark: "#0284c7",
-    text: "#0c4a6e",
-    textSecondary: "#64748b",
-  }
-};
-
-// Вариант 6: Солнечный луг - тёплый, золотистый
-const SunnyMeadowTheme = {
-  name: "Солнечный луг",
-  description: "Тепло летнего солнца, аромат полевых цветов",
-  icon: Sun,
-  colors: {
-    bg: "#fffbeb",
-    bgAlt: "#ffffff",
-    accent: "#f59e0b",
-    accentLight: "#fef3c7",
-    accentDark: "#d97706",
-    text: "#78350f",
-    textSecondary: "#92400e",
-  }
-};
-
-const themes = [
-  MorningDewTheme,
-  ForestPathTheme,
-  ZenGardenTheme,
-  HerbalApothecaryTheme,
-  MountainSpringTheme,
-  SunnyMeadowTheme,
-];
-
-const products = [
-  { id: 1, name: "MediPatch Классик", price: "990 ₽", desc: "Универсальный пластырь для ежедневного применения" },
-  { id: 2, name: "MediPatch Форте", price: "1 490 ₽", desc: "Усиленная формула для интенсивной терапии" },
-  { id: 3, name: "MediPatch Спорт", price: "1 290 ₽", desc: "Специально для спортсменов и активных людей" },
-];
-
-const benefits = [
-  { title: "100% натуральный состав", desc: "Только природные компоненты без химии" },
-  { title: "Быстрое действие", desc: "Облегчение уже через 15 минут" },
-  { title: "Длительный эффект", desc: "До 24 часов непрерывного действия" },
-  { title: "Гипоаллергенно", desc: "Подходит для чувствительной кожи" },
-];
-
-interface ThemeProps {
-  theme: typeof MorningDewTheme;
-}
-
-// ============ ВАРИАНТ 1: Утренняя роса ============
-function MorningDewVariant({ theme }: ThemeProps) {
-  const { colors } = theme;
-  
   return (
-    <div style={{ backgroundColor: colors.bg }} className="min-h-screen">
+    <div style={{ backgroundColor: colors.bg }}>
       {/* Hero */}
-      <section className="py-20" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6" style={{ backgroundColor: colors.accentLight }}>
-              <Leaf className="w-4 h-4" style={{ color: colors.accent }} />
-              <span className="text-sm font-medium" style={{ color: colors.accentDark }}>Сила природы</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ color: colors.text }}>
-              Исцеление от природы
-            </h1>
-            <p className="text-xl max-w-2xl mx-auto" style={{ color: colors.textSecondary }}>
-              Каждое утро природа дарит нам свежесть и силу. MediPatch собирает эту энергию для вашего здоровья.
-            </p>
-          </div>
-          
-          {/* Баннер с "росой" */}
-          <div className="relative rounded-3xl overflow-hidden" style={{ aspectRatio: "1820/500", backgroundColor: colors.accentLight }}>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="flex justify-center gap-4 mb-6">
-                  {[...Array(5)].map((_, i) => (
-                    <div 
-                      key={i}
-                      className="w-3 h-3 rounded-full animate-pulse"
-                      style={{ 
-                        backgroundColor: colors.accent,
-                        animationDelay: `${i * 0.2}s`,
-                        opacity: 0.6 + i * 0.1
-                      }}
-                    />
-                  ))}
-                </div>
-                <span className="text-2xl font-light" style={{ color: colors.accentDark }}>1820 × 500</span>
-              </div>
-            </div>
-            {/* Декоративные капли */}
-            <div className="absolute top-10 left-10 w-8 h-8 rounded-full" style={{ backgroundColor: `${colors.accent}30` }} />
-            <div className="absolute top-20 right-20 w-12 h-12 rounded-full" style={{ backgroundColor: `${colors.accent}20` }} />
-            <div className="absolute bottom-16 left-1/4 w-6 h-6 rounded-full" style={{ backgroundColor: `${colors.accent}40` }} />
-          </div>
-        </div>
-      </section>
-
-      {/* Философия */}
-      <section className="py-20">
+      <section className="py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-2xl md:text-3xl font-light leading-relaxed" style={{ color: colors.text }}>
-            "Мы верим, что природа — лучший целитель. Каждый пластырь MediPatch создан с любовью и заботой о вашем благополучии."
-          </p>
-        </div>
-      </section>
-
-      {/* Преимущества в виде листьев */}
-      <section className="py-20" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-16" style={{ color: colors.text }}>
-            Почему выбирают нас
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, idx) => (
-              <div key={idx} className="text-center group">
-                <div 
-                  className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center transition-transform group-hover:scale-110"
-                  style={{ backgroundColor: colors.accentLight }}
-                >
-                  <Leaf className="w-8 h-8" style={{ color: colors.accent }} />
-                </div>
-                <h3 className="font-semibold mb-2" style={{ color: colors.text }}>{benefit.title}</h3>
-                <p className="text-sm" style={{ color: colors.textSecondary }}>{benefit.desc}</p>
-              </div>
-            ))}
+          <div 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
+            style={{ backgroundColor: colors.accentLight, color: colors.accent }}
+          >
+            <Sparkles className="w-4 h-4" />
+            Сила природы для вашего здоровья
           </div>
-        </div>
-      </section>
-
-      {/* Продукты */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-16" style={{ color: colors.text }}>
-            Наша линейка
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {products.map((product) => (
-              <div 
-                key={product.id}
-                className="rounded-2xl p-8 text-center transition-all hover:shadow-lg"
-                style={{ backgroundColor: colors.bgAlt, border: `1px solid ${colors.accentLight}` }}
-              >
-                <div 
-                  className="w-full aspect-square rounded-xl mb-6 flex items-center justify-center"
-                  style={{ backgroundColor: colors.accentLight }}
-                >
-                  <span className="text-6xl font-light" style={{ color: colors.accent }}>{product.id}</span>
-                </div>
-                <h3 className="text-xl font-bold mb-2" style={{ color: colors.text }}>{product.name}</h3>
-                <p className="text-sm mb-4" style={{ color: colors.textSecondary }}>{product.desc}</p>
-                <div className="text-2xl font-bold" style={{ color: colors.accent }}>{product.price}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20" style={{ backgroundColor: colors.accent }}>
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-6 text-white">Начните путь к здоровью</h2>
-          <p className="text-lg mb-8 text-white/80">Почувствуйте силу природы уже сегодня</p>
-          <button className="px-8 py-4 rounded-full font-semibold text-lg transition-transform hover:scale-105" style={{ backgroundColor: colors.bgAlt, color: colors.accent }}>
-            Заказать сейчас
-          </button>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-// ============ ВАРИАНТ 2: Лесная тропа ============
-function ForestPathVariant({ theme }: ThemeProps) {
-  const { colors } = theme;
-  
-  return (
-    <div style={{ backgroundColor: colors.bg }} className="min-h-screen">
-      {/* Hero с древесными элементами */}
-      <section className="py-16" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="h-px flex-1 max-w-24" style={{ backgroundColor: colors.accent }} />
-            <TreePine className="w-8 h-8" style={{ color: colors.accent }} />
-            <div className="h-px flex-1 max-w-24" style={{ backgroundColor: colors.accent }} />
-          </div>
-          
-          <h1 className="text-4xl md:text-5xl font-serif text-center mb-6" style={{ color: colors.text }}>
-            Мудрость древнего леса
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: colors.text }}>
+            Исцеление от природы
           </h1>
-          <p className="text-center text-lg max-w-2xl mx-auto mb-12" style={{ color: colors.textSecondary }}>
-            Веками люди обращались к лесу за исцелением. MediPatch продолжает эту традицию.
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: colors.textSecondary }}>
+            Каждое утро природа дарит нам свежесть и силу. Наши продукты собирают эту энергию для вашего здоровья и благополучия.
           </p>
-
-          {/* Баннер с "корой" */}
           <div 
-            className="rounded-2xl overflow-hidden relative"
-            style={{ 
-              aspectRatio: "1820/500", 
-              backgroundColor: colors.accentLight,
-              border: `3px solid ${colors.accent}`
-            }}
+            className="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden"
+            style={{ backgroundColor: colors.bgAlt, aspectRatio: "16/7" }}
           >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <TreePine className="w-16 h-16 mx-auto mb-4" style={{ color: colors.accentDark }} />
-                <span className="text-xl font-serif" style={{ color: colors.accentDark }}>1820 × 500</span>
-              </div>
-            </div>
-            {/* Декоративные кольца как годовые кольца дерева */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border-2 opacity-20" style={{ borderColor: colors.accent }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border-2 opacity-30" style={{ borderColor: colors.accent }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 opacity-40" style={{ borderColor: colors.accent }} />
-          </div>
-        </div>
-      </section>
-
-      {/* Цитата */}
-      <section className="py-16" style={{ backgroundColor: colors.accentLight }}>
-        <div className="max-w-3xl mx-auto px-6">
-          <blockquote className="text-center">
-            <p className="text-2xl font-serif italic mb-4" style={{ color: colors.text }}>
-              "Лес — это не просто деревья. Это целая вселенная исцеления."
-            </p>
-            <cite className="text-sm" style={{ color: colors.textSecondary }}>— Философия MediPatch</cite>
-          </blockquote>
-        </div>
-      </section>
-
-      {/* Путь к здоровью */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-serif text-center mb-16" style={{ color: colors.text }}>
-            Ваш путь к здоровью
-          </h2>
-          
-          <div className="relative">
-            {/* Линия пути */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 hidden md:block" style={{ backgroundColor: colors.accentLight }} />
-            
-            <div className="space-y-12">
-              {["Выберите продукт", "Нанесите на кожу", "Почувствуйте облегчение", "Наслаждайтесь жизнью"].map((step, idx) => (
-                <div key={idx} className={`flex items-center gap-8 ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-                  <div className="flex-1 text-center md:text-right">
-                    <div 
-                      className="inline-block px-6 py-4 rounded-xl"
-                      style={{ backgroundColor: colors.bgAlt, border: `1px solid ${colors.accentLight}` }}
-                    >
-                      <span className="text-sm font-medium" style={{ color: colors.accent }}>Шаг {idx + 1}</span>
-                      <h3 className="text-lg font-semibold mt-1" style={{ color: colors.text }}>{step}</h3>
-                    </div>
-                  </div>
-                  <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 z-10"
-                    style={{ backgroundColor: colors.accent }}
-                  >
-                    <span className="text-white font-bold">{idx + 1}</span>
-                  </div>
-                  <div className="flex-1 hidden md:block" />
-                </div>
-              ))}
+            <div className="w-full h-full flex items-center justify-center">
+              <span style={{ color: colors.accent }} className="text-xl font-medium">Баннер 1820 x 500</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Продукты как пеньки */}
-      <section className="py-20" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-serif text-center mb-16" style={{ color: colors.text }}>
-            Дары леса
-          </h2>
-          <div className="grid md:grid-cols-3 gap-10">
-            {products.map((product) => (
-              <div key={product.id} className="text-center">
-                <div 
-                  className="w-40 h-40 mx-auto rounded-full mb-6 flex items-center justify-center"
-                  style={{ 
-                    backgroundColor: colors.accentLight,
-                    border: `4px solid ${colors.accent}`
-                  }}
-                >
-                  <span className="text-5xl font-serif" style={{ color: colors.accentDark }}>{product.id}</span>
-                </div>
-                <h3 className="text-xl font-serif mb-2" style={{ color: colors.text }}>{product.name}</h3>
-                <p className="text-sm mb-4" style={{ color: colors.textSecondary }}>{product.desc}</p>
-                <div className="text-xl font-bold" style={{ color: colors.accent }}>{product.price}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Footer CTA */}
-      <section className="py-16" style={{ backgroundColor: colors.accent }}>
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <TreePine className="w-12 h-12 mx-auto mb-6 text-white/80" />
-          <h2 className="text-2xl font-serif mb-4 text-white">Ступите на тропу здоровья</h2>
-          <button 
-            className="px-8 py-3 rounded-lg font-medium transition-all hover:shadow-lg"
-            style={{ backgroundColor: colors.bgAlt, color: colors.accent }}
-          >
-            Начать путешествие
-          </button>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-// ============ ВАРИАНТ 3: Японский сад ============
-function ZenGardenVariant({ theme }: ThemeProps) {
-  const { colors } = theme;
-  
-  return (
-    <div style={{ backgroundColor: colors.bg }} className="min-h-screen">
-      {/* Минималистичный Hero */}
-      <section className="py-24" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="flex justify-center gap-8 mb-12">
-              {[...Array(3)].map((_, i) => (
-                <div 
-                  key={i}
-                  className="w-2 h-2 rounded-full"
-                  style={{ backgroundColor: colors.accent }}
-                />
-              ))}
-            </div>
-            <h1 className="text-3xl md:text-4xl font-light tracking-wide mb-6" style={{ color: colors.text }}>
-              調和
-            </h1>
-            <p className="text-sm tracking-widest uppercase mb-2" style={{ color: colors.textSecondary }}>
-              Гармония
-            </p>
-            <p className="text-lg max-w-lg mx-auto" style={{ color: colors.textSecondary }}>
-              В тишине сада рождается понимание. В простоте — совершенство.
-            </p>
-          </div>
-
-          {/* Баннер в стиле дзен */}
-          <div 
-            className="relative overflow-hidden"
-            style={{ aspectRatio: "1820/500", backgroundColor: colors.accentLight }}
-          >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-24 h-0.5 mx-auto mb-6" style={{ backgroundColor: colors.accent }} />
-                <span className="text-lg tracking-widest" style={{ color: colors.accent }}>1820 × 500</span>
-                <div className="w-24 h-0.5 mx-auto mt-6" style={{ backgroundColor: colors.accent }} />
-              </div>
-            </div>
-            {/* Волны дзен-сада */}
-            <svg className="absolute bottom-0 left-0 right-0 h-20 opacity-20" viewBox="0 0 1820 80" preserveAspectRatio="none">
-              <path d="M0,40 Q455,0 910,40 T1820,40 V80 H0 Z" fill={colors.accent} />
-            </svg>
-          </div>
-        </div>
-      </section>
-
-      {/* Принципы */}
-      <section className="py-24">
+      {/* О нас */}
+      <section className="py-16 md:py-20" style={{ backgroundColor: colors.cardBg }}>
         <div className="max-w-4xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-16 text-center">
-            {[
-              { jp: "自然", ru: "Природа", desc: "Натуральные ингредиенты" },
-              { jp: "均衡", ru: "Баланс", desc: "Гармония тела и духа" },
-              { jp: "治療", ru: "Исцеление", desc: "Мягкое восстановление" },
-            ].map((item, idx) => (
-              <div key={idx}>
-                <p className="text-4xl mb-2" style={{ color: colors.text }}>{item.jp}</p>
-                <p className="text-sm tracking-widest uppercase mb-4" style={{ color: colors.accent }}>{item.ru}</p>
-                <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
-              </div>
-            ))}
-          </div>
+          <p className="text-xl md:text-2xl text-center leading-relaxed" style={{ color: colors.text }}>
+            Мы создаём продукты, которые помогают людям чувствовать себя лучше каждый день. 
+            Шесть уникальных изделий — от пластырей до кушака — для разных потребностей вашего тела.
+          </p>
         </div>
       </section>
 
       {/* Продукты */}
-      <section className="py-24" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-2xl font-light" style={{ color: colors.text }}>Коллекция</h2>
-          </div>
-          
-          <div className="space-y-8">
-            {products.map((product, idx) => (
-              <div 
-                key={product.id}
-                className="flex items-center gap-8 p-6"
-                style={{ borderBottom: idx < products.length - 1 ? `1px solid ${colors.accentLight}` : 'none' }}
-              >
-                <div 
-                  className="w-20 h-20 flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: colors.accentLight }}
-                >
-                  <span className="text-2xl font-light" style={{ color: colors.accent }}>{product.id}</span>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg mb-1" style={{ color: colors.text }}>{product.name}</h3>
-                  <p className="text-sm" style={{ color: colors.textSecondary }}>{product.desc}</p>
-                </div>
-                <div className="text-lg" style={{ color: colors.text }}>{product.price}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Цитата */}
-      <section className="py-24">
-        <div className="max-w-2xl mx-auto px-6 text-center">
-          <p className="text-xl font-light leading-relaxed mb-8" style={{ color: colors.text }}>
-            "Путь к здоровью начинается с одного шага. Сделайте его осознанно."
+      <section className="py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-4" style={{ color: colors.text }}>
+            Наша линейка продуктов
+          </h2>
+          <p className="text-center mb-12 md:mb-16" style={{ color: colors.textSecondary }}>
+            Каждый продукт создан для конкретной задачи
           </p>
-          <button 
-            className="px-12 py-4 text-sm tracking-widest uppercase transition-all hover:shadow-sm"
-            style={{ backgroundColor: colors.accent, color: colors.bg }}
-          >
-            Начать
-          </button>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-// ============ ВАРИАНТ 4: Травяная аптека ============
-function HerbalApothecaryVariant({ theme }: ThemeProps) {
-  const { colors } = theme;
-  
-  return (
-    <div style={{ backgroundColor: colors.bg }} className="min-h-screen">
-      {/* Винтажный Hero */}
-      <section className="py-12" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-6xl mx-auto px-6">
-          {/* Декоративная рамка */}
-          <div 
-            className="p-8 md:p-12"
-            style={{ border: `2px solid ${colors.accent}`, borderRadius: '4px' }}
-          >
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-4 mb-6">
-                <div className="h-px w-16" style={{ backgroundColor: colors.accent }} />
-                <Flower2 className="w-8 h-8" style={{ color: colors.accent }} />
-                <div className="h-px w-16" style={{ backgroundColor: colors.accent }} />
-              </div>
-              <h1 className="text-3xl md:text-4xl font-serif mb-4" style={{ color: colors.text }}>
-                Природная Аптека
-              </h1>
-              <p className="text-sm italic max-w-lg mx-auto" style={{ color: colors.textSecondary }}>
-                Рецепты, проверенные временем. Травы, собранные с любовью.
-              </p>
-            </div>
-
-            {/* Баннер с ботаническим стилем */}
-            <div 
-              className="relative overflow-hidden"
-              style={{ 
-                aspectRatio: "1820/500", 
-                backgroundColor: colors.accentLight,
-                border: `1px solid ${colors.accent}`
-              }}
-            >
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="flex justify-center gap-6 mb-4">
-                    <Flower2 className="w-8 h-8" style={{ color: colors.accent }} />
-                    <Leaf className="w-8 h-8" style={{ color: colors.accent }} />
-                    <Flower2 className="w-8 h-8" style={{ color: colors.accent }} />
-                  </div>
-                  <span className="font-serif italic" style={{ color: colors.accentDark }}>1820 × 500</span>
-                </div>
-              </div>
-              {/* Уголки */}
-              <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2" style={{ borderColor: colors.accent }} />
-              <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2" style={{ borderColor: colors.accent }} />
-              <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2" style={{ borderColor: colors.accent }} />
-              <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2" style={{ borderColor: colors.accent }} />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* История */}
-      <section className="py-16">
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center">
-            <span className="text-xs tracking-widest uppercase mb-4 block" style={{ color: colors.accent }}>
-              Наша философия
-            </span>
-            <p className="text-xl font-serif leading-relaxed" style={{ color: colors.text }}>
-              Испокон веков травники хранили секреты природы. Каждый рецепт MediPatch — 
-              это плод многолетних исследований и глубокого уважения к традициям народной медицины.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Ингредиенты */}
-      <section className="py-16" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-serif text-center mb-12" style={{ color: colors.text }}>
-            Наши ингредиенты
-          </h2>
-          <div className="grid md:grid-cols-4 gap-6">
-            {["Арника", "Ромашка", "Календула", "Мята"].map((herb, idx) => (
-              <div 
-                key={idx}
-                className="p-6 text-center"
-                style={{ border: `1px solid ${colors.accent}` }}
-              >
-                <div 
-                  className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: colors.accentLight }}
-                >
-                  <Leaf className="w-6 h-6" style={{ color: colors.accent }} />
-                </div>
-                <h3 className="font-serif" style={{ color: colors.text }}>{herb}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Каталог */}
-      <section className="py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl font-serif text-center mb-12" style={{ color: colors.text }}>
-            Каталог снадобий
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
               <div 
                 key={product.id}
-                className="p-6"
-                style={{ border: `1px solid ${colors.accent}`, backgroundColor: colors.bgAlt }}
+                className="rounded-xl p-6 transition-all duration-300 hover:shadow-lg"
+                style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
               >
                 <div 
-                  className="aspect-[3/4] mb-6 flex items-center justify-center"
+                  className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
                   style={{ backgroundColor: colors.accentLight }}
                 >
-                  <span className="text-4xl font-serif" style={{ color: colors.accent }}>{product.id}</span>
+                  <product.icon className="w-7 h-7" style={{ color: colors.accent }} />
                 </div>
-                <div className="text-center">
-                  <h3 className="font-serif text-lg mb-2" style={{ color: colors.text }}>{product.name}</h3>
-                  <p className="text-xs mb-4 italic" style={{ color: colors.textSecondary }}>{product.desc}</p>
-                  <div className="font-serif text-xl" style={{ color: colors.accent }}>{product.price}</div>
-                </div>
+                <h3 className="text-xl font-bold mb-3" style={{ color: colors.text }}>{product.name}</h3>
+                <p className="text-sm mb-4 leading-relaxed" style={{ color: colors.textSecondary }}>
+                  {product.description}
+                </p>
+                <ul className="space-y-2">
+                  {product.benefits.map((benefit, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-sm" style={{ color: colors.text }}>
+                      <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: colors.accent }}></div>
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section 
-        className="py-12"
-        style={{ backgroundColor: colors.accent }}
-      >
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <Flower2 className="w-10 h-10 mx-auto mb-4" style={{ color: colors.bgAlt }} />
-          <h2 className="text-2xl font-serif mb-4" style={{ color: colors.bgAlt }}>
-            Откройте силу природы
-          </h2>
-          <button 
-            className="px-8 py-3 font-serif transition-all hover:shadow-lg"
-            style={{ backgroundColor: colors.bgAlt, color: colors.accent, border: `1px solid ${colors.bgAlt}` }}
-          >
-            В магазин
-          </button>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-// ============ ВАРИАНТ 5: Горный источник ============
-function MountainSpringVariant({ theme }: ThemeProps) {
-  const { colors } = theme;
-  
-  return (
-    <div style={{ backgroundColor: colors.bg }} className="min-h-screen">
-      {/* Hero с горами */}
-      <section className="py-16" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <Mountain className="w-12 h-12 mx-auto mb-6" style={{ color: colors.accent }} />
-            <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: colors.text }}>
-              Чистота горных вершин
-            </h1>
-            <p className="text-lg max-w-xl mx-auto" style={{ color: colors.textSecondary }}>
-              Там, где воздух кристально чист, рождается сила для вашего здоровья
-            </p>
-          </div>
-
-          {/* Баннер с горным пейзажем */}
-          <div 
-            className="relative rounded-2xl overflow-hidden"
-            style={{ aspectRatio: "1820/500", background: `linear-gradient(180deg, ${colors.accentLight} 0%, ${colors.accent}40 100%)` }}
-          >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="flex items-end justify-center gap-2 mb-4">
-                  <div className="w-16 h-24 rounded-t-full" style={{ backgroundColor: `${colors.accent}60` }} />
-                  <div className="w-20 h-32 rounded-t-full" style={{ backgroundColor: `${colors.accent}80` }} />
-                  <div className="w-24 h-40 rounded-t-full" style={{ backgroundColor: colors.accent }} />
-                  <div className="w-20 h-28 rounded-t-full" style={{ backgroundColor: `${colors.accent}70` }} />
-                  <div className="w-14 h-20 rounded-t-full" style={{ backgroundColor: `${colors.accent}50` }} />
-                </div>
-                <span className="text-lg font-medium" style={{ color: colors.accentDark }}>1820 × 500</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Чистота */}
-      <section className="py-20">
+      {/* Как это работает */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
         <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-4" style={{ color: colors.text }}>
+            Как это работает
+          </h2>
+          <p className="text-center mb-12" style={{ color: colors.textSecondary }}>
+            Простой принцип — мощный результат
+          </p>
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { Icon: Droplets, title: "Чистота", desc: "Только натуральные компоненты высшего качества" },
-              { Icon: Mountain, title: "Сила", desc: "Энергия горных трав и минералов" },
-              { Icon: Snowflake, title: "Свежесть", desc: "Освежающий и тонизирующий эффект" },
-            ].map((item, idx) => (
-              <div 
-                key={idx}
-                className="text-center p-8 rounded-xl"
-                style={{ backgroundColor: colors.bgAlt }}
-              >
+            {howItWorks.map((item) => (
+              <div key={item.step} className="text-center">
                 <div 
-                  className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: colors.accentLight }}
+                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold"
+                  style={{ backgroundColor: colors.accent, color: "#fff" }}
                 >
-                  <item.Icon className="w-6 h-6" style={{ color: colors.accent }} />
+                  {item.step}
                 </div>
                 <h3 className="text-lg font-bold mb-2" style={{ color: colors.text }}>{item.title}</h3>
                 <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
@@ -722,59 +252,38 @@ function MountainSpringVariant({ theme }: ThemeProps) {
         </div>
       </section>
 
-      {/* Как работает */}
-      <section className="py-20" style={{ backgroundColor: colors.accentLight }}>
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-8" style={{ color: colors.text }}>
-            Как действует MediPatch
-          </h2>
-          <div className="flex flex-wrap justify-center gap-4">
-            {["Нанесите", "Расслабьтесь", "Исцелитесь"].map((step, idx) => (
-              <div key={idx} className="flex items-center gap-4">
-                <div 
-                  className="w-12 h-12 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: colors.accent }}
-                >
-                  <span className="text-white font-bold">{idx + 1}</span>
-                </div>
-                <span className="font-medium" style={{ color: colors.text }}>{step}</span>
-                {idx < 2 && <ChevronRight className="w-5 h-5" style={{ color: colors.textSecondary }} />}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Продукты */}
-      <section className="py-20">
+      {/* Отзывы */}
+      <section className="py-16 md:py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12" style={{ color: colors.text }}>
-            Линейка продуктов
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-4" style={{ color: colors.text }}>
+            Отзывы наших клиентов
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {products.map((product) => (
+          <p className="text-center mb-12" style={{ color: colors.textSecondary }}>
+            Реальные истории реальных людей
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {testimonials.map((t) => (
               <div 
-                key={product.id}
-                className="rounded-2xl overflow-hidden shadow-lg"
-                style={{ backgroundColor: colors.bgAlt }}
+                key={t.id}
+                className="rounded-xl p-6"
+                style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
               >
-                <div 
-                  className="aspect-[4/3] flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${colors.accentLight} 0%, ${colors.accent}30 100%)` }}
-                >
-                  <span className="text-6xl font-bold" style={{ color: colors.accent }}>{product.id}</span>
+                <div className="flex gap-1 mb-3">
+                  {[1,2,3,4,5].map((s) => (
+                    <Star key={s} className="w-4 h-4 fill-current" style={{ color: colors.accent }} />
+                  ))}
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2" style={{ color: colors.text }}>{product.name}</h3>
-                  <p className="text-sm mb-4" style={{ color: colors.textSecondary }}>{product.desc}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold" style={{ color: colors.accent }}>{product.price}</span>
-                    <button 
-                      className="px-4 py-2 rounded-lg text-sm font-medium text-white"
-                      style={{ backgroundColor: colors.accent }}
-                    >
-                      Заказать
-                    </button>
+                <p className="mb-4 leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm"
+                    style={{ backgroundColor: colors.accent }}
+                  >
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm" style={{ color: colors.text }}>{t.name}</div>
+                    <div className="text-xs" style={{ color: colors.textSecondary }}>{t.city}</div>
                   </div>
                 </div>
               </div>
@@ -783,19 +292,59 @@ function MountainSpringVariant({ theme }: ThemeProps) {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-4" style={{ color: colors.text }}>
+            Частые вопросы
+          </h2>
+          <p className="text-center mb-12" style={{ color: colors.textSecondary }}>
+            Ответы на популярные вопросы о нашей продукции
+          </p>
+          <div className="space-y-3">
+            {faqItems.map((item, idx) => (
+              <div 
+                key={idx}
+                className="rounded-xl overflow-hidden"
+                style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-5 text-left"
+                >
+                  <span className="font-semibold pr-4" style={{ color: colors.text }}>{item.q}</span>
+                  <ChevronDown 
+                    className={`w-5 h-5 flex-shrink-0 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`}
+                    style={{ color: colors.accent }}
+                  />
+                </button>
+                {openFaq === idx && (
+                  <div className="px-5 pb-5">
+                    <p style={{ color: colors.textSecondary }}>{item.a}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
-      <section 
-        className="py-16"
-        style={{ background: `linear-gradient(135deg, ${colors.accent} 0%, ${colors.accentDark} 100%)` }}
-      >
-        <div className="max-w-4xl mx-auto px-6 text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">Почувствуйте горную свежесть</h2>
-          <p className="text-lg mb-8 opacity-90">Закажите сегодня — доставка по всей России</p>
-          <button 
-            className="px-8 py-4 rounded-xl font-bold text-lg transition-transform hover:scale-105"
-            style={{ backgroundColor: colors.bgAlt, color: colors.accent }}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.accent }}>
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+            Готовы попробовать?
+          </h2>
+          <p className="text-white/90 text-lg mb-8 max-w-xl mx-auto">
+            Посетите наш основной сайт, чтобы узнать больше о продуктах, ценах и оформить заказ с доставкой.
+          </p>
+          <button
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:scale-105"
+            style={{ backgroundColor: "#fff", color: colors.accent }}
+            data-testid="button-go-to-site"
           >
-            Попробовать MediPatch
+            Перейти на сайт
+            <ExternalLink className="w-5 h-5" />
           </button>
         </div>
       </section>
@@ -803,129 +352,165 @@ function MountainSpringVariant({ theme }: ThemeProps) {
   );
 }
 
-// ============ ВАРИАНТ 6: Солнечный луг ============
-function SunnyMeadowVariant({ theme }: ThemeProps) {
-  const { colors } = theme;
-  
+// ==================== ВАРИАНТ 2: ЛЕСНАЯ ТРОПА ====================
+const ForestPathTheme = {
+  name: "Лесная тропа",
+  subtitle: "Тёплые земляные тона, мудрость леса",
+  icon: TreePine,
+  colors: {
+    bg: "#faf7f2",
+    bgAlt: "#f0ebe0",
+    accent: "#7c5e3f",
+    accentLight: "#e8dfd0",
+    accentDark: "#5a4430",
+    text: "#3d3226",
+    textSecondary: "#6b5c4d",
+    cardBg: "#ffffff",
+  },
+};
+
+function ForestPathVariant() {
+  const colors = ForestPathTheme.colors;
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   return (
-    <div style={{ backgroundColor: colors.bg }} className="min-h-screen">
-      {/* Тёплый Hero */}
-      <section className="py-16" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <div 
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full mb-6"
-              style={{ backgroundColor: colors.accentLight }}
-            >
-              <Sun className="w-5 h-5" style={{ color: colors.accent }} />
-              <span className="text-sm font-medium" style={{ color: colors.accentDark }}>Тепло и забота</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ color: colors.text }}>
-              Согретый солнцем
-            </h1>
-            <p className="text-xl max-w-2xl mx-auto" style={{ color: colors.textSecondary }}>
-              Как тёплые лучи летнего солнца, MediPatch окутывает вас заботой и дарит комфорт
-            </p>
-          </div>
-
-          {/* Баннер с солнечными лучами */}
-          <div 
-            className="relative rounded-3xl overflow-hidden"
-            style={{ 
-              aspectRatio: "1820/500", 
-              background: `radial-gradient(circle at 50% 0%, ${colors.accent}40 0%, ${colors.accentLight} 70%)` 
-            }}
-          >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <Sun className="w-20 h-20 mx-auto mb-4 animate-pulse" style={{ color: colors.accent }} />
-                <span className="text-xl font-medium" style={{ color: colors.accentDark }}>1820 × 500</span>
-              </div>
-            </div>
-            {/* Декоративные лучи */}
-            {[...Array(8)].map((_, i) => (
-              <div 
-                key={i}
-                className="absolute top-0 left-1/2 w-0.5 h-32 origin-bottom"
-                style={{ 
-                  backgroundColor: `${colors.accent}30`,
-                  transform: `rotate(${i * 45}deg) translateX(-50%)`
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Тёплое послание */}
-      <section className="py-20">
+    <div style={{ backgroundColor: colors.bg, fontFamily: "'Georgia', serif" }}>
+      {/* Hero */}
+      <section className="py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-2xl md:text-3xl leading-relaxed" style={{ color: colors.text }}>
-            На солнечном лугу каждый цветок получает свою порцию тепла и любви. 
-            Так и мы создаём каждый пластырь — с вниманием к вашему здоровью и комфорту.
+          <div 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
+            style={{ backgroundColor: colors.accentLight, color: colors.accent }}
+          >
+            <TreePine className="w-4 h-4" />
+            Мудрость природы
+          </div>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: colors.text }}>
+            Древняя сила леса
+          </h1>
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: colors.textSecondary }}>
+            Тысячелетиями люди черпали здоровье из лесных трав и древесных смол. 
+            Мы сохранили эту мудрость в современных продуктах.
           </p>
-        </div>
-      </section>
-
-      {/* Преимущества в виде солнечных карточек */}
-      <section className="py-20" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12" style={{ color: colors.text }}>
-            Почему MediPatch?
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, idx) => (
-              <div 
-                key={idx}
-                className="p-6 rounded-2xl text-center transition-all hover:-translate-y-1 hover:shadow-lg"
-                style={{ backgroundColor: colors.bg }}
-              >
-                <div 
-                  className="w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: colors.accentLight }}
-                >
-                  <Sun className="w-6 h-6" style={{ color: colors.accent }} />
-                </div>
-                <h3 className="font-bold mb-2" style={{ color: colors.text }}>{benefit.title}</h3>
-                <p className="text-sm" style={{ color: colors.textSecondary }}>{benefit.desc}</p>
-              </div>
-            ))}
+          <div 
+            className="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden"
+            style={{ backgroundColor: colors.bgAlt, aspectRatio: "16/7" }}
+          >
+            <div className="w-full h-full flex items-center justify-center">
+              <span style={{ color: colors.accent }} className="text-xl font-medium">Баннер 1820 x 500</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Продукты с тёплым оформлением */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-4" style={{ color: colors.text }}>
-            Наши продукты
-          </h2>
-          <p className="text-center mb-12" style={{ color: colors.textSecondary }}>
-            Каждый создан с теплотой и заботой
+      {/* О нас */}
+      <section className="py-16 md:py-20" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-4xl mx-auto px-6">
+          <p className="text-xl md:text-2xl text-center leading-relaxed italic" style={{ color: colors.text }}>
+            «Лес — это аптека под открытым небом. Мы научились извлекать его целебную силу 
+            и дарить её вам в удобной форме — от пластырей до тесьмы.»
           </p>
-          <div className="grid md:grid-cols-3 gap-8">
+        </div>
+      </section>
+
+      {/* Продукты */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-4" style={{ color: colors.text }}>
+            Дары леса
+          </h2>
+          <p className="text-center mb-12 md:mb-16" style={{ color: colors.textSecondary }}>
+            Шесть изделий для вашего здоровья
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
               <div 
                 key={product.id}
-                className="rounded-3xl overflow-hidden transition-all hover:shadow-xl"
-                style={{ backgroundColor: colors.bgAlt, border: `2px solid ${colors.accentLight}` }}
+                className="rounded-xl p-6"
+                style={{ backgroundColor: colors.cardBg, border: `2px solid ${colors.accentLight}` }}
               >
                 <div 
-                  className="aspect-square flex items-center justify-center"
-                  style={{ background: `linear-gradient(180deg, ${colors.accentLight} 0%, ${colors.accent}20 100%)` }}
+                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: colors.accentLight }}
                 >
-                  <span className="text-7xl font-bold" style={{ color: colors.accent }}>{product.id}</span>
+                  <product.icon className="w-7 h-7" style={{ color: colors.accent }} />
                 </div>
-                <div className="p-8 text-center">
-                  <h3 className="text-xl font-bold mb-2" style={{ color: colors.text }}>{product.name}</h3>
-                  <p className="text-sm mb-6" style={{ color: colors.textSecondary }}>{product.desc}</p>
-                  <div className="text-3xl font-bold mb-6" style={{ color: colors.accent }}>{product.price}</div>
-                  <button 
-                    className="w-full py-3 rounded-xl font-semibold text-white transition-all hover:shadow-lg"
+                <h3 className="text-xl font-bold mb-3" style={{ color: colors.text }}>{product.name}</h3>
+                <p className="text-sm mb-4 leading-relaxed" style={{ color: colors.textSecondary }}>
+                  {product.description}
+                </p>
+                <ul className="space-y-2">
+                  {product.benefits.map((benefit, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-sm" style={{ color: colors.text }}>
+                      <Leaf className="w-3 h-3" style={{ color: colors.accent }} />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Как это работает */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Как это работает
+          </h2>
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1 space-y-6">
+              {howItWorks.map((item) => (
+                <div key={item.step} className="flex gap-4">
+                  <div 
+                    className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-xl font-bold"
+                    style={{ backgroundColor: colors.accent, color: "#fff" }}
+                  >
+                    {item.step}
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-1" style={{ color: colors.text }}>{item.title}</h3>
+                    <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div 
+              className="w-full md:w-80 h-64 rounded-xl flex items-center justify-center"
+              style={{ backgroundColor: colors.cardBg }}
+            >
+              <span style={{ color: colors.accent }}>Иллюстрация</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Отзывы */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Голоса благодарности
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {testimonials.map((t) => (
+              <div 
+                key={t.id}
+                className="rounded-xl p-6"
+                style={{ backgroundColor: colors.cardBg, borderLeft: `4px solid ${colors.accent}` }}
+              >
+                <p className="mb-4 leading-relaxed italic" style={{ color: colors.text }}>"{t.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm"
                     style={{ backgroundColor: colors.accent }}
                   >
-                    В корзину
-                  </button>
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm" style={{ color: colors.text }}>{t.name}</div>
+                    <div className="text-xs" style={{ color: colors.textSecondary }}>{t.city}</div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -933,20 +518,56 @@ function SunnyMeadowVariant({ theme }: ThemeProps) {
         </div>
       </section>
 
-      {/* Тёплый CTA */}
-      <section 
-        className="py-20"
-        style={{ background: `linear-gradient(180deg, ${colors.accent} 0%, ${colors.accentDark} 100%)` }}
-      >
-        <div className="max-w-4xl mx-auto px-6 text-center text-white">
-          <Sun className="w-16 h-16 mx-auto mb-6 opacity-80" />
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Добавьте тепла в свою жизнь</h2>
-          <p className="text-lg mb-8 opacity-90">Бесплатная доставка при заказе от 2000 ₽</p>
-          <button 
-            className="px-10 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 hover:shadow-xl"
-            style={{ backgroundColor: colors.bgAlt, color: colors.accent }}
+      {/* FAQ */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Вопросы и ответы
+          </h2>
+          <div className="space-y-4">
+            {faqItems.map((item, idx) => (
+              <div 
+                key={idx}
+                className="rounded-lg overflow-hidden"
+                style={{ backgroundColor: colors.bg }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-5 text-left"
+                >
+                  <span className="font-semibold pr-4" style={{ color: colors.text }}>{item.q}</span>
+                  <ChevronDown 
+                    className={`w-5 h-5 flex-shrink-0 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`}
+                    style={{ color: colors.accent }}
+                  />
+                </button>
+                {openFaq === idx && (
+                  <div className="px-5 pb-5">
+                    <p style={{ color: colors.textSecondary }}>{item.a}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.accent }}>
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+            Начните путь к здоровью
+          </h2>
+          <p className="text-white/90 text-lg mb-8">
+            На нашем сайте вы найдёте полный каталог продуктов и сможете сделать заказ.
+          </p>
+          <button
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-lg text-lg font-semibold transition-all hover:scale-105"
+            style={{ backgroundColor: "#fff", color: colors.accent }}
+            data-testid="button-go-to-site"
           >
-            Заказать сейчас
+            Перейти на сайт
+            <ExternalLink className="w-5 h-5" />
           </button>
         </div>
       </section>
@@ -954,81 +575,972 @@ function SunnyMeadowVariant({ theme }: ThemeProps) {
   );
 }
 
-// Главный компонент с переключателем
-export default function DesignVariants() {
-  const [currentVariant, setCurrentVariant] = useState(0);
-  
-  const goToPrev = () => setCurrentVariant((prev) => (prev === 0 ? themes.length - 1 : prev - 1));
-  const goToNext = () => setCurrentVariant((prev) => (prev === themes.length - 1 ? 0 : prev + 1));
-  
-  const theme = themes[currentVariant];
-  const IconComponent = theme.icon;
-  
-  const variants = [
-    MorningDewVariant,
-    ForestPathVariant,
-    ZenGardenVariant,
-    HerbalApothecaryVariant,
-    MountainSpringVariant,
-    SunnyMeadowVariant,
-  ];
-  
-  const CurrentVariant = variants[currentVariant];
+// ==================== ВАРИАНТ 3: ЦВЕТУЩИЙ ЛУГ (заменил Японский сад) ====================
+const BloomingMeadowTheme = {
+  name: "Цветущий луг",
+  subtitle: "Нежные полевые цветы, летняя свежесть",
+  icon: Flower2,
+  colors: {
+    bg: "#fdf8f6",
+    bgAlt: "#fce7f3",
+    accent: "#db2777",
+    accentLight: "#fbcfe8",
+    accentDark: "#9d174d",
+    text: "#500724",
+    textSecondary: "#831843",
+    cardBg: "#ffffff",
+  },
+};
+
+function BloomingMeadowVariant() {
+  const colors = BloomingMeadowTheme.colors;
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="relative">
-      {/* Переключатель вариантов - фиксированная панель */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg">
-        <div className="max-w-4xl mx-auto px-4 py-3">
-          <div className="flex items-center justify-between gap-4">
-            <button
-              onClick={goToPrev}
-              className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
-              data-testid="button-prev-variant"
-            >
-              <ChevronLeft className="w-5 h-5 text-gray-600" />
-            </button>
-            
-            <div className="flex-1 text-center">
-              <div className="flex items-center justify-center gap-3 mb-1">
-                <IconComponent className="w-5 h-5" style={{ color: theme.colors.accent }} />
-                <span className="font-bold text-gray-900">
-                  Вариант {currentVariant + 1}: {theme.name}
-                </span>
-              </div>
-              <p className="text-xs text-gray-500">{theme.description}</p>
-            </div>
-            
-            <button
-              onClick={goToNext}
-              className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
-              data-testid="button-next-variant"
-            >
-              <ChevronRight className="w-5 h-5 text-gray-600" />
-            </button>
+    <div style={{ backgroundColor: colors.bg }}>
+      {/* Hero */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
+            style={{ backgroundColor: colors.accentLight, color: colors.accent }}
+          >
+            <Flower2 className="w-4 h-4" />
+            Природная гармония
           </div>
-          
-          {/* Индикаторы */}
-          <div className="flex justify-center gap-2 mt-2">
-            {themes.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentVariant(idx)}
-                className="w-2 h-2 rounded-full transition-all"
-                style={{ 
-                  backgroundColor: idx === currentVariant ? theme.colors.accent : '#e5e7eb',
-                  transform: idx === currentVariant ? 'scale(1.5)' : 'scale(1)'
-                }}
-                data-testid={`indicator-variant-${idx}`}
-              />
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: colors.text }}>
+            Дыхание летнего луга
+          </h1>
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: colors.textSecondary }}>
+            Полевые травы и цветы хранят в себе солнечную энергию лета. 
+            Мы бережно сохраняем эту силу в каждом нашем продукте.
+          </p>
+          <div 
+            className="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden"
+            style={{ backgroundColor: colors.accentLight, aspectRatio: "16/7" }}
+          >
+            <div className="w-full h-full flex items-center justify-center">
+              <span style={{ color: colors.accent }} className="text-xl font-medium">Баннер 1820 x 500</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* О нас */}
+      <section className="py-16 md:py-20" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-4xl mx-auto px-6">
+          <p className="text-xl md:text-2xl text-center leading-relaxed" style={{ color: colors.text }}>
+            Наша продукция — это союз традиционных рецептов и современных технологий. 
+            Шесть уникальных изделий для красоты, здоровья и хорошего самочувствия.
+          </p>
+        </div>
+      </section>
+
+      {/* Продукты */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-4" style={{ color: colors.text }}>
+            Наша коллекция
+          </h2>
+          <p className="text-center mb-12 md:mb-16" style={{ color: colors.textSecondary }}>
+            Натуральные решения для каждой потребности
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <div 
+                key={product.id}
+                className="rounded-2xl p-6 text-center"
+                style={{ backgroundColor: colors.cardBg, boxShadow: '0 4px 20px rgba(219, 39, 119, 0.08)' }}
+              >
+                <div 
+                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                  style={{ backgroundColor: colors.accentLight }}
+                >
+                  <product.icon className="w-8 h-8" style={{ color: colors.accent }} />
+                </div>
+                <h3 className="text-xl font-bold mb-3" style={{ color: colors.text }}>{product.name}</h3>
+                <p className="text-sm mb-4 leading-relaxed" style={{ color: colors.textSecondary }}>
+                  {product.description}
+                </p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {product.benefits.map((benefit, idx) => (
+                    <span 
+                      key={idx} 
+                      className="text-xs px-3 py-1 rounded-full"
+                      style={{ backgroundColor: colors.accentLight, color: colors.accent }}
+                    >
+                      {benefit}
+                    </span>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Как это работает */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Как это работает
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {howItWorks.map((item) => (
+              <div key={item.step} className="text-center">
+                <div 
+                  className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"
+                  style={{ backgroundColor: colors.cardBg, border: `3px solid ${colors.accent}` }}
+                >
+                  <span className="text-2xl font-bold" style={{ color: colors.accent }}>{item.step}</span>
+                </div>
+                <h3 className="text-lg font-bold mb-2" style={{ color: colors.text }}>{item.title}</h3>
+                <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Отзывы */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Что говорят наши клиенты
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {testimonials.map((t) => (
+              <div 
+                key={t.id}
+                className="rounded-2xl p-6"
+                style={{ backgroundColor: colors.bg }}
+              >
+                <div className="flex gap-1 mb-3">
+                  {[1,2,3,4,5].map((s) => (
+                    <Heart key={s} className="w-4 h-4 fill-current" style={{ color: colors.accent }} />
+                  ))}
+                </div>
+                <p className="mb-4 leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
+                <div className="font-semibold text-sm" style={{ color: colors.textSecondary }}>
+                  {t.name}, {t.city}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Частые вопросы
+          </h2>
+          <div className="space-y-4">
+            {faqItems.map((item, idx) => (
+              <div 
+                key={idx}
+                className="rounded-2xl overflow-hidden"
+                style={{ backgroundColor: colors.cardBg, boxShadow: '0 2px 10px rgba(219, 39, 119, 0.05)' }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-5 text-left"
+                >
+                  <span className="font-semibold pr-4" style={{ color: colors.text }}>{item.q}</span>
+                  <ChevronDown 
+                    className={`w-5 h-5 flex-shrink-0 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`}
+                    style={{ color: colors.accent }}
+                  />
+                </button>
+                {openFaq === idx && (
+                  <div className="px-5 pb-5">
+                    <p style={{ color: colors.textSecondary }}>{item.a}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 md:py-24" style={{ background: `linear-gradient(135deg, ${colors.accent}, ${colors.accentDark})` }}>
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+            Почувствуйте силу природы
+          </h2>
+          <p className="text-white/90 text-lg mb-8">
+            Загляните на наш сайт и выберите продукт, который подойдёт именно вам.
+          </p>
+          <button
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-lg font-semibold transition-all hover:scale-105"
+            style={{ backgroundColor: "#fff", color: colors.accent }}
+            data-testid="button-go-to-site"
+          >
+            Перейти на сайт
+            <ExternalLink className="w-5 h-5" />
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ==================== ВАРИАНТ 4: ТРАВЯНАЯ АПТЕКА ====================
+const HerbalPharmacyTheme = {
+  name: "Травяная аптека",
+  subtitle: "Винтажный ботанический стиль, мудрость веков",
+  icon: Leaf,
+  colors: {
+    bg: "#fdfcf9",
+    bgAlt: "#f5f0e8",
+    accent: "#4a7c59",
+    accentLight: "#e8f0e8",
+    accentDark: "#2d5a3d",
+    text: "#2c3e2f",
+    textSecondary: "#5a6b5c",
+    cardBg: "#ffffff",
+  },
+};
+
+function HerbalPharmacyVariant() {
+  const colors = HerbalPharmacyTheme.colors;
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  return (
+    <div style={{ backgroundColor: colors.bg, fontFamily: "'Georgia', serif" }}>
+      {/* Hero */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div 
+            className="inline-block px-6 py-2 mb-6"
+            style={{ border: `2px solid ${colors.accent}` }}
+          >
+            <span className="text-sm uppercase tracking-widest" style={{ color: colors.accent }}>
+              Традиции исцеления
+            </span>
+          </div>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: colors.text }}>
+            Травяная аптека
+          </h1>
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: colors.textSecondary }}>
+            Вековые рецепты народной медицины, бережно сохранённые и усовершенствованные 
+            для современного человека.
+          </p>
+          <div 
+            className="w-full max-w-4xl mx-auto overflow-hidden"
+            style={{ backgroundColor: colors.bgAlt, aspectRatio: "16/7", border: `3px solid ${colors.accentLight}` }}
+          >
+            <div className="w-full h-full flex items-center justify-center">
+              <span style={{ color: colors.accent }} className="text-xl font-medium">Баннер 1820 x 500</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Девиз */}
+      <section className="py-16 md:py-20" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div 
+            className="inline-block p-8"
+            style={{ border: `1px solid ${colors.accentLight}` }}
+          >
+            <p className="text-xl md:text-2xl italic leading-relaxed" style={{ color: colors.text }}>
+              «Природа — лучший целитель. Мы лишь помогаем ей достучаться до вас.»
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Продукты */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: colors.text }}>
+              Каталог продуктов
+            </h2>
+            <div className="w-24 h-0.5 mx-auto" style={{ backgroundColor: colors.accent }}></div>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <div 
+                key={product.id}
+                className="p-6"
+                style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <product.icon className="w-6 h-6" style={{ color: colors.accent }} />
+                  <h3 className="text-xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
+                </div>
+                <p className="text-sm mb-4 leading-relaxed" style={{ color: colors.textSecondary }}>
+                  {product.description}
+                </p>
+                <div className="pt-4" style={{ borderTop: `1px dashed ${colors.accentLight}` }}>
+                  <ul className="space-y-1">
+                    {product.benefits.map((benefit, idx) => (
+                      <li key={idx} className="flex items-center gap-2 text-sm" style={{ color: colors.text }}>
+                        <span style={{ color: colors.accent }}>—</span>
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Как это работает */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Принцип действия
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {howItWorks.map((item) => (
+              <div key={item.step} className="text-center p-6" style={{ backgroundColor: colors.cardBg }}>
+                <div 
+                  className="w-12 h-12 flex items-center justify-center mx-auto mb-4 text-xl font-bold"
+                  style={{ border: `2px solid ${colors.accent}`, color: colors.accent }}
+                >
+                  {item.step}
+                </div>
+                <h3 className="text-lg font-bold mb-2" style={{ color: colors.text }}>{item.title}</h3>
+                <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Отзывы */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Свидетельства
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {testimonials.map((t) => (
+              <div 
+                key={t.id}
+                className="p-6"
+                style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
+              >
+                <p className="mb-4 leading-relaxed italic" style={{ color: colors.text }}>«{t.text}»</p>
+                <div className="text-sm" style={{ color: colors.textSecondary }}>
+                  — {t.name}, г. {t.city}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Вопросы и ответы
+          </h2>
+          <div className="space-y-4">
+            {faqItems.map((item, idx) => (
+              <div 
+                key={idx}
+                style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-5 text-left"
+                >
+                  <span className="font-semibold pr-4" style={{ color: colors.text }}>{item.q}</span>
+                  <ChevronDown 
+                    className={`w-5 h-5 flex-shrink-0 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`}
+                    style={{ color: colors.accent }}
+                  />
+                </button>
+                {openFaq === idx && (
+                  <div className="px-5 pb-5" style={{ borderTop: `1px dashed ${colors.accentLight}` }}>
+                    <p className="pt-4" style={{ color: colors.textSecondary }}>{item.a}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.accent }}>
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+            Добро пожаловать в мир здоровья
+          </h2>
+          <p className="text-white/90 text-lg mb-8">
+            Откройте для себя полный ассортимент продукции на нашем сайте.
+          </p>
+          <button
+            className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold transition-all hover:scale-105"
+            style={{ backgroundColor: "#fff", color: colors.accent }}
+            data-testid="button-go-to-site"
+          >
+            Перейти в каталог
+            <ExternalLink className="w-5 h-5" />
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ==================== ВАРИАНТ 5: ГОРНЫЙ ИСТОЧНИК ====================
+const MountainSpringTheme = {
+  name: "Горный источник",
+  subtitle: "Чистота горных вершин, прохлада родников",
+  icon: Mountain,
+  colors: {
+    bg: "#f0f9ff",
+    bgAlt: "#e0f2fe",
+    accent: "#0284c7",
+    accentLight: "#bae6fd",
+    accentDark: "#0369a1",
+    text: "#0c4a6e",
+    textSecondary: "#0369a1",
+    cardBg: "#ffffff",
+  },
+};
+
+function MountainSpringVariant() {
+  const colors = MountainSpringTheme.colors;
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  return (
+    <div style={{ backgroundColor: colors.bg }}>
+      {/* Hero */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
+            style={{ backgroundColor: colors.accentLight, color: colors.accent }}
+          >
+            <Mountain className="w-4 h-4" />
+            Чистота природы
+          </div>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: colors.text }}>
+            Сила горных вершин
+          </h1>
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: colors.textSecondary }}>
+            Высоко в горах, где воздух кристально чист, а вода течёт из древних ледников — 
+            там рождается сила наших продуктов.
+          </p>
+          <div 
+            className="w-full max-w-4xl mx-auto rounded-xl overflow-hidden"
+            style={{ backgroundColor: colors.bgAlt, aspectRatio: "16/7" }}
+          >
+            <div className="w-full h-full flex items-center justify-center">
+              <span style={{ color: colors.accent }} className="text-xl font-medium">Баннер 1820 x 500</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Преимущества */}
+      <section className="py-12" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="grid grid-cols-3 gap-4 md:gap-8">
+            {[
+              { Icon: Droplets, title: "Чистота", desc: "Натуральные компоненты" },
+              { Icon: Mountain, title: "Сила", desc: "Энергия горных трав" },
+              { Icon: Snowflake, title: "Свежесть", desc: "Тонизирующий эффект" },
+            ].map((item, idx) => (
+              <div key={idx} className="text-center">
+                <div 
+                  className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: colors.accentLight }}
+                >
+                  <item.Icon className="w-6 h-6 md:w-8 md:h-8" style={{ color: colors.accent }} />
+                </div>
+                <h3 className="font-bold text-sm md:text-base mb-1" style={{ color: colors.text }}>{item.title}</h3>
+                <p className="text-xs md:text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Продукты */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-4" style={{ color: colors.text }}>
+            Наша продукция
+          </h2>
+          <p className="text-center mb-12" style={{ color: colors.textSecondary }}>
+            Шесть продуктов для здоровья и благополучия
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <div 
+                key={product.id}
+                className="rounded-xl p-6"
+                style={{ backgroundColor: colors.cardBg, boxShadow: '0 4px 15px rgba(2, 132, 199, 0.1)' }}
+              >
+                <div 
+                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-4"
+                  style={{ backgroundColor: colors.accentLight }}
+                >
+                  <product.icon className="w-7 h-7" style={{ color: colors.accent }} />
+                </div>
+                <h3 className="text-xl font-bold mb-3" style={{ color: colors.text }}>{product.name}</h3>
+                <p className="text-sm mb-4 leading-relaxed" style={{ color: colors.textSecondary }}>
+                  {product.description}
+                </p>
+                <ul className="space-y-2">
+                  {product.benefits.map((benefit, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-sm" style={{ color: colors.text }}>
+                      <Zap className="w-3 h-3" style={{ color: colors.accent }} />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Как это работает */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.accentLight }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Как это работает
+          </h2>
+          <div className="flex flex-col md:flex-row gap-4">
+            {howItWorks.map((item, idx) => (
+              <div key={item.step} className="flex-1 flex items-start gap-4">
+                <div 
+                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-lg font-bold text-white"
+                  style={{ backgroundColor: colors.accent }}
+                >
+                  {item.step}
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold mb-1" style={{ color: colors.text }}>{item.title}</h3>
+                  <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+                </div>
+                {idx < howItWorks.length - 1 && (
+                  <ChevronRight className="hidden md:block w-6 h-6 mt-2 flex-shrink-0" style={{ color: colors.accent }} />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Отзывы */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Отзывы покупателей
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {testimonials.map((t) => (
+              <div 
+                key={t.id}
+                className="rounded-xl p-6"
+                style={{ backgroundColor: colors.bg }}
+              >
+                <div className="flex gap-1 mb-3">
+                  {[1,2,3,4,5].map((s) => (
+                    <Star key={s} className="w-4 h-4 fill-current" style={{ color: "#fbbf24" }} />
+                  ))}
+                </div>
+                <p className="mb-4 leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
+                    style={{ backgroundColor: colors.accent }}
+                  >
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm" style={{ color: colors.text }}>{t.name}</div>
+                    <div className="text-xs" style={{ color: colors.textSecondary }}>{t.city}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Часто задаваемые вопросы
+          </h2>
+          <div className="space-y-3">
+            {faqItems.map((item, idx) => (
+              <div 
+                key={idx}
+                className="rounded-xl overflow-hidden"
+                style={{ backgroundColor: colors.cardBg }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-5 text-left"
+                >
+                  <span className="font-semibold pr-4" style={{ color: colors.text }}>{item.q}</span>
+                  <ChevronDown 
+                    className={`w-5 h-5 flex-shrink-0 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`}
+                    style={{ color: colors.accent }}
+                  />
+                </button>
+                {openFaq === idx && (
+                  <div className="px-5 pb-5">
+                    <p style={{ color: colors.textSecondary }}>{item.a}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 md:py-24" style={{ background: `linear-gradient(to right, ${colors.accent}, ${colors.accentDark})` }}>
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+            Откройте мир чистоты
+          </h2>
+          <p className="text-white/90 text-lg mb-8">
+            Полный каталог продукции и удобный заказ — на нашем основном сайте.
+          </p>
+          <button
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:scale-105"
+            style={{ backgroundColor: "#fff", color: colors.accent }}
+            data-testid="button-go-to-site"
+          >
+            Перейти на сайт
+            <ExternalLink className="w-5 h-5" />
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ==================== ВАРИАНТ 6: СОЛНЕЧНЫЙ ЛУГ ====================
+const SunnyMeadowTheme = {
+  name: "Солнечный луг",
+  subtitle: "Тёплые золотистые тона, энергия солнца",
+  icon: Sun,
+  colors: {
+    bg: "#fffbeb",
+    bgAlt: "#fef3c7",
+    accent: "#d97706",
+    accentLight: "#fde68a",
+    accentDark: "#b45309",
+    text: "#78350f",
+    textSecondary: "#92400e",
+    cardBg: "#ffffff",
+  },
+};
+
+function SunnyMeadowVariant() {
+  const colors = SunnyMeadowTheme.colors;
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  return (
+    <div style={{ backgroundColor: colors.bg }}>
+      {/* Hero */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
+            style={{ backgroundColor: colors.accentLight, color: colors.accent }}
+          >
+            <Sun className="w-4 h-4" />
+            Сила солнца
+          </div>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: colors.text }}>
+            Тепло и забота природы
+          </h1>
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto" style={{ color: colors.textSecondary }}>
+            Солнечные лучи дарят растениям жизненную силу. Мы собираем эту энергию, 
+            чтобы передать её вашему телу через наши продукты.
+          </p>
+          <div 
+            className="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden"
+            style={{ backgroundColor: colors.accentLight, aspectRatio: "16/7" }}
+          >
+            <div className="w-full h-full flex items-center justify-center">
+              <span style={{ color: colors.accent }} className="text-xl font-medium">Баннер 1820 x 500</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Миссия */}
+      <section className="py-16" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div 
+              className="w-32 h-32 rounded-full flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: colors.accentLight }}
+            >
+              <Sun className="w-16 h-16" style={{ color: colors.accent }} />
+            </div>
+            <p className="text-xl md:text-2xl leading-relaxed text-center md:text-left" style={{ color: colors.text }}>
+              Мы верим, что природа создала всё необходимое для нашего здоровья. 
+              Наша задача — бережно донести эти дары до вас.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Продукты */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-4" style={{ color: colors.text }}>
+            Наши продукты
+          </h2>
+          <p className="text-center mb-12" style={{ color: colors.textSecondary }}>
+            Шесть решений для разных потребностей
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <div 
+                key={product.id}
+                className="rounded-2xl p-6 transition-all duration-300 hover:shadow-lg"
+                style={{ backgroundColor: colors.cardBg, border: `2px solid ${colors.accentLight}` }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div 
+                    className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: colors.accentLight }}
+                  >
+                    <product.icon className="w-6 h-6" style={{ color: colors.accent }} />
+                  </div>
+                  <h3 className="text-xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
+                </div>
+                <p className="text-sm mb-4 leading-relaxed" style={{ color: colors.textSecondary }}>
+                  {product.description}
+                </p>
+                <ul className="space-y-2">
+                  {product.benefits.map((benefit, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-sm" style={{ color: colors.text }}>
+                      <Sun className="w-3 h-3" style={{ color: colors.accent }} />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Как это работает */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Как это работает
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {howItWorks.map((item) => (
+              <div 
+                key={item.step} 
+                className="text-center p-6 rounded-2xl"
+                style={{ backgroundColor: colors.cardBg }}
+              >
+                <div 
+                  className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold text-white"
+                  style={{ backgroundColor: colors.accent }}
+                >
+                  {item.step}
+                </div>
+                <h3 className="text-lg font-bold mb-2" style={{ color: colors.text }}>{item.title}</h3>
+                <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Отзывы */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Истории наших клиентов
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {testimonials.map((t) => (
+              <div 
+                key={t.id}
+                className="rounded-2xl p-6"
+                style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
+              >
+                <div className="flex gap-1 mb-3">
+                  {[1,2,3,4,5].map((s) => (
+                    <Star key={s} className="w-4 h-4 fill-current" style={{ color: colors.accent }} />
+                  ))}
+                </div>
+                <p className="mb-4 leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold"
+                    style={{ backgroundColor: colors.accent }}
+                  >
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm" style={{ color: colors.text }}>{t.name}</div>
+                    <div className="text-xs" style={{ color: colors.textSecondary }}>{t.city}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            Ответы на вопросы
+          </h2>
+          <div className="space-y-4">
+            {faqItems.map((item, idx) => (
+              <div 
+                key={idx}
+                className="rounded-2xl overflow-hidden"
+                style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-5 text-left"
+                >
+                  <span className="font-semibold pr-4" style={{ color: colors.text }}>{item.q}</span>
+                  <ChevronDown 
+                    className={`w-5 h-5 flex-shrink-0 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`}
+                    style={{ color: colors.accent }}
+                  />
+                </button>
+                {openFaq === idx && (
+                  <div className="px-5 pb-5">
+                    <p style={{ color: colors.textSecondary }}>{item.a}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.accent }}>
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+            Согрейтесь силой природы
+          </h2>
+          <p className="text-white/90 text-lg mb-8">
+            Посетите наш сайт, чтобы узнать больше и сделать заказ.
+          </p>
+          <button
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-lg font-semibold transition-all hover:scale-105"
+            style={{ backgroundColor: "#fff", color: colors.accent }}
+            data-testid="button-go-to-site"
+          >
+            Перейти на сайт
+            <ExternalLink className="w-5 h-5" />
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ==================== ГЛАВНЫЙ КОМПОНЕНТ ====================
+const variants = [
+  { theme: MorningDewTheme, component: MorningDewVariant },
+  { theme: ForestPathTheme, component: ForestPathVariant },
+  { theme: BloomingMeadowTheme, component: BloomingMeadowVariant },
+  { theme: HerbalPharmacyTheme, component: HerbalPharmacyVariant },
+  { theme: MountainSpringTheme, component: MountainSpringVariant },
+  { theme: SunnyMeadowTheme, component: SunnyMeadowVariant },
+];
+
+export default function DesignVariants() {
+  const [currentVariant, setCurrentVariant] = useState(0);
+  
+  const goToPrev = () => {
+    setCurrentVariant((prev) => (prev === 0 ? variants.length - 1 : prev - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentVariant((prev) => (prev === variants.length - 1 ? 0 : prev + 1));
+  };
+
+  const CurrentComponent = variants[currentVariant].component;
+  const currentTheme = variants[currentVariant].theme;
+  const ThemeIcon = currentTheme.icon;
+
+  return (
+    <div className="min-h-screen">
+      {/* Навигация между вариантами */}
+      <div className="sticky top-0 z-50 bg-white border-b shadow-sm">
+        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+          <button
+            onClick={goToPrev}
+            className="p-2 rounded-full border hover:bg-gray-50 transition-colors flex-shrink-0"
+            aria-label="Предыдущий вариант"
+            data-testid="button-variant-prev"
+          >
+            <ChevronLeft className="w-5 h-5 text-gray-600" />
+          </button>
+          
+          <div className="text-center min-w-0 flex-1">
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <ThemeIcon className="w-5 h-5" style={{ color: currentTheme.colors.accent }} />
+              <span className="font-semibold text-gray-900 truncate">
+                Вариант {currentVariant + 1}: {currentTheme.name}
+              </span>
+            </div>
+            <p className="text-sm text-gray-500 truncate">{currentTheme.subtitle}</p>
+            <div className="flex justify-center gap-1.5 mt-2">
+              {variants.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentVariant(idx)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    idx === currentVariant ? 'w-6' : ''
+                  }`}
+                  style={{ 
+                    backgroundColor: idx === currentVariant 
+                      ? currentTheme.colors.accent 
+                      : '#d1d5db'
+                  }}
+                  aria-label={`Вариант ${idx + 1}`}
+                  data-testid={`indicator-variant-${idx}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <button
+            onClick={goToNext}
+            className="p-2 rounded-full border hover:bg-gray-50 transition-colors flex-shrink-0"
+            aria-label="Следующий вариант"
+            data-testid="button-variant-next"
+          >
+            <ChevronRight className="w-5 h-5 text-gray-600" />
+          </button>
+        </div>
       </div>
-      
-      {/* Отступ для фиксированной панели */}
-      <div className="h-24" />
-      
+
       {/* Контент варианта */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -1038,7 +1550,7 @@ export default function DesignVariants() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <CurrentVariant theme={theme} />
+          <CurrentComponent />
         </motion.div>
       </AnimatePresence>
     </div>

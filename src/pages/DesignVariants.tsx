@@ -332,7 +332,7 @@ export default function DesignVariants() {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
                 <div 
-                  className="w-full md:w-1/3 aspect-[3/4] flex items-center justify-center flex-shrink-0"
+                  className="w-full aspect-[4/3] md:aspect-[3/4] md:w-[28%] flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: colors.bgAlt }}
                   data-testid={`img-product-${product.id}`}
                 >

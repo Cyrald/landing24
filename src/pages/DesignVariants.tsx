@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ChevronDown, ExternalLink, Leaf, Star, Sparkles, Shield, CircleDot, Droplets, Activity, Glasses, Ribbon, Palette, Check } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, ExternalLink, Leaf, Star, Sparkles, Shield, CircleDot, Droplets, Activity, Glasses, Ribbon } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const products = [
   {
@@ -137,414 +137,349 @@ const colors = {
   gradient: "linear-gradient(135deg, #3d6b4f 0%, #2a4a36 50%, #1a2e1f 100%)",
 };
 
-type BackgroundVariant = 
-  | "original" 
-  | "gradient" 
-  | "organic" 
-  | "botanical" 
-  | "texture" 
-  | "waves"
-  | "gradient-organic"
-  | "gradient-botanical"
-  | "gradient-waves"
-  | "organic-botanical"
-  | "texture-waves";
-
-const backgroundVariants: { id: BackgroundVariant; name: string; description: string }[] = [
-  { id: "original", name: "Оригинал", description: "Простой однотонный фон" },
-  { id: "gradient", name: "Градиент", description: "Плавный переход цветов" },
-  { id: "organic", name: "Органические формы", description: "Абстрактные круги и формы" },
-  { id: "botanical", name: "Ботанический", description: "Узор из листьев" },
-  { id: "texture", name: "Текстура", description: "Натуральная текстура бумаги" },
-  { id: "waves", name: "Волны", description: "Топографические линии" },
-  { id: "gradient-organic", name: "Градиент + Формы", description: "Комбинация градиента и форм" },
-  { id: "gradient-botanical", name: "Градиент + Листья", description: "Градиент с ботаническим узором" },
-  { id: "gradient-waves", name: "Градиент + Волны", description: "Градиент с волнистыми линиями" },
-  { id: "organic-botanical", name: "Формы + Листья", description: "Органические формы с узором" },
-  { id: "texture-waves", name: "Текстура + Волны", description: "Натуральная текстура с волнами" },
-];
-
-function GradientBackground() {
+function AnimatedMeshGradient() {
   return (
-    <div 
-      className="fixed inset-0 pointer-events-none"
-      style={{
-        background: `linear-gradient(180deg, 
-          ${colors.bg} 0%, 
-          #e8f0e8 30%, 
-          #dce8dc 60%, 
-          ${colors.bgAlt} 100%
-        )`,
-        zIndex: 0,
-      }}
-    />
+    <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(ellipse 80% 50% at 20% 40%, rgba(61, 107, 79, 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 80% at 80% 20%, rgba(42, 74, 54, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse 50% 60% at 40% 80%, rgba(212, 229, 216, 0.3) 0%, transparent 50%),
+            radial-gradient(ellipse 70% 40% at 90% 70%, rgba(61, 107, 79, 0.08) 0%, transparent 50%),
+            linear-gradient(180deg, #f8faf8 0%, #eef4ee 100%)
+          `,
+        }}
+      />
+      <motion.div
+        className="absolute inset-0"
+        animate={{
+          background: [
+            `radial-gradient(ellipse 80% 50% at 20% 40%, rgba(61, 107, 79, 0.15) 0%, transparent 50%),
+             radial-gradient(ellipse 60% 80% at 80% 20%, rgba(42, 74, 54, 0.12) 0%, transparent 50%)`,
+            `radial-gradient(ellipse 80% 50% at 30% 50%, rgba(61, 107, 79, 0.18) 0%, transparent 50%),
+             radial-gradient(ellipse 60% 80% at 70% 30%, rgba(42, 74, 54, 0.15) 0%, transparent 50%)`,
+            `radial-gradient(ellipse 80% 50% at 25% 35%, rgba(61, 107, 79, 0.12) 0%, transparent 50%),
+             radial-gradient(ellipse 60% 80% at 75% 25%, rgba(42, 74, 54, 0.1) 0%, transparent 50%)`,
+            `radial-gradient(ellipse 80% 50% at 20% 40%, rgba(61, 107, 79, 0.15) 0%, transparent 50%),
+             radial-gradient(ellipse 60% 80% at 80% 20%, rgba(42, 74, 54, 0.12) 0%, transparent 50%)`,
+          ],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+    </div>
   );
 }
 
-function OrganicShapes() {
+function BreathingBlobs() {
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
-      <div 
-        className="absolute rounded-full opacity-[0.08]"
+    <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1 }}>
+      <motion.div
+        className="absolute"
         style={{
           width: "600px",
           height: "600px",
-          top: "-150px",
-          right: "-100px",
-          background: `radial-gradient(circle, ${colors.accent} 0%, transparent 70%)`,
+          top: "-100px",
+          right: "-150px",
+          background: `radial-gradient(circle, rgba(61, 107, 79, 0.08) 0%, transparent 70%)`,
+          borderRadius: "40% 60% 70% 30% / 40% 50% 60% 50%",
+          filter: "blur(40px)",
+        }}
+        animate={{
+          scale: [1, 1.1, 1.05, 1],
+          borderRadius: [
+            "40% 60% 70% 30% / 40% 50% 60% 50%",
+            "50% 50% 60% 40% / 50% 60% 40% 60%",
+            "45% 55% 65% 35% / 45% 55% 55% 45%",
+            "40% 60% 70% 30% / 40% 50% 60% 50%",
+          ],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
         }}
       />
-      <div 
-        className="absolute rounded-full opacity-[0.06]"
-        style={{
-          width: "400px",
-          height: "400px",
-          top: "30%",
-          left: "-100px",
-          background: `radial-gradient(circle, ${colors.accent} 0%, transparent 70%)`,
-        }}
-      />
-      <div 
-        className="absolute rounded-full opacity-[0.05]"
+      <motion.div
+        className="absolute"
         style={{
           width: "500px",
           height: "500px",
           bottom: "10%",
-          right: "10%",
-          background: `radial-gradient(circle, ${colors.accentDark} 0%, transparent 70%)`,
+          left: "-100px",
+          background: `radial-gradient(circle, rgba(42, 74, 54, 0.06) 0%, transparent 70%)`,
+          borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
+          filter: "blur(50px)",
+        }}
+        animate={{
+          scale: [1, 1.15, 1.08, 1],
+          borderRadius: [
+            "60% 40% 30% 70% / 60% 30% 70% 40%",
+            "50% 50% 40% 60% / 50% 40% 60% 50%",
+            "55% 45% 35% 65% / 55% 35% 65% 45%",
+            "60% 40% 30% 70% / 60% 30% 70% 40%",
+          ],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
         }}
       />
-      <div 
-        className="absolute rounded-full opacity-[0.04]"
-        style={{
-          width: "300px",
-          height: "300px",
-          top: "60%",
-          left: "20%",
-          background: `radial-gradient(circle, ${colors.accent} 0%, transparent 70%)`,
-        }}
-      />
-      <div 
-        className="absolute rounded-full opacity-[0.07]"
-        style={{
-          width: "200px",
-          height: "200px",
-          top: "15%",
-          left: "60%",
-          background: `radial-gradient(circle, ${colors.accentLight} 0%, transparent 60%)`,
-        }}
-      />
-    </div>
-  );
-}
-
-function BotanicalPattern() {
-  const leafSvg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
-      <path d="M30 5 C20 15, 15 25, 15 35 C15 45, 22 52, 30 55 C38 52, 45 45, 45 35 C45 25, 40 15, 30 5" 
-            fill="none" 
-            stroke="${colors.accent}" 
-            stroke-width="1" 
-            opacity="0.06"/>
-      <path d="M30 15 L30 50" 
-            stroke="${colors.accent}" 
-            stroke-width="0.5" 
-            opacity="0.04"/>
-      <path d="M25 25 L30 20 L35 25" 
-            fill="none" 
-            stroke="${colors.accent}" 
-            stroke-width="0.5" 
-            opacity="0.04"/>
-      <path d="M23 35 L30 28 L37 35" 
-            fill="none" 
-            stroke="${colors.accent}" 
-            stroke-width="0.5" 
-            opacity="0.04"/>
-    </svg>
-  `;
-  
-  const encodedSvg = encodeURIComponent(leafSvg);
-  
-  return (
-    <div 
-      className="fixed inset-0 pointer-events-none"
-      style={{
-        backgroundImage: `url("data:image/svg+xml,${encodedSvg}")`,
-        backgroundSize: "80px 80px",
-        opacity: 1,
-        zIndex: 0,
-      }}
-    />
-  );
-}
-
-function TextureBackground() {
-  const noiseSvg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
-      <filter id="noise">
-        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/>
-        <feColorMatrix type="saturate" values="0"/>
-      </filter>
-      <rect width="100%" height="100%" filter="url(#noise)" opacity="0.03"/>
-    </svg>
-  `;
-  
-  const encodedNoise = encodeURIComponent(noiseSvg);
-  
-  return (
-    <div 
-      className="fixed inset-0 pointer-events-none"
-      style={{
-        backgroundImage: `url("data:image/svg+xml,${encodedNoise}")`,
-        backgroundSize: "200px 200px",
-        zIndex: 0,
-      }}
-    />
-  );
-}
-
-function WavesBackground() {
-  const wavesSvg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
-      <path d="M0 50 Q100 30, 200 50 T400 50" fill="none" stroke="${colors.accent}" stroke-width="1" opacity="0.04"/>
-      <path d="M0 100 Q100 80, 200 100 T400 100" fill="none" stroke="${colors.accent}" stroke-width="1" opacity="0.03"/>
-      <path d="M0 150 Q100 170, 200 150 T400 150" fill="none" stroke="${colors.accent}" stroke-width="1" opacity="0.04"/>
-      <path d="M0 200 Q100 180, 200 200 T400 200" fill="none" stroke="${colors.accent}" stroke-width="1" opacity="0.03"/>
-      <path d="M0 250 Q100 270, 200 250 T400 250" fill="none" stroke="${colors.accent}" stroke-width="1" opacity="0.04"/>
-      <path d="M0 300 Q100 280, 200 300 T400 300" fill="none" stroke="${colors.accent}" stroke-width="1" opacity="0.03"/>
-      <path d="M0 350 Q100 370, 200 350 T400 350" fill="none" stroke="${colors.accent}" stroke-width="1" opacity="0.04"/>
-    </svg>
-  `;
-  
-  const encodedWaves = encodeURIComponent(wavesSvg);
-  
-  return (
-    <div 
-      className="fixed inset-0 pointer-events-none"
-      style={{
-        backgroundImage: `url("data:image/svg+xml,${encodedWaves}")`,
-        backgroundSize: "400px 400px",
-        zIndex: 0,
-      }}
-    />
-  );
-}
-
-function BackgroundLayer({ variant }: { variant: BackgroundVariant }) {
-  const renderBackground = () => {
-    switch (variant) {
-      case "original":
-        return null;
-      case "gradient":
-        return <GradientBackground />;
-      case "organic":
-        return <OrganicShapes />;
-      case "botanical":
-        return <BotanicalPattern />;
-      case "texture":
-        return <TextureBackground />;
-      case "waves":
-        return <WavesBackground />;
-      case "gradient-organic":
-        return (
-          <>
-            <GradientBackground />
-            <OrganicShapes />
-          </>
-        );
-      case "gradient-botanical":
-        return (
-          <>
-            <GradientBackground />
-            <BotanicalPattern />
-          </>
-        );
-      case "gradient-waves":
-        return (
-          <>
-            <GradientBackground />
-            <WavesBackground />
-          </>
-        );
-      case "organic-botanical":
-        return (
-          <>
-            <OrganicShapes />
-            <BotanicalPattern />
-          </>
-        );
-      case "texture-waves":
-        return (
-          <>
-            <TextureBackground />
-            <WavesBackground />
-          </>
-        );
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <AnimatePresence mode="wait">
       <motion.div
-        key={variant}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {renderBackground()}
-      </motion.div>
-    </AnimatePresence>
-  );
-}
-
-function VariantSelector({ 
-  currentVariant, 
-  onSelect 
-}: { 
-  currentVariant: BackgroundVariant; 
-  onSelect: (v: BackgroundVariant) => void;
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="fixed top-4 right-4 z-50">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-3 rounded-xl shadow-lg font-medium transition-all hover:scale-105"
-        style={{ 
-          backgroundColor: colors.cardBg, 
-          color: colors.accent,
-          border: `2px solid ${colors.accentLight}`,
+        className="absolute"
+        style={{
+          width: "400px",
+          height: "400px",
+          top: "40%",
+          right: "20%",
+          background: `radial-gradient(circle, rgba(212, 229, 216, 0.15) 0%, transparent 70%)`,
+          borderRadius: "30% 70% 40% 60% / 50% 60% 40% 50%",
+          filter: "blur(60px)",
         }}
-        data-testid="button-variant-selector"
-      >
-        <Palette className="w-5 h-5" />
-        <span className="hidden sm:inline">Варианты фона</span>
-        <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-      </button>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full right-0 mt-2 w-72 rounded-xl shadow-2xl overflow-hidden"
-            style={{ 
-              backgroundColor: colors.cardBg,
-              border: `1px solid ${colors.accentLight}`,
-            }}
-          >
-            <div className="p-3 border-b" style={{ borderColor: colors.accentLight }}>
-              <div className="text-sm font-semibold" style={{ color: colors.text }}>
-                Выберите вариант фона
-              </div>
-              <div className="text-xs mt-1" style={{ color: colors.textSecondary }}>
-                {backgroundVariants.length} вариантов доступно
-              </div>
-            </div>
-            <div className="max-h-[60vh] overflow-y-auto p-2">
-              {backgroundVariants.map((v) => (
-                <button
-                  key={v.id}
-                  onClick={() => {
-                    onSelect(v.id);
-                    setIsOpen(false);
-                  }}
-                  className="w-full flex items-start gap-3 p-3 rounded-lg text-left transition-colors"
-                  style={{ 
-                    backgroundColor: currentVariant === v.id ? colors.accentLight : 'transparent',
-                  }}
-                  data-testid={`button-variant-${v.id}`}
-                >
-                  <div 
-                    className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                    style={{ 
-                      backgroundColor: currentVariant === v.id ? colors.accent : colors.bgAlt,
-                      color: currentVariant === v.id ? '#fff' : colors.textSecondary,
-                    }}
-                  >
-                    {currentVariant === v.id && <Check className="w-3 h-3" />}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div 
-                      className="font-medium text-sm"
-                      style={{ color: colors.text }}
-                    >
-                      {v.name}
-                    </div>
-                    <div 
-                      className="text-xs mt-0.5"
-                      style={{ color: colors.textSecondary }}
-                    >
-                      {v.description}
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <div 
-              className="p-3 border-t text-xs text-center"
-              style={{ borderColor: colors.accentLight, color: colors.textSecondary }}
-            >
-              Нажмите для переключения
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        animate={{
+          scale: [1, 1.2, 1.1, 1],
+          borderRadius: [
+            "30% 70% 40% 60% / 50% 60% 40% 50%",
+            "40% 60% 50% 50% / 60% 50% 50% 40%",
+            "35% 65% 45% 55% / 55% 55% 45% 45%",
+            "30% 70% 40% 60% / 50% 60% 40% 50%",
+          ],
+        }}
+        transition={{
+          duration: 18,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 4,
+        }}
+      />
     </div>
   );
 }
 
-function CurrentVariantBadge({ variant }: { variant: BackgroundVariant }) {
-  const currentVariant = backgroundVariants.find(v => v.id === variant);
+function FloatingParticles() {
+  const particles = Array.from({ length: 25 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 4 + 2,
+    duration: Math.random() * 20 + 15,
+    delay: Math.random() * 10,
+  }));
+
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 2 }}>
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full"
+          style={{
+            width: p.size,
+            height: p.size,
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            backgroundColor: colors.accent,
+            opacity: 0.15,
+          }}
+          animate={{
+            y: [0, -30, -15, 0],
+            x: [0, 10, -5, 0],
+            opacity: [0.1, 0.2, 0.15, 0.1],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: p.delay,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function ParallaxBotanicals() {
+  const { scrollY } = useScroll();
   
+  const y1 = useTransform(scrollY, [0, 1000], [0, -150]);
+  const y2 = useTransform(scrollY, [0, 1000], [0, -100]);
+  const y3 = useTransform(scrollY, [0, 1000], [0, -200]);
+  const rotate1 = useTransform(scrollY, [0, 1000], [0, 15]);
+  const rotate2 = useTransform(scrollY, [0, 1000], [0, -10]);
+
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1 }}>
+      <motion.div
+        style={{ y: y1, rotate: rotate1 }}
+        className="absolute top-20 right-10 opacity-[0.07]"
+      >
+        <svg width="120" height="180" viewBox="0 0 120 180">
+          <path
+            d="M60 10 C30 40, 20 80, 25 120 C28 145, 45 165, 60 175 C75 165, 92 145, 95 120 C100 80, 90 40, 60 10"
+            fill="none"
+            stroke={colors.accent}
+            strokeWidth="2"
+          />
+          <path d="M60 40 L60 170" stroke={colors.accent} strokeWidth="1.5" />
+          <path d="M40 70 Q50 60 60 70" fill="none" stroke={colors.accent} strokeWidth="1" />
+          <path d="M60 70 Q70 60 80 70" fill="none" stroke={colors.accent} strokeWidth="1" />
+          <path d="M35 100 Q47 85 60 100" fill="none" stroke={colors.accent} strokeWidth="1" />
+          <path d="M60 100 Q73 85 85 100" fill="none" stroke={colors.accent} strokeWidth="1" />
+          <path d="M40 130 Q50 115 60 130" fill="none" stroke={colors.accent} strokeWidth="1" />
+          <path d="M60 130 Q70 115 80 130" fill="none" stroke={colors.accent} strokeWidth="1" />
+        </svg>
+      </motion.div>
+      
+      <motion.div
+        style={{ y: y2, rotate: rotate2 }}
+        className="absolute top-[40%] left-5 opacity-[0.05]"
+      >
+        <svg width="80" height="140" viewBox="0 0 80 140">
+          <path
+            d="M40 5 C20 25, 10 55, 15 85 C18 105, 30 120, 40 130 C50 120, 62 105, 65 85 C70 55, 60 25, 40 5"
+            fill="none"
+            stroke={colors.accentDark}
+            strokeWidth="1.5"
+          />
+          <path d="M40 20 L40 125" stroke={colors.accentDark} strokeWidth="1" />
+          <path d="M25 50 Q32 40 40 50" fill="none" stroke={colors.accentDark} strokeWidth="0.8" />
+          <path d="M40 50 Q48 40 55 50" fill="none" stroke={colors.accentDark} strokeWidth="0.8" />
+          <path d="M22 80 Q31 65 40 80" fill="none" stroke={colors.accentDark} strokeWidth="0.8" />
+          <path d="M40 80 Q49 65 58 80" fill="none" stroke={colors.accentDark} strokeWidth="0.8" />
+        </svg>
+      </motion.div>
+      
+      <motion.div
+        style={{ y: y3 }}
+        className="absolute top-[60%] right-[15%] opacity-[0.04]"
+      >
+        <svg width="100" height="160" viewBox="0 0 100 160">
+          <path
+            d="M50 8 C25 35, 15 70, 20 105 C23 128, 38 145, 50 155 C62 145, 77 128, 80 105 C85 70, 75 35, 50 8"
+            fill="none"
+            stroke={colors.accent}
+            strokeWidth="1.5"
+          />
+          <path d="M50 25 L50 150" stroke={colors.accent} strokeWidth="1" />
+          <path d="M32 60 Q41 48 50 60" fill="none" stroke={colors.accent} strokeWidth="0.8" />
+          <path d="M50 60 Q59 48 68 60" fill="none" stroke={colors.accent} strokeWidth="0.8" />
+          <path d="M28 95 Q39 78 50 95" fill="none" stroke={colors.accent} strokeWidth="0.8" />
+          <path d="M50 95 Q61 78 72 95" fill="none" stroke={colors.accent} strokeWidth="0.8" />
+        </svg>
+      </motion.div>
+
+      <motion.div
+        style={{ y: y1 }}
+        className="absolute bottom-[20%] left-[10%] opacity-[0.06]"
+      >
+        <svg width="60" height="100" viewBox="0 0 60 100">
+          <ellipse cx="30" cy="50" rx="25" ry="40" fill="none" stroke={colors.accent} strokeWidth="1.5" />
+          <path d="M30 15 L30 85" stroke={colors.accent} strokeWidth="1" />
+          <path d="M15 40 Q22 30 30 40" fill="none" stroke={colors.accent} strokeWidth="0.8" />
+          <path d="M30 40 Q38 30 45 40" fill="none" stroke={colors.accent} strokeWidth="0.8" />
+          <path d="M12 60 Q21 48 30 60" fill="none" stroke={colors.accent} strokeWidth="0.8" />
+          <path d="M30 60 Q39 48 48 60" fill="none" stroke={colors.accent} strokeWidth="0.8" />
+        </svg>
+      </motion.div>
+    </div>
+  );
+}
+
+function WaveDivider({ flip = false, color = colors.bgAlt }: { flip?: boolean; color?: string }) {
+  return (
+    <div className={`w-full overflow-hidden ${flip ? 'rotate-180' : ''}`} style={{ marginTop: flip ? 0 : '-1px', marginBottom: flip ? '-1px' : 0 }}>
+      <svg
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+        className="w-full h-16 md:h-24"
+        style={{ display: 'block' }}
+      >
+        <motion.path
+          d="M0,60 C150,90 350,30 600,60 C850,90 1050,30 1200,60 L1200,120 L0,120 Z"
+          fill={color}
+          animate={{
+            d: [
+              "M0,60 C150,90 350,30 600,60 C850,90 1050,30 1200,60 L1200,120 L0,120 Z",
+              "M0,60 C150,30 350,90 600,60 C850,30 1050,90 1200,60 L1200,120 L0,120 Z",
+              "M0,60 C150,90 350,30 600,60 C850,90 1050,30 1200,60 L1200,120 L0,120 Z",
+            ],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </svg>
+    </div>
+  );
+}
+
+function OrganicWaveDivider({ color = colors.cardBg }: { color?: string }) {
+  return (
+    <div className="w-full overflow-hidden" style={{ marginTop: '-1px' }}>
+      <svg
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+        className="w-full h-20 md:h-28"
+        style={{ display: 'block' }}
+      >
+        <motion.path
+          d="M0,40 Q200,80 400,40 T800,40 T1200,40 L1200,120 L0,120 Z"
+          fill={color}
+          animate={{
+            d: [
+              "M0,40 Q200,80 400,40 T800,40 T1200,40 L1200,120 L0,120 Z",
+              "M0,50 Q200,20 400,50 T800,50 T1200,50 L1200,120 L0,120 Z",
+              "M0,40 Q200,80 400,40 T800,40 T1200,40 L1200,120 L0,120 Z",
+            ],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </svg>
+    </div>
+  );
+}
+
+function SubtleTexture() {
   return (
     <div 
-      className="fixed bottom-4 left-4 z-50 px-4 py-2 rounded-full shadow-lg text-sm font-medium"
-      style={{ 
-        backgroundColor: colors.accent,
-        color: '#fff',
+      className="fixed inset-0 pointer-events-none opacity-[0.015]"
+      style={{
+        zIndex: 3,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        backgroundSize: "150px 150px",
       }}
-    >
-      Фон: {currentVariant?.name}
-    </div>
+    />
   );
 }
-
 
 export default function DesignVariants() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [currentVariant, setCurrentVariant] = useState<BackgroundVariant>("original");
 
   return (
-    <div style={{ backgroundColor: colors.bg }} className="relative">
-      <BackgroundLayer variant={currentVariant} />
-      <VariantSelector currentVariant={currentVariant} onSelect={setCurrentVariant} />
-      <CurrentVariantBadge variant={currentVariant} />
+    <div className="relative min-h-screen" style={{ backgroundColor: colors.bg }}>
+      <AnimatedMeshGradient />
+      <BreathingBlobs />
+      <FloatingParticles />
+      <ParallaxBotanicals />
+      <SubtleTexture />
       
-      <div className="relative" style={{ zIndex: 1 }}>
-        {/* Hero Section - Redesigned */}
-        <section className="relative overflow-hidden">
-          {/* Decorative background elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div 
-              className="absolute -top-40 -right-40 w-96 h-96 rounded-full opacity-20"
-              style={{ background: colors.gradient }}
-            />
-            <div 
-              className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full opacity-10"
-              style={{ background: colors.gradient }}
-            />
-          </div>
-
+      <div className="relative" style={{ zIndex: 10 }}>
+        {/* Hero Section */}
+        <section className="relative overflow-hidden min-h-screen flex items-center">
           <div className="relative max-w-6xl mx-auto px-6 py-16 md:py-24">
             <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-              {/* Left content */}
               <div className="flex-1 text-center lg:text-left">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -598,7 +533,6 @@ export default function DesignVariants() {
                 </motion.div>
               </div>
 
-              {/* Right - Banner/Image placeholder */}
               <motion.div 
                 className="flex-1 w-full max-w-lg"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -618,7 +552,6 @@ export default function DesignVariants() {
                     <span className="text-xl font-medium opacity-90">Главное изображение</span>
                     <span className="text-sm opacity-70 mt-2">800 x 1000</span>
                   </div>
-                  {/* Decorative corner */}
                   <div 
                     className="absolute top-4 right-4 w-20 h-20 rounded-full opacity-20"
                     style={{ backgroundColor: "#fff" }}
@@ -629,21 +562,18 @@ export default function DesignVariants() {
           </div>
         </section>
 
-        {/* Quote/Philosophy Section */}
-        <section className="py-16 md:py-20">
+        <WaveDivider color={colors.bgAlt} />
+
+        {/* Quote Section */}
+        <section className="py-16 md:py-20" style={{ backgroundColor: colors.bgAlt }}>
           <div className="max-w-4xl mx-auto px-6">
-            <div 
-              className="relative rounded-2xl p-8 md:p-12 text-center"
-              style={{ backgroundColor: colors.bgAlt }}
+            <motion.div 
+              className="relative rounded-2xl p-8 md:p-12 text-center backdrop-blur-sm"
+              style={{ backgroundColor: `${colors.cardBg}cc` }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
             >
-              <div 
-                className="absolute top-4 left-4 w-12 h-12 rounded-full opacity-30"
-                style={{ backgroundColor: colors.accent }}
-              />
-              <div 
-                className="absolute bottom-4 right-4 w-8 h-8 rounded-full opacity-20"
-                style={{ backgroundColor: colors.accent }}
-              />
               <div className="relative">
                 <Leaf className="w-10 h-10 mx-auto mb-6" style={{ color: colors.accent }} />
                 <p 
@@ -657,20 +587,35 @@ export default function DesignVariants() {
                   style={{ backgroundColor: colors.accent }}
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* Как это работает */}
-        <section className="py-16 md:py-24" style={{ backgroundColor: `${colors.bgAlt}99` }}>
+        <OrganicWaveDivider color={colors.bg} />
+
+        {/* How It Works */}
+        <section className="py-16 md:py-24">
           <div className="max-w-5xl mx-auto px-6">
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            <motion.h2 
+              className="text-2xl md:text-4xl font-bold text-center mb-12"
+              style={{ color: colors.text }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
               Как это работает
-            </h2>
+            </motion.h2>
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1 space-y-6">
-                {howItWorks.map((item) => (
-                  <div key={item.step} className="flex gap-4">
+                {howItWorks.map((item, idx) => (
+                  <motion.div 
+                    key={item.step} 
+                    className="flex gap-4"
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                  >
                     <div 
                       className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-xl font-bold"
                       style={{ backgroundColor: colors.accent, color: "#fff" }}
@@ -681,26 +626,37 @@ export default function DesignVariants() {
                       <h3 className="font-bold mb-1" style={{ color: colors.text }}>{item.title}</h3>
                       <p className="text-sm" style={{ color: colors.textSecondary }}>{item.desc}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-              <div 
-                className="w-full md:w-80 aspect-[3/4] rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: colors.cardBg }}
+              <motion.div 
+                className="w-full md:w-80 aspect-[3/4] rounded-xl flex items-center justify-center backdrop-blur-sm"
+                style={{ backgroundColor: `${colors.cardBg}ee` }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
               >
                 <span style={{ color: colors.accent }}>Иллюстрация 3:4</span>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Каталог продуктов - Zigzag layout */}
-        <section className="py-16 md:py-24" data-testid="section-products">
+        <WaveDivider color={colors.cardBg} />
+
+        {/* Products Section */}
+        <section className="py-16 md:py-24" style={{ backgroundColor: colors.cardBg }} data-testid="section-products">
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: colors.text }}>
+              <motion.h2 
+                className="text-2xl md:text-4xl font-bold mb-2"
+                style={{ color: colors.text }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
                 Каталог продуктов
-              </h2>
+              </motion.h2>
               <div className="w-24 h-0.5 mx-auto" style={{ backgroundColor: colors.accent }}></div>
             </div>
             
@@ -709,7 +665,7 @@ export default function DesignVariants() {
                 <motion.div 
                   key={product.id}
                   className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 items-center rounded-xl overflow-hidden`}
-                  style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
+                  style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
                   data-testid={`card-product-${product.id}`}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -763,18 +719,30 @@ export default function DesignVariants() {
           </div>
         </section>
 
-        {/* Отзывы */}
-        <section className="py-16 md:py-24" style={{ backgroundColor: `${colors.cardBg}dd` }}>
+        <WaveDivider flip color={colors.bg} />
+
+        {/* Testimonials */}
+        <section className="py-16 md:py-24">
           <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            <motion.h2 
+              className="text-2xl md:text-4xl font-bold text-center mb-12"
+              style={{ color: colors.text }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
               Истории наших клиентов
-            </h2>
+            </motion.h2>
             <div className="grid md:grid-cols-2 gap-6">
-              {testimonials.map((t) => (
-                <div 
+              {testimonials.map((t, idx) => (
+                <motion.div 
                   key={t.id}
-                  className="rounded-2xl p-6"
-                  style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
+                  className="rounded-2xl p-6 backdrop-blur-sm"
+                  style={{ backgroundColor: `${colors.cardBg}ee`, border: `1px solid ${colors.accentLight}` }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
                 >
                   <div className="flex gap-1 mb-3">
                     {[1,2,3,4,5].map((s) => (
@@ -794,24 +762,36 @@ export default function DesignVariants() {
                       <div className="text-xs" style={{ color: colors.textSecondary }}>{t.city}</div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
+        <OrganicWaveDivider color={colors.bgAlt} />
+
         {/* FAQ */}
-        <section className="py-16 md:py-24">
+        <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
           <div className="max-w-3xl mx-auto px-6">
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>
+            <motion.h2 
+              className="text-2xl md:text-4xl font-bold text-center mb-12"
+              style={{ color: colors.text }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
               Вопросы и ответы
-            </h2>
+            </motion.h2>
             <div className="space-y-4">
               {faqItems.map((item, idx) => (
-                <div 
+                <motion.div 
                   key={idx}
-                  className="rounded-xl overflow-hidden"
-                  style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
+                  className="rounded-xl overflow-hidden backdrop-blur-sm"
+                  style={{ backgroundColor: `${colors.cardBg}ee`, border: `1px solid ${colors.accentLight}` }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.05 }}
                 >
                   <button
                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
@@ -825,33 +805,55 @@ export default function DesignVariants() {
                     />
                   </button>
                   {openFaq === idx && (
-                    <div className="px-5 pb-5" style={{ borderTop: `1px dashed ${colors.accentLight}` }}>
+                    <motion.div 
+                      className="px-5 pb-5"
+                      style={{ borderTop: `1px dashed ${colors.accentLight}` }}
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                    >
                       <p className="pt-4" style={{ color: colors.textSecondary }}>{item.a}</p>
-                    </div>
+                    </motion.div>
                   )}
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
         {/* CTA */}
-        <section className="py-16 md:py-24" style={{ background: colors.gradient }}>
-          <div className="max-w-3xl mx-auto px-6 text-center">
-            <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
-              Добро пожаловать в мир здоровья
-            </h2>
-            <p className="text-white/90 text-lg mb-8">
-              Откройте для себя полный ассортимент продукции на нашем сайте.
-            </p>
-            <button
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:scale-105"
-              style={{ backgroundColor: "#fff", color: colors.accent }}
-              data-testid="button-go-to-site"
+        <section className="py-16 md:py-24 relative overflow-hidden" style={{ background: colors.gradient }}>
+          <motion.div 
+            className="absolute inset-0 opacity-20"
+            animate={{
+              background: [
+                "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
+                "radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
+                "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
+              ],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <div className="max-w-3xl mx-auto px-6 text-center relative">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
             >
-              Перейти в каталог
-              <ExternalLink className="w-5 h-5" />
-            </button>
+              <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+                Добро пожаловать в мир здоровья
+              </h2>
+              <p className="text-white/90 text-lg mb-8">
+                Откройте для себя полный ассортимент продукции на нашем сайте.
+              </p>
+              <button
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:scale-105"
+                style={{ backgroundColor: "#fff", color: colors.accent }}
+                data-testid="button-go-to-site"
+              >
+                Перейти в каталог
+                <ExternalLink className="w-5 h-5" />
+              </button>
+            </motion.div>
           </div>
         </section>
       </div>

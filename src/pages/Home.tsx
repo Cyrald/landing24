@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { getImageSources } from "../utils/imageLoader";
 import { SmartImage } from "../components/SmartImage";
 import { motion, AnimatePresence } from "framer-motion";
+import HeroVariants from "../components/HeroVariants";
 
 const softGreen = {
   50: "#f0f7f3",
@@ -439,29 +440,8 @@ function TestimonialsCarousel() {
 export default function Home() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: softGreen[50] }}>
-      {/* Отступ сверху */}
-      <div className="h-10 md:h-16"></div>
-
-      {/* Hero - Баннер 1820x500 */}
-      <section className="bg-white py-6 md:py-10">
-        <div className="max-w-[1820px] mx-auto px-6 md:px-10">
-          <div
-            className="w-full rounded-xl overflow-hidden"
-            style={{ aspectRatio: "1820/500", backgroundColor: softGreen[300] }}
-          >
-            <SmartImage
-              sources={getImageSources('banner', 1)}
-              alt="Баннер MediPatch"
-              className="w-full h-full object-cover"
-              placeholderContent={
-                <div className="w-full h-full flex items-center justify-center text-white text-2xl md:text-4xl font-bold">
-                  1820 x 500
-                </div>
-              }
-            />
-          </div>
-        </div>
-      </section>
+      {/* Hero блок с переключателем вариантов */}
+      <HeroVariants variant={1} showSelector={true} />
 
       {/* Блок 2: Тезис и Как это работает */}
       <section className="py-16 md:py-24">

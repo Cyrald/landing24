@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { ChevronDown, ExternalLink, Leaf, Star, Sparkles, Shield, CircleDot, Droplets, Activity, Glasses, Ribbon } from "lucide-react";
+import { ChevronDown, ExternalLink, Star, Shield, CircleDot, Droplets, Activity, Glasses, Ribbon } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import HeroVariants from "../components/HeroVariants";
 
 function useReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -571,91 +572,8 @@ export default function DesignVariants() {
       <SubtleTexture />
       
       <div className="relative" style={{ zIndex: 10 }}>
-        {/* Hero Section */}
-        <section className="relative overflow-hidden min-h-screen flex items-center">
-          <div className="relative max-w-6xl mx-auto px-6 py-16 md:py-24">
-            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-              <div className="flex-1 text-center lg:text-left">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <div 
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
-                    style={{ backgroundColor: colors.accentLight, color: colors.accent }}
-                  >
-                    <Sparkles className="w-4 h-4" />
-                    Сила природы для вашего здоровья
-                  </div>
-                  
-                  <h1 
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
-                    style={{ color: colors.text }}
-                  >
-                    Древние традиции
-                    <br />
-                    <span style={{ color: colors.accent }}>исцеления</span>
-                  </h1>
-                  
-                  <p 
-                    className="text-lg md:text-xl mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed"
-                    style={{ color: colors.textSecondary }}
-                  >
-                    Вековые рецепты народной медицины, бережно сохранённые и усовершенствованные для современного человека. Шесть уникальных продуктов для вашего здоровья и благополучия.
-                  </p>
-
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <button
-                      className="px-8 py-4 rounded-xl text-lg font-semibold text-white transition-all hover:scale-105"
-                      style={{ background: colors.gradient }}
-                      data-testid="button-hero-catalog"
-                    >
-                      Смотреть каталог
-                    </button>
-                    <button
-                      className="px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:scale-105"
-                      style={{ 
-                        backgroundColor: "transparent", 
-                        color: colors.accent,
-                        border: `2px solid ${colors.accent}`
-                      }}
-                      data-testid="button-hero-learn"
-                    >
-                      Узнать больше
-                    </button>
-                  </div>
-                </motion.div>
-              </div>
-
-              <motion.div 
-                className="flex-1 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <div 
-                  className="relative rounded-2xl overflow-hidden"
-                  style={{ aspectRatio: "3/4" }}
-                >
-                  <div 
-                    className="absolute inset-0"
-                    style={{ background: colors.gradient }}
-                  />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-8">
-                    <Leaf className="w-16 h-16 mb-4 opacity-80" />
-                    <span className="text-xl font-medium opacity-90">Главное изображение</span>
-                    <span className="text-sm opacity-70 mt-2">800 x 1000</span>
-                  </div>
-                  <div 
-                    className="absolute top-4 right-4 w-20 h-20 rounded-full opacity-20"
-                    style={{ backgroundColor: "#fff" }}
-                  />
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        {/* Hero Section с 10 вариантами */}
+        <HeroVariants variant={1} showSelector={true} />
 
         <WaveDivider color={colors.bg} reducedMotion={reducedMotion} />
 

@@ -60,49 +60,86 @@ function HeroImagePlaceholder({ text, aspectRatio = "16/9", className = "" }: { 
 function HeroSelector({ currentVariant, onSelect }: { currentVariant: number; onSelect: (v: number) => void }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const goToPrev = () => {
+    const newVariant = currentVariant === 1 ? 10 : currentVariant - 1;
+    onSelect(newVariant);
+  };
+
+  const goToNext = () => {
+    const newVariant = currentVariant === 10 ? 1 : currentVariant + 1;
+    onSelect(newVariant);
+  };
+
   return (
-    <div className="fixed top-4 right-4 z-50">
+    <div className="w-full py-4 px-4 flex items-center justify-center gap-4 sticky top-0 z-[100]" style={{ backgroundColor: softGreen[700], minHeight: '60px' }}>
+      <button
+        onClick={goToPrev}
+        className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+        data-testid="button-hero-prev"
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+      
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium shadow-lg transition-all hover:opacity-90"
-          style={{ backgroundColor: softGreen[600] }}
+          className="flex items-center gap-3 px-5 py-2.5 rounded-xl bg-white/20 text-white font-semibold transition-all hover:bg-white/30"
           data-testid="button-hero-selector"
         >
-          <span>Hero: {heroVariantNames[currentVariant - 1]}</span>
-          <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <Leaf className="w-5 h-5" />
+          <span>Hero {currentVariant}/10: {heroVariantNames[currentVariant - 1].replace(/^\d+\.\s*/, '')}</span>
+          <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </button>
         
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="absolute top-full right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border overflow-hidden"
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 bg-white rounded-xl shadow-2xl border overflow-hidden z-50"
+              style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}
             >
-              {heroVariantNames.map((name, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    onSelect(idx + 1);
-                    setIsOpen(false);
-                  }}
-                  className={`w-full text-left px-4 py-3 text-sm transition-colors ${
-                    currentVariant === idx + 1
-                      ? 'text-white'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
-                  style={currentVariant === idx + 1 ? { backgroundColor: softGreen[500] } : {}}
-                  data-testid={`button-hero-variant-${idx + 1}`}
-                >
-                  {name}
-                </button>
-              ))}
+              <div className="p-3 border-b bg-gray-50">
+                <span className="text-sm font-bold text-gray-700">Выберите дизайн Hero блока</span>
+              </div>
+              <div className="max-h-72 overflow-y-auto">
+                {heroVariantNames.map((name, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      onSelect(idx + 1);
+                      setIsOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-3 text-sm transition-all flex items-center gap-3 ${
+                      currentVariant === idx + 1
+                        ? 'text-white font-semibold'
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                    style={currentVariant === idx + 1 ? { backgroundColor: softGreen[500] } : {}}
+                    data-testid={`button-hero-variant-${idx + 1}`}
+                  >
+                    <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
+                      currentVariant === idx + 1 ? 'bg-white/30' : 'bg-gray-200'
+                    }`}>
+                      {idx + 1}
+                    </span>
+                    <span>{name.replace(/^\d+\.\s*/, '')}</span>
+                  </button>
+                ))}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
+      
+      <button
+        onClick={goToNext}
+        className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+        data-testid="button-hero-next"
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
     </div>
   );
 }
@@ -846,7 +883,7 @@ export default function HeroVariants({ variant = 1, onVariantChange, showSelecto
   };
 
   return (
-    <>
+    <div className="w-full">
       {showSelector && (
         <HeroSelector currentVariant={currentVariant} onSelect={handleVariantChange} />
       )}
@@ -861,7 +898,7 @@ export default function HeroVariants({ variant = 1, onVariantChange, showSelecto
           {renderHero()}
         </motion.div>
       </AnimatePresence>
-    </>
+    </div>
   );
 }
 

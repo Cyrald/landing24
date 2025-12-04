@@ -1,20 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Palette, X, ChevronDown, ChevronUp } from "lucide-react";
+import { Palette, X } from "lucide-react";
 import { usePalette } from "../context/PaletteContext";
-import { paletteCategories, getPalettesByCategory } from "../utils/palettes";
+import { palettes } from "../utils/palettes";
 
 export default function PaletteSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const { currentPalette, setPaletteById } = usePalette();
 
   const handleSelectPalette = (id: number) => {
     setPaletteById(id);
-  };
-
-  const toggleCategory = (category: string) => {
-    setExpandedCategory(expandedCategory === category ? null : category);
   };
 
   return (
@@ -90,123 +85,76 @@ export default function PaletteSwitcher() {
               </button>
             </div>
 
-            {/* Categories List */}
+            {/* Palettes Grid */}
             <div className="flex-1 overflow-y-auto p-4">
-              {paletteCategories.map((category) => {
-                const categoryPalettes = getPalettesByCategory(category);
-                const isExpanded = expandedCategory === category;
-                
-                return (
-                  <div key={category} className="mb-3">
-                    {/* Category Header */}
+              <div className="grid grid-cols-2 gap-3">
+                {palettes.map((palette) => {
+                  const isSelected = palette.id === currentPalette.id;
+                  
+                  return (
                     <button
-                      onClick={() => toggleCategory(category)}
-                      className="w-full flex items-center justify-between p-3 rounded-lg transition-colors"
+                      key={palette.id}
+                      onClick={() => handleSelectPalette(palette.id)}
+                      className={`p-3 rounded-lg text-left transition-all hover:scale-105`}
                       style={{ 
-                        backgroundColor: isExpanded ? currentPalette.colors.accentLight : currentPalette.colors.bgAlt,
-                        color: currentPalette.colors.text 
+                        backgroundColor: palette.colors.bg,
+                        outline: isSelected ? `2px solid ${palette.colors.accent}` : "none",
+                        outlineOffset: "2px",
+                        boxShadow: isSelected ? `0 0 0 4px ${palette.colors.accentLight}30` : "none"
                       }}
-                      data-testid={`button-category-${category}`}
+                      data-testid={`button-palette-${palette.id}`}
                     >
-                      <span className="font-semibold">{category}</span>
-                      <div className="flex items-center gap-2">
-                        <span 
-                          className="text-sm"
-                          style={{ color: currentPalette.colors.textSecondary }}
-                        >
-                          {categoryPalettes.length} палитр
-                        </span>
-                        {isExpanded ? (
-                          <ChevronUp className="w-5 h-5" />
-                        ) : (
-                          <ChevronDown className="w-5 h-5" />
-                        )}
+                      {/* Color Preview */}
+                      <div className="flex gap-1 mb-2">
+                        <div 
+                          className="w-6 h-6 rounded-full border"
+                          style={{ 
+                            backgroundColor: palette.colors.bg,
+                            borderColor: palette.colors.accentLight 
+                          }}
+                          title="Фон"
+                        />
+                        <div 
+                          className="w-6 h-6 rounded-full border"
+                          style={{ 
+                            backgroundColor: palette.colors.card,
+                            borderColor: palette.colors.accentLight 
+                          }}
+                          title="Карточки"
+                        />
+                        <div 
+                          className="w-6 h-6 rounded-full"
+                          style={{ backgroundColor: palette.colors.accent }}
+                          title="Акцент"
+                        />
+                        <div 
+                          className="w-6 h-6 rounded-full"
+                          style={{ backgroundColor: palette.colors.button }}
+                          title="Кнопки"
+                        />
                       </div>
-                    </button>
-
-                    {/* Palettes Grid */}
-                    <AnimatePresence>
-                      {isExpanded && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="overflow-hidden"
+                      
+                      {/* Name */}
+                      <div 
+                        className="text-xs font-medium truncate"
+                        style={{ color: palette.colors.text }}
+                      >
+                        {palette.id}. {palette.name}
+                      </div>
+                      
+                      {/* Selected indicator */}
+                      {isSelected && (
+                        <div 
+                          className="text-xs mt-1 font-semibold"
+                          style={{ color: palette.colors.accent }}
                         >
-                          <div className="grid grid-cols-2 gap-2 pt-3">
-                            {categoryPalettes.map((palette) => {
-                              const isSelected = palette.id === currentPalette.id;
-                              
-                              return (
-                                <button
-                                  key={palette.id}
-                                  onClick={() => handleSelectPalette(palette.id)}
-                                  className={`p-3 rounded-lg text-left transition-all`}
-                                  style={{ 
-                                    backgroundColor: palette.colors.bg,
-                                    outline: isSelected ? `2px solid ${palette.colors.accent}` : "none",
-                                    outlineOffset: "2px"
-                                  }}
-                                  data-testid={`button-palette-${palette.id}`}
-                                >
-                                  {/* Color Preview */}
-                                  <div className="flex gap-1 mb-2">
-                                    <div 
-                                      className="w-6 h-6 rounded-full border"
-                                      style={{ 
-                                        backgroundColor: palette.colors.bg,
-                                        borderColor: palette.colors.accentLight 
-                                      }}
-                                      title="Фон"
-                                    />
-                                    <div 
-                                      className="w-6 h-6 rounded-full border"
-                                      style={{ 
-                                        backgroundColor: palette.colors.card,
-                                        borderColor: palette.colors.accentLight 
-                                      }}
-                                      title="Карточки"
-                                    />
-                                    <div 
-                                      className="w-6 h-6 rounded-full"
-                                      style={{ backgroundColor: palette.colors.accent }}
-                                      title="Акцент"
-                                    />
-                                    <div 
-                                      className="w-6 h-6 rounded-full"
-                                      style={{ backgroundColor: palette.colors.button }}
-                                      title="Кнопки"
-                                    />
-                                  </div>
-                                  
-                                  {/* Name */}
-                                  <div 
-                                    className="text-xs font-medium truncate"
-                                    style={{ color: palette.colors.text }}
-                                  >
-                                    {palette.id}. {palette.name}
-                                  </div>
-                                  
-                                  {/* Selected indicator */}
-                                  {isSelected && (
-                                    <div 
-                                      className="text-xs mt-1 font-semibold"
-                                      style={{ color: palette.colors.accent }}
-                                    >
-                                      Выбрано
-                                    </div>
-                                  )}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </motion.div>
+                          ✓ Выбрано
+                        </div>
                       )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Footer with current palette info */}
@@ -243,7 +191,7 @@ export default function PaletteSwitcher() {
                     className="text-xs"
                     style={{ color: currentPalette.colors.textSecondary }}
                   >
-                    {currentPalette.category}
+                    Палитра #{currentPalette.id} из {palettes.length}
                   </div>
                 </div>
               </div>

@@ -5,16 +5,7 @@ import { getImageSources } from "../utils/imageLoader";
 import { SmartImage } from "../components/SmartImage";
 import { motion, AnimatePresence } from "framer-motion";
 import HeroVariants from "../components/HeroVariants";
-
-const softGreen = {
-  50: "#f0f7f3",
-  100: "#dff1e3",
-  200: "#b7e0c2",
-  300: "#8fcf9f",
-  400: "#6bbc82",
-  500: "#5fa97a",
-  600: "#4d8e64",
-};
+import { usePalette } from "../context/PaletteContext";
 
 const products = [
   {
@@ -174,6 +165,8 @@ const testimonials = [
 
 // Компонент карусели продуктов
 function ProductsCarousel() {
+  const { currentPalette } = usePalette();
+  const colors = currentPalette.colors;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -240,7 +233,7 @@ function ProductsCarousel() {
             >
               <div
                 className="w-full rounded-xl overflow-hidden"
-                style={{ aspectRatio: "3/4", backgroundColor: softGreen[200] }}
+                style={{ aspectRatio: "3/4", backgroundColor: colors.accentLight }}
               >
                 <SmartImage
                   sources={imageSources}
@@ -267,7 +260,7 @@ function ProductsCarousel() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <h3 className="text-sm md:text-2xl lg:text-3xl font-bold mb-2 md:mb-4 leading-tight" style={{ color: softGreen[600] }}>
+              <h3 className="text-sm md:text-2xl lg:text-3xl font-bold mb-2 md:mb-4 leading-tight" style={{ color: colors.accent }}>
                 {currentProduct.name}
               </h3>
               <p className="text-gray-700 text-sm md:text-lg leading-relaxed mb-2 md:mb-4 hidden md:block">
@@ -276,12 +269,12 @@ function ProductsCarousel() {
               <ul className="space-y-1 md:space-y-2 mb-3 md:mb-6">
                 {currentProduct.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-1 md:gap-2 text-gray-700 text-sm md:text-base">
-                    <span className="flex-shrink-0" style={{ color: softGreen[600] }}>✓</span>
+                    <span className="flex-shrink-0" style={{ color: colors.accent }}>✓</span>
                     <span className="leading-tight">{feature}</span>
                   </li>
                 ))}
               </ul>
-              <div className="text-base md:text-3xl font-bold mb-2 md:mb-4" style={{ color: softGreen[600] }}>
+              <div className="text-base md:text-3xl font-bold mb-2 md:mb-4" style={{ color: colors.accent }}>
                 {currentProduct.price}
               </div>
             </motion.div>
@@ -299,7 +292,7 @@ function ProductsCarousel() {
               onClick={() => goToProduct(idx)}
               className="w-3 h-3 rounded-full transition-all duration-300"
               style={{ 
-                backgroundColor: idx === currentIndex ? softGreen[600] : softGreen[200],
+                backgroundColor: idx === currentIndex ? colors.accent : colors.accentLight,
               }}
               aria-label={`Перейти к продукту ${idx + 1}`}
               data-testid={`indicator-product-${idx}`}
@@ -313,13 +306,13 @@ function ProductsCarousel() {
             onClick={goToPrevious}
             data-testid="button-products-prev"
             className="flex items-center gap-1 px-4 py-2 rounded-md text-sm font-medium border transition-colors hover:bg-gray-50"
-            style={{ borderColor: softGreen[300], color: softGreen[600] }}
+            style={{ borderColor: colors.accentLight, color: colors.accent }}
           >
             <ChevronLeft className="w-4 h-4" />
             Предыдущий
           </button>
           
-          <div className="text-sm font-semibold px-2" style={{ color: softGreen[600] }}>
+          <div className="text-sm font-semibold px-2" style={{ color: colors.accent }}>
             {currentIndex + 1} из {products.length}
           </div>
 
@@ -327,7 +320,7 @@ function ProductsCarousel() {
             onClick={goToNext}
             data-testid="button-products-next"
             className="flex items-center gap-1 px-4 py-2 rounded-md text-sm font-medium border transition-colors hover:bg-gray-50"
-            style={{ borderColor: softGreen[300], color: softGreen[600] }}
+            style={{ borderColor: colors.accentLight, color: colors.accent }}
           >
             Следующий
             <ChevronRight className="w-4 h-4" />
@@ -340,6 +333,8 @@ function ProductsCarousel() {
 
 // Компонент карусели отзывов
 function TestimonialsCarousel() {
+  const { currentPalette } = usePalette();
+  const colors = currentPalette.colors;
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     loop: true,
@@ -378,7 +373,7 @@ function TestimonialsCarousel() {
                 <div className="flex items-center gap-3 mb-4">
                   <div 
                     className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0" 
-                    style={{ backgroundColor: softGreen[500] }}
+                    style={{ backgroundColor: colors.accent }}
                   >
                     {testimonial.initials}
                   </div>
@@ -389,7 +384,7 @@ function TestimonialsCarousel() {
                 </div>
                 <div className="flex gap-1 mb-3">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <span key={star} style={{ color: softGreen[500] }}>★</span>
+                    <span key={star} style={{ color: colors.accent }}>★</span>
                   ))}
                 </div>
                 <p className="text-gray-700 leading-relaxed">
@@ -408,7 +403,7 @@ function TestimonialsCarousel() {
         aria-label="Предыдущий отзыв"
         data-testid="button-testimonials-prev"
       >
-        <ChevronLeft className="w-6 h-6" style={{ color: softGreen[600] }} />
+        <ChevronLeft className="w-6 h-6" style={{ color: colors.accent }} />
       </button>
       <button
         onClick={scrollNext}
@@ -416,7 +411,7 @@ function TestimonialsCarousel() {
         aria-label="Следующий отзыв"
         data-testid="button-testimonials-next"
       >
-        <ChevronRight className="w-6 h-6" style={{ color: softGreen[600] }} />
+        <ChevronRight className="w-6 h-6" style={{ color: colors.accent }} />
       </button>
 
       {/* Индикаторы */}
@@ -427,7 +422,7 @@ function TestimonialsCarousel() {
             onClick={() => emblaApi && emblaApi.scrollTo(idx)}
             className="w-3 h-3 rounded-full transition-all duration-300"
             style={{ 
-              backgroundColor: idx === selectedIndex ? softGreen[600] : softGreen[200],
+              backgroundColor: idx === selectedIndex ? colors.accent : colors.accentLight,
             }}
             aria-label={`Перейти к отзыву ${idx + 1}`}
           />
@@ -438,8 +433,11 @@ function TestimonialsCarousel() {
 }
 
 export default function Home() {
+  const { currentPalette } = usePalette();
+  const colors = currentPalette.colors;
+
   return (
-    <div className="min-h-screen" style={{ backgroundColor: softGreen[50] }}>
+    <div className="min-h-screen" style={{ backgroundColor: colors.bg }}>
       {/* Hero блок с переключателем вариантов */}
       <HeroVariants variant={1} showSelector={true} />
 
@@ -464,7 +462,7 @@ export default function Home() {
               <div className="flex justify-start w-full max-w-sm sm:max-w-full sm:basis-[39%] lg:basis-[33%] flex-shrink-0">
                 <div
                   className="w-full rounded-xl overflow-hidden"
-                  style={{ aspectRatio: "3/4", backgroundColor: softGreen[300] }}
+                  style={{ aspectRatio: "3/4", backgroundColor: colors.accentLight }}
                 >
                   <SmartImage
                     sources={getImageSources('how-it-works', 1)}
@@ -483,7 +481,7 @@ export default function Home() {
               <div className="flex-1 min-w-0">
                 <div className="space-y-3 md:space-y-4 lg:space-y-6">
                   <div>
-                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-900 mb-2" style={{ color: softGreen[600] }}>
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-900 mb-2" style={{ color: colors.accent }}>
                       Активные компоненты
                     </h3>
                     <p className="text-gray-700 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed">
@@ -492,7 +490,7 @@ export default function Home() {
                   </div>
 
                   <div>
-                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-900 mb-2" style={{ color: softGreen[600] }}>
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-900 mb-2" style={{ color: colors.accent }}>
                       Принцип действия
                     </h3>
                     <p className="text-gray-700 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed">
@@ -501,7 +499,7 @@ export default function Home() {
                   </div>
 
                   <div>
-                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-900 mb-2" style={{ color: softGreen[600] }}>
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-semibold text-gray-900 mb-2" style={{ color: colors.accent }}>
                       Результат применения
                     </h3>
                     <p className="text-gray-700 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed">
@@ -527,7 +525,7 @@ export default function Home() {
       </section>
 
       {/* Блок 4: Отзывы */}
-      <section className="py-16 md:py-24" style={{ backgroundColor: "white" }}>
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.card }}>
         <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-12 md:mb-20 text-center">
             Отзывы наших клиентов
@@ -538,7 +536,7 @@ export default function Home() {
       </section>
 
       {/* Блок 5: Призыв к покупке (CTA) */}
-      <section className="py-16 md:py-24" style={{ backgroundColor: softGreen[500] }}>
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.accent }}>
         <div className="max-w-4xl mx-auto px-6 md:px-10 lg:px-16 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 md:mb-8">
             Закажите MediPatch сегодня
@@ -549,7 +547,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10 md:mb-14">
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-3" style={{ color: softGreen[600] }}>
+              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-3" style={{ color: colors.accentDark }}>
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -557,7 +555,7 @@ export default function Home() {
               <div className="text-white font-semibold">100% натурально</div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-3" style={{ color: softGreen[600] }}>
+              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-3" style={{ color: colors.accentDark }}>
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -565,7 +563,7 @@ export default function Home() {
               <div className="text-white font-semibold">Быстрая доставка</div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-3" style={{ color: softGreen[600] }}>
+              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-3" style={{ color: colors.accentDark }}>
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -583,22 +581,22 @@ export default function Home() {
                 type="text"
                 placeholder="Ваше имя"
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-2"
-                style={{ borderColor: "var(--focus, #6bbc82)" }}
-                onFocus={(e) => e.currentTarget.style.setProperty('--focus', softGreen[500])}
+                style={{ borderColor: `var(--focus, ${colors.accentLight})` }}
+                onFocus={(e) => e.currentTarget.style.setProperty('--focus', colors.accent)}
                 data-testid="input-name"
               />
               <input
                 type="tel"
                 placeholder="Телефон"
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-2"
-                style={{ borderColor: "var(--focus, #6bbc82)" }}
-                onFocus={(e) => e.currentTarget.style.setProperty('--focus', softGreen[500])}
+                style={{ borderColor: `var(--focus, ${colors.accentLight})` }}
+                onFocus={(e) => e.currentTarget.style.setProperty('--focus', colors.accent)}
                 data-testid="input-phone"
               />
               <button
                 type="submit"
                 className="w-full py-3 md:py-4 rounded-lg text-white font-semibold text-lg hover:opacity-90 transition-opacity"
-                style={{ backgroundColor: softGreen[600] }}
+                style={{ backgroundColor: colors.accentDark }}
                 data-testid="button-submit-order"
               >
                 Заказать сейчас

@@ -30,7 +30,7 @@ function Hero31HealingStory() {
   const colors = currentPalette.colors;
 
   return (
-    <section className="py-16 md:py-24" style={{ backgroundColor: colors.bg }}>
+    <section className="pt-8 pb-16 md:pt-12 md:pb-24" style={{ backgroundColor: colors.bg }}>
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div

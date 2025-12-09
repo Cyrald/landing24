@@ -151,7 +151,7 @@ export default function DesignVariants() {
 
       {/* How It Works */}
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.bg }}>
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
           <motion.h2 
             className="text-2xl md:text-4xl font-bold text-center mb-12"
             style={{ color: colors.text }}
@@ -200,7 +200,7 @@ export default function DesignVariants() {
 
       {/* Products Section */}
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.catalogBg }} data-testid="section-products">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
             <motion.h2 
               className="text-2xl md:text-4xl font-bold mb-2"
@@ -275,7 +275,7 @@ export default function DesignVariants() {
 
       {/* Testimonials */}
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.bg }}>
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
           <motion.h2 
             className="text-2xl md:text-4xl font-bold text-center mb-12"
             style={{ color: colors.text }}
@@ -322,7 +322,7 @@ export default function DesignVariants() {
 
       {/* FAQ */}
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-3xl mx-auto px-6">
+        <div className="max-w-4xl xl:max-w-5xl mx-auto px-6 lg:px-8">
           <motion.h2 
             className="text-2xl md:text-4xl font-bold text-center mb-12"
             style={{ color: colors.text }}
@@ -372,7 +372,7 @@ export default function DesignVariants() {
 
       {/* CTA */}
       <section className="py-16 md:py-24 relative overflow-hidden" style={{ background: colors.gradient }}>
-        <div className="max-w-3xl mx-auto px-6 text-center relative">
+        <div className="max-w-4xl xl:max-w-5xl mx-auto px-6 lg:px-8 text-center relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

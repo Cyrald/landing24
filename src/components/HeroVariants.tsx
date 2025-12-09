@@ -31,7 +31,7 @@ function Hero31HealingStory() {
 
   return (
     <section className="pt-8 pb-16 md:pt-12 md:pb-24" style={{ backgroundColor: colors.bg }}>
-      <div className="max-w-6xl mx-auto px-6 md:px-10">
+      <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}

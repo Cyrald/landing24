@@ -5,7 +5,6 @@ interface SmartImageProps {
   alt: string;
   className?: string;
   placeholderContent?: React.ReactNode;
-  onError?: () => void;
 }
 
 export function SmartImage({ sources, alt, className, placeholderContent }: SmartImageProps) {

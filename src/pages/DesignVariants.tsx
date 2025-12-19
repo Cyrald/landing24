@@ -189,7 +189,7 @@ export default function DesignVariants() {
               ))}
             </div>
             <motion.div 
-              className="w-full aspect-[3/4] rounded-xl flex items-center justify-center backdrop-blur-sm order-first md:order-last scale-70"
+              className="w-full aspect-[3/4] rounded-xl flex items-center justify-center backdrop-blur-sm order-first md:order-last scale-85"
               style={{ backgroundColor: `${colors.cardBg}ee` }}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -252,16 +252,6 @@ export default function DesignVariants() {
                   <p className="mb-4 leading-relaxed" style={{ color: colors.textSecondary }}>
                     {product.description}
                   </p>
-                  <div className="pt-4" style={{ borderTop: `1px dashed ${colors.accentLight}` }}>
-                    <ul className="space-y-2">
-                      {product.benefits.map((benefit, benefitIdx) => (
-                        <li key={benefitIdx} className="flex items-center gap-2" style={{ color: colors.text }}>
-                          <span style={{ color: colors.accent }}>—</span>
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                   <div className="mt-4 flex flex-wrap gap-3">
                     <button
                       className="px-5 py-2.5 text-sm font-medium rounded-lg transition-all hover:scale-105"
@@ -297,53 +287,49 @@ export default function DesignVariants() {
           >
             Истории наших клиентов
           </motion.h2>
-          <div className="relative">
-            <div className="overflow-hidden">
-              <div className="flex gap-6 transition-transform duration-300" style={{ transform: `translateX(-${testimonialIndex * (100 / 2 + 3)}%)` }}>
-                {testimonials.map((t, idx) => (
-                  <motion.div 
+          <div className="relative flex items-center justify-center px-12">
+            <button
+              onClick={() => setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+              className="absolute left-0 px-4 py-2 rounded-lg transition-all z-10"
+              style={{ backgroundColor: colors.accent, color: "#fff" }}
+              data-testid="button-testimonial-prev"
+            >
+              &larr;
+            </button>
+            
+            <div className="overflow-hidden w-full">
+              <motion.div 
+                className="flex gap-6"
+                animate={{ x: `-${testimonialIndex * 55}%` }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                {testimonials.map((t) => (
+                  <div 
                     key={t.id}
                     className="flex-shrink-0 w-full md:w-1/2 rounded-2xl p-6 h-80"
                     style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
                   >
+                    <div className="font-bold text-lg mb-2" style={{ color: colors.text }}>{t.name}</div>
+                    <div className="text-sm mb-3" style={{ color: colors.textSecondary }}>{t.city}</div>
                     <div className="flex gap-1 mb-3">
                       {[1,2,3,4,5].map((s) => (
                         <Star key={s} className="w-4 h-4 fill-current" style={{ color: "#FFD700" }} />
                       ))}
                     </div>
-                    <p className="mb-4 leading-relaxed line-clamp-5" style={{ color: colors.text }}>"{t.text}"</p>
-                    <div className="flex items-center gap-3">
-                      <div>
-                        <div className="font-semibold text-sm" style={{ color: colors.text }}>{t.name}</div>
-                        <div className="text-xs" style={{ color: colors.textSecondary }}>{t.city}</div>
-                      </div>
-                    </div>
-                  </motion.div>
+                    <p className="leading-relaxed line-clamp-5" style={{ color: colors.text }}>"{t.text}"</p>
+                  </div>
                 ))}
-              </div>
+              </motion.div>
             </div>
-            <div className="flex justify-center gap-3 mt-8">
-              <button
-                onClick={() => setTestimonialIndex(Math.max(0, testimonialIndex - 1))}
-                className="px-4 py-2 rounded-lg transition-all"
-                style={{ backgroundColor: colors.accent, color: "#fff" }}
-                data-testid="button-testimonial-prev"
-              >
-                &larr;
-              </button>
-              <button
-                onClick={() => setTestimonialIndex(Math.min(testimonials.length - 2, testimonialIndex + 1))}
-                className="px-4 py-2 rounded-lg transition-all"
-                style={{ backgroundColor: colors.accent, color: "#fff" }}
-                data-testid="button-testimonial-next"
-              >
-                &rarr;
-              </button>
-            </div>
+            
+            <button
+              onClick={() => setTestimonialIndex((prev) => (prev + 1) % testimonials.length)}
+              className="absolute right-0 px-4 py-2 rounded-lg transition-all z-10"
+              style={{ backgroundColor: colors.accent, color: "#fff" }}
+              data-testid="button-testimonial-next"
+            >
+              &rarr;
+            </button>
           </div>
         </div>
       </section>

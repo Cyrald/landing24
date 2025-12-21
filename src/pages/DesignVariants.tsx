@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ExternalLink, Star, Shield, CircleDot, Droplets, Activity, Glasses, Ribbon } from "lucide-react";
+import { ChevronDown, ExternalLink, Star, Shield, CircleDot, Droplets, Activity, Glasses, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import HeroVariants from "../components/HeroVariants";
 import { usePalette } from "../context/PaletteContext";
@@ -45,14 +45,6 @@ const products = [
     benefits: ["Поддержка поясницы", "Мягкое прогревание", "Комфорт в движении"],
     icon: Shield,
   },
-  {
-    id: 6,
-    name: "Тесьма",
-    shortName: "Тесьма",
-    description: "Гибкая лечебная лента для обёртывания суставов и конечностей. Идеальна для локтей, запястий, коленей и других сложных зон тела.",
-    benefits: ["Гибкое применение", "Для любых суставов", "Надёжная фиксация"],
-    icon: Ribbon,
-  },
 ];
 
 const testimonials = [
@@ -60,7 +52,7 @@ const testimonials = [
     id: 1,
     name: "Мария К.",
     city: "Москва",
-    text: "Пользуюсь пластырями уже три месяца. Забыла о болях в спине после долгого рабочего дня. Натуральный состав — это именно то, что я искала.",
+    text: "Пользуюсь пластырями уже три месяца. Забыла о болях в спине после долгого рабочего дня. Натуральный состав — это именно то, что я искала. Рекомендую всем своим друзьям и коллегам.",
     rating: 5,
   },
   {
@@ -74,7 +66,7 @@ const testimonials = [
     id: 3,
     name: "Елена В.",
     city: "Казань",
-    text: "Наочники — находка для тех, кто много работает за компьютером. Глаза отдыхают, отёки уходят. Использую каждый вечер.",
+    text: "Наочники — находка для тех, кто много работает за компьютером. Глаза отдыхают, отёки уходят. Использую каждый вечер и очень довольна результатом.",
     rating: 5,
   },
   {
@@ -82,6 +74,20 @@ const testimonials = [
     name: "Дмитрий П.",
     city: "Новосибирск",
     text: "Кушак помог с хронической болью в пояснице. Ношу на работе под одеждой — никто не замечает, а эффект ощутимый.",
+    rating: 5,
+  },
+  {
+    id: 5,
+    name: "Светлана М.",
+    city: "Екатеринбург",
+    text: "Очиститель воды заметно улучшил качество воды из крана. Вода стала вкуснее, а организм получает только пользу. Спасибо за прекрасный продукт!",
+    rating: 5,
+  },
+  {
+    id: 6,
+    name: "Петр В.",
+    city: "Минск",
+    text: "Комбинирую несколько продуктов из каталога. Натуральные ингредиенты не раздражают кожу, эффект заметен уже через несколько дней применения.",
     rating: 5,
   },
 ];
@@ -258,14 +264,7 @@ export default function DesignVariants() {
                       style={{ backgroundColor: colors.button, color: colors.buttonText }}
                       data-testid={`button-order-${product.id}`}
                     >
-                      Заказать
-                    </button>
-                    <button
-                      className="px-5 py-2.5 text-sm font-medium rounded-lg transition-all hover:scale-105"
-                      style={{ backgroundColor: colors.accentLight, color: colors.accent }}
-                      data-testid={`button-learn-more-${product.id}`}
-                    >
-                      Подробнее о продукте
+                      Подробнее на нашем сайте
                     </button>
                   </div>
                 </div>
@@ -287,26 +286,29 @@ export default function DesignVariants() {
           >
             Истории наших клиентов
           </motion.h2>
-          <div className="relative flex items-center justify-center px-12">
+          <div className="relative flex items-center justify-center">
             <button
-              onClick={() => setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
-              className="absolute left-0 px-4 py-2 rounded-lg transition-all z-10"
-              style={{ backgroundColor: colors.accent, color: "#fff" }}
+              onClick={() => setTestimonialIndex((prev) => {
+                const newIndex = prev - 1;
+                return newIndex < 0 ? testimonials.length - 1 : newIndex;
+              })}
+              className="absolute left-0 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+              style={{ backgroundColor: `${colors.accent}20`, color: colors.accent, border: `1px solid ${colors.accent}40` }}
               data-testid="button-testimonial-prev"
             >
-              &larr;
+              <ChevronLeft className="w-5 h-5" />
             </button>
             
-            <div className="overflow-hidden w-full">
+            <div className="overflow-hidden w-full px-16">
               <motion.div 
                 className="flex gap-6"
-                animate={{ x: `-${testimonialIndex * 55}%` }}
+                animate={{ x: `-${testimonialIndex * (100 / 1.5)}%` }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
                 {testimonials.map((t) => (
                   <div 
                     key={t.id}
-                    className="flex-shrink-0 w-full md:w-1/2 rounded-2xl p-6 h-80"
+                    className="flex-shrink-0 w-full md:w-1/2 rounded-2xl p-6"
                     style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
                   >
                     <div className="font-bold text-lg mb-2" style={{ color: colors.text }}>{t.name}</div>
@@ -316,7 +318,7 @@ export default function DesignVariants() {
                         <Star key={s} className="w-4 h-4 fill-current" style={{ color: "#FFD700" }} />
                       ))}
                     </div>
-                    <p className="leading-relaxed line-clamp-5" style={{ color: colors.text }}>"{t.text}"</p>
+                    <p className="leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
                   </div>
                 ))}
               </motion.div>
@@ -324,11 +326,11 @@ export default function DesignVariants() {
             
             <button
               onClick={() => setTestimonialIndex((prev) => (prev + 1) % testimonials.length)}
-              className="absolute right-0 px-4 py-2 rounded-lg transition-all z-10"
-              style={{ backgroundColor: colors.accent, color: "#fff" }}
+              className="absolute right-0 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+              style={{ backgroundColor: `${colors.accent}20`, color: colors.accent, border: `1px solid ${colors.accent}40` }}
               data-testid="button-testimonial-next"
             >
-              &rarr;
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>

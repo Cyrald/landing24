@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronDown, ExternalLink, Star, Shield, CircleDot, Droplets, Activity, Glasses, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import HeroVariants from "../components/HeroVariants";
 import { usePalette } from "../context/PaletteContext";
 
@@ -136,6 +136,9 @@ const howItWorks = [
 export default function DesignVariants() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(2);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { currentPalette } = usePalette();
   
   const colors = {
@@ -151,6 +154,106 @@ export default function DesignVariants() {
     button: currentPalette.colors.button,
     buttonText: currentPalette.colors.buttonText,
     gradient: `linear-gradient(135deg, ${currentPalette.colors.accent} 0%, ${currentPalette.colors.accentDark} 50%, ${currentPalette.colors.text} 100%)`,
+  };
+
+  // Определяем сколько карточек показывать в зависимости от ширины экрана
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      const width = window.innerWidth;
+      if (width >= 1536) { // 2xl
+        setVisibleCount(3);
+      } else if (width >= 1280) { // xl
+        setVisibleCount(2);
+      } else if (width >= 1024) { // lg
+        setVisibleCount(2);
+      } else if (width >= 768) { // md
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(1);
+      }
+    };
+
+    updateVisibleCount();
+    window.addEventListener('resize', updateVisibleCount);
+    return () => window.removeEventListener('resize', updateVisibleCount);
+  }, []);
+
+  // Автопрокрутка отзывов
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNext();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [testimonialIndex]);
+
+  const handleNext = () => {
+    if (isAnimating) return;
+    
+    setIsAnimating(true);
+    setTestimonialIndex((prev) => {
+      const nextIndex = prev + 1;
+      return nextIndex >= testimonials.length ? 0 : nextIndex;
+    });
+    
+    setTimeout(() => setIsAnimating(false), 300);
+  };
+
+  const handlePrev = () => {
+    if (isAnimating) return;
+    
+    setIsAnimating(true);
+    setTestimonialIndex((prev) => {
+      const prevIndex = prev - 1;
+      return prevIndex < 0 ? testimonials.length - 1 : prevIndex;
+    });
+    
+    setTimeout(() => setIsAnimating(false), 300);
+  };
+
+  // Получаем карточки для показа
+  const getVisibleTestimonials = () => {
+    const visible = [];
+    
+    for (let i = 0; i < visibleCount; i++) {
+      let cardIndex = testimonialIndex + i;
+      
+      if (cardIndex >= testimonials.length) {
+        cardIndex = cardIndex - testimonials.length;
+      }
+      
+      visible.push({
+        ...testimonials[cardIndex],
+        position: i
+      });
+    }
+    
+    return visible;
+  };
+
+  const cardVariants = {
+    initial: (position: number) => ({
+      opacity: 0,
+      x: position === 0 ? -50 : 50,
+      scale: 0.95
+    }),
+    animate: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    },
+    exit: (position: number) => ({
+      opacity: 0,
+      x: position === 0 ? -50 : 50,
+      scale: 0.95,
+      transition: {
+        duration: 0.2
+      }
+    })
   };
 
   return (
@@ -274,76 +377,121 @@ export default function DesignVariants() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bg }}>
-        <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.h2 
-            className="text-2xl md:text-4xl font-bold text-center mb-12"
-            style={{ color: colors.text }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            Истории наших клиентов
-          </motion.h2>
-          
-          {/* Testimonials carousel - shows 2 items at a time, cycles through all 6 */}
-          <div className="flex items-center justify-center gap-4">
-            <button
-              onClick={() => {
-                setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-              }}
-              className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
-              style={{ backgroundColor: `${colors.accent}20`, color: colors.accent, border: `1px solid ${colors.accent}40` }}
-              data-testid="button-testimonial-prev"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            
-            <div className="w-full overflow-hidden">
-              <motion.div 
-                className="flex"
-                animate={{ x: `-${testimonialIndex * 50}%` }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                style={{ width: `${(testimonials.length / 2) * 100}%` }}
-              >
-                {testimonials.map((t, idx) => (
-                  <div 
-                    key={t.id}
-                    className="flex-shrink-0 w-1/2 rounded-2xl p-6"
-                    style={{ 
-                      backgroundColor: colors.cardBg, 
-                      border: `1px solid ${colors.accentLight}`,
-                      marginRight: idx < testimonials.length - 1 ? '24px' : '0px'
-                    }}
-                  >
-                    <div className="font-bold text-lg mb-2" style={{ color: colors.text }}>{t.name}</div>
-                    <div className="text-sm mb-3" style={{ color: colors.textSecondary }}>{t.city}</div>
-                    <div className="flex gap-1 mb-3">
-                      {[1,2,3,4,5].map((s) => (
-                        <Star key={s} className="w-4 h-4 fill-current" style={{ color: "#FFD700" }} />
-                      ))}
-                    </div>
-                    <p className="leading-relaxed" style={{ color: colors.text }}>"{t.text}"</p>
+{/* Testimonials */}
+<section className="py-16 md:py-24" style={{ backgroundColor: colors.bg }}>
+  <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
+    <motion.h2 
+      className="text-2xl md:text-4xl font-bold text-center mb-12"
+      style={{ color: colors.text }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      Истории наших клиентов
+    </motion.h2>
+    
+    <div className="flex items-center justify-center gap-4">
+      <button
+        onClick={handlePrev}
+        disabled={isAnimating}
+        className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 disabled:opacity-50 z-10"
+        style={{ 
+          backgroundColor: `${colors.accent}20`, 
+          color: colors.accent, 
+          border: `1px solid ${colors.accent}40` 
+        }}
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+      
+      <div className="flex-1 flex justify-center overflow-hidden">
+        <div className="flex gap-6 w-full max-w-4xl">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {getVisibleTestimonials().map((t) => {
+              // Расчет ширины карточек
+              // Общая доступная ширина: 100%
+              // Отступ между карточками: 1.5rem
+              // Делаем первую карточку на 10% шире
+              const baseWidth = 100 / visibleCount;
+              const widthAdjustment = t.position === 0 ? 10 : -10; // первая +10%, вторая -10%
+              const cardWidthPercentage = baseWidth + widthAdjustment;
+              
+              // Компенсируем gap
+              const gapCompensation = (1.5 * (visibleCount - 1)) / visibleCount;
+              
+              return (
+                <motion.div 
+                  key={`${t.id}-${testimonialIndex}-${t.position}`}
+                  className="rounded-2xl p-6 flex-shrink-0"
+                  style={{ 
+                    backgroundColor: colors.cardBg, 
+                    border: `1px solid ${colors.accentLight}`,
+                    height: "300px",
+                    display: "flex",
+                    flexDirection: "column",
+                    overflow: "hidden",
+                    width: `calc(${100 / visibleCount}% - ${(4 * (visibleCount - 1)) / visibleCount}rem)`
+                  }}
+                  custom={t.position}
+                  variants={cardVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  <div className="font-bold text-lg mb-2" style={{ color: colors.text }}>{t.name}</div>
+                  <div className="text-sm mb-3" style={{ color: colors.textSecondary }}>{t.city}</div>
+                  <div className="flex gap-1 mb-3">
+                    {[1,2,3,4,5].map((s) => (
+                      <Star key={s} className="w-4 h-4 fill-current" style={{ color: "#FFD700" }} />
+                    ))}
                   </div>
-                ))}
-              </motion.div>
-            </div>
-            
-            <button
-              onClick={() => {
-                setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
-              }}
-              className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
-              style={{ backgroundColor: `${colors.accent}20`, color: colors.accent, border: `1px solid ${colors.accent}40` }}
-              data-testid="button-testimonial-next"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+                  <p 
+                    className="leading-relaxed flex-grow overflow-y-auto pr-2"
+                    style={{ color: colors.text }}
+                  >
+                    "{t.text}"
+                  </p>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
-      </section>
-
+      </div>
+      
+      <button
+        onClick={handleNext}
+        disabled={isAnimating}
+        className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 disabled:opacity-50 z-10"
+        style={{ 
+          backgroundColor: `${colors.accent}20`, 
+          color: colors.accent, 
+          border: `1px solid ${colors.accent}40` 
+        }}
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
+    </div>
+    
+    <div className="flex justify-center gap-2 mt-8">
+      {testimonials.map((_, idx) => (
+        <button
+          key={idx}
+          onClick={() => {
+            if (!isAnimating) {
+              setIsAnimating(true);
+              setTestimonialIndex(idx);
+              setTimeout(() => setIsAnimating(false), 300);
+            }
+          }}
+          className={`w-3 h-3 rounded-full transition-all ${testimonialIndex === idx ? 'scale-125' : ''}`}
+          style={{ 
+            backgroundColor: testimonialIndex === idx ? colors.accent : `${colors.accent}40`
+          }}
+        />
+      ))}
+    </div>
+  </div>
+</section>
       {/* FAQ */}
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
         <div className="max-w-4xl xl:max-w-5xl mx-auto px-6 lg:px-8">

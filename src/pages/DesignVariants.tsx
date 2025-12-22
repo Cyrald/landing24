@@ -13,7 +13,7 @@ const products = [
     id: 1,
     name: "Пластырь",
     shortName: "Пластырь",
-    description: "Традиционный лечебный пластырь для наклеивания на проблемные зоны. Активные компоненты проникают через кожу и оказывают целебное воздействие на глубокие ткани.",
+    description: "Точечное воздействие на проблемные зоны. Активные компоненты проникают глубоко в ткани.",
     benefits: ["Глубокое проникновение", "До 12 часов действия", "Удобное применение"],
     icon: CircleDot,
   },
@@ -21,7 +21,7 @@ const products = [
     id: 2,
     name: "Очиститель воды",
     shortName: "Вода",
-    description: "Специальный состав для структурирования и очищения питьевой воды. Насыщает воду полезными минералами и улучшает её биодоступность для организма.",
+    description: "Структурирует и очищает воду, насыщая минералами. Улучшает вкус и биодоступность.",
     benefits: ["Природная минерализация", "Улучшение вкуса воды", "Польза для организма"],
     icon: Droplets,
   },
@@ -29,7 +29,7 @@ const products = [
     id: 3,
     name: "Очелье",
     shortName: "Очелье",
-    description: "Лечебная повязка на голову с активными компонентами. Помогает при головных болях, снимает напряжение, улучшает кровообращение в области головы.",
+    description: "Снимает напряжение и головную боль. Улучшает кровообращение и расслабляет.",
     benefits: ["Снятие головной боли", "Расслабление", "Улучшение сна"],
     icon: Activity,
   },
@@ -37,7 +37,7 @@ const products = [
     id: 4,
     name: "Наочники",
     shortName: "Наочники", 
-    description: "Накладки на глаза с целебными экстрактами. Снимают усталость глаз, уменьшают отёчность, освежают и тонизируют нежную кожу вокруг глаз.",
+    description: "Снимают усталость глаз и отёчность. Освежают взгляд после работы за компьютером.",
     benefits: ["Снятие усталости глаз", "Уменьшение отёков", "Освежающий эффект"],
     icon: Glasses,
   },
@@ -45,7 +45,7 @@ const products = [
     id: 5,
     name: "Кушак",
     shortName: "Кушак",
-    description: "Широкий лечебный пояс для области живота и поясницы. Обеспечивает мягкое тепло, поддержку и оздоровительное воздействие на внутренние органы.",
+    description: "Поддержка поясницы и мягкое тепло. Оздоравливает внутренние органы и поясницу.",
     benefits: ["Поддержка поясницы", "Мягкое прогревание", "Комфорт в движении"],
     icon: Shield,
   },
@@ -53,7 +53,7 @@ const products = [
     id: 6,
     name: "Тесьма",
     shortName: "Тесьма",
-    description: "Уникальная лечебная тесьма для многофункционального использования. Её можно повязывать на запястья, щиколотки или использовать как вспомогательный элемент для фиксации других оздоровительных средств.",
+    description: "Универсальное средство. Легко фиксируется на суставах или дополняет другие продукты.",
     benefits: ["Универсальность", "Легкость и прочность", "Природная фиксация"],
     icon: Activity,
   },
@@ -230,11 +230,11 @@ export default function DesignVariants() {
             <div className="w-24 h-0.5 mx-auto" style={{ backgroundColor: colors.accent }}></div>
           </div>
           
-          <div className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {products.map((product, idx) => (
               <motion.div 
                 key={product.id}
-                className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} rounded-xl overflow-hidden`}
+                className="flex rounded-xl overflow-hidden h-full"
                 style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
                 data-testid={`card-product-${product.id}`}
                 initial={{ opacity: 0, y: 20 }}
@@ -243,35 +243,35 @@ export default function DesignVariants() {
                 transition={{ duration: 0.3, delay: idx * 0.05 }}
               >
                 <div 
-                  className="w-full md:w-[20%] aspect-[3/4] flex items-center justify-center flex-shrink-0"
+                  className="w-[30%] flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: colors.bgAlt }}
                   data-testid={`img-product-${product.id}`}
                 >
-                  <div className="text-center">
-                    <product.icon className="w-14 h-14 mx-auto mb-2" style={{ color: colors.accent }} />
-                    <span style={{ color: colors.accent }}>Фото {product.name}</span>
+                  <div className="text-center p-2">
+                    <product.icon className="w-10 h-10 mx-auto mb-1" style={{ color: colors.accent }} />
+                    <span className="text-[10px] leading-tight block" style={{ color: colors.accent }}>Фото {product.name}</span>
                   </div>
                 </div>
-                <div className="w-full md:w-[80%] p-6 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 mb-3">
+                <div className="w-[70%] p-4 flex flex-col justify-center">
+                  <div className="flex items-center gap-2 mb-1">
                     <span 
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold"
+                      className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-bold"
                       style={{ backgroundColor: colors.accent }}
                     >
                       {product.id}
                     </span>
-                    <h3 className="text-xl md:text-2xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
+                    <h3 className="text-base font-bold leading-tight" style={{ color: colors.text }}>{product.name}</h3>
                   </div>
-                  <p className="mb-4 leading-relaxed" style={{ color: colors.textSecondary }}>
+                  <p className="text-xs leading-snug mb-3 flex-1" style={{ color: colors.textSecondary }}>
                     {product.description}
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-3">
+                  <div className="mt-auto">
                     <button
-                      className="px-5 py-2.5 text-sm font-medium rounded-lg transition-all hover:scale-105"
+                      className="w-full px-3 py-1.5 text-xs font-medium rounded-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
                       style={{ backgroundColor: colors.button, color: colors.buttonText }}
                       data-testid={`button-order-${product.id}`}
                     >
-                      Подробнее на нашем сайте
+                      Подробнее
                     </button>
                   </div>
                 </div>

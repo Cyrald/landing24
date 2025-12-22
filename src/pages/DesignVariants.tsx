@@ -1,6 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { ChevronDown, ExternalLink, Star, Shield, CircleDot, Droplets, Activity, Glasses, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { Swiper as SwiperType } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 import HeroVariants from "../components/HeroVariants";
 import { usePalette } from "../context/PaletteContext";
 
@@ -54,6 +59,7 @@ const testimonials = [
     city: "Москва",
     text: "Пользуюсь пластырями уже три месяца. Забыла о болях в спине после долгого рабочего дня. Натуральный состав — это именно то, что я искала. Рекомендую всем своим друзьям и коллегам.",
     rating: 5,
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=400&fit=crop",
   },
   {
     id: 2,
@@ -61,6 +67,7 @@ const testimonials = [
     city: "Санкт-Петербург", 
     text: "Очелье стало моим спасением от мигреней. Надеваю при первых признаках — и боль отступает. Рекомендую всем, кто страдает головными болями.",
     rating: 5,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
   },
   {
     id: 3,
@@ -68,6 +75,7 @@ const testimonials = [
     city: "Казань",
     text: "Наочники — находка для тех, кто много работает за компьютером. Глаза отдыхают, отёки уходят. Использую каждый вечер и очень довольна результатом.",
     rating: 5,
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=400&fit=crop",
   },
   {
     id: 4,
@@ -75,6 +83,7 @@ const testimonials = [
     city: "Новосибирск",
     text: "Кушак помог с хронической болью в пояснице. Ношу на работе под одеждой — никто не замечает, а эффект ощутимый.",
     rating: 5,
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop",
   },
   {
     id: 5,
@@ -82,6 +91,7 @@ const testimonials = [
     city: "Екатеринбург",
     text: "Очиститель воды заметно улучшил качество воды из крана. Вода стала вкуснее, а организм получает только пользу. Спасибо за прекрасный продукт!",
     rating: 5,
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=400&fit=crop",
   },
   {
     id: 6,
@@ -89,6 +99,7 @@ const testimonials = [
     city: "Минск",
     text: "Комбинирую несколько продуктов из каталога. Натуральные ингредиенты не раздражают кожу, эффект заметен уже через несколько дней применения.",
     rating: 5,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
   },
 ];
 
@@ -135,10 +146,7 @@ const howItWorks = [
 
 export default function DesignVariants() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(2);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const swiperRef = useRef(null);
   const { currentPalette } = usePalette();
   
   const colors = {
@@ -154,106 +162,6 @@ export default function DesignVariants() {
     button: currentPalette.colors.button,
     buttonText: currentPalette.colors.buttonText,
     gradient: `linear-gradient(135deg, ${currentPalette.colors.accent} 0%, ${currentPalette.colors.accentDark} 50%, ${currentPalette.colors.text} 100%)`,
-  };
-
-  // Определяем сколько карточек показывать в зависимости от ширины экрана
-  useEffect(() => {
-    const updateVisibleCount = () => {
-      const width = window.innerWidth;
-      if (width >= 1536) { // 2xl
-        setVisibleCount(3);
-      } else if (width >= 1280) { // xl
-        setVisibleCount(2);
-      } else if (width >= 1024) { // lg
-        setVisibleCount(2);
-      } else if (width >= 768) { // md
-        setVisibleCount(2);
-      } else {
-        setVisibleCount(1);
-      }
-    };
-
-    updateVisibleCount();
-    window.addEventListener('resize', updateVisibleCount);
-    return () => window.removeEventListener('resize', updateVisibleCount);
-  }, []);
-
-  // Автопрокрутка отзывов
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [testimonialIndex]);
-
-  const handleNext = () => {
-    if (isAnimating) return;
-    
-    setIsAnimating(true);
-    setTestimonialIndex((prev) => {
-      const nextIndex = prev + 1;
-      return nextIndex >= testimonials.length ? 0 : nextIndex;
-    });
-    
-    setTimeout(() => setIsAnimating(false), 300);
-  };
-
-  const handlePrev = () => {
-    if (isAnimating) return;
-    
-    setIsAnimating(true);
-    setTestimonialIndex((prev) => {
-      const prevIndex = prev - 1;
-      return prevIndex < 0 ? testimonials.length - 1 : prevIndex;
-    });
-    
-    setTimeout(() => setIsAnimating(false), 300);
-  };
-
-  // Получаем карточки для показа
-  const getVisibleTestimonials = () => {
-    const visible = [];
-    
-    for (let i = 0; i < visibleCount; i++) {
-      let cardIndex = testimonialIndex + i;
-      
-      if (cardIndex >= testimonials.length) {
-        cardIndex = cardIndex - testimonials.length;
-      }
-      
-      visible.push({
-        ...testimonials[cardIndex],
-        position: i
-      });
-    }
-    
-    return visible;
-  };
-
-  const cardVariants = {
-    initial: (position: number) => ({
-      opacity: 0,
-      x: position === 0 ? -50 : 50,
-      scale: 0.95
-    }),
-    animate: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut"
-      }
-    },
-    exit: (position: number) => ({
-      opacity: 0,
-      x: position === 0 ? -50 : 50,
-      scale: 0.95,
-      transition: {
-        duration: 0.2
-      }
-    })
   };
 
   return (
@@ -377,121 +285,132 @@ export default function DesignVariants() {
         </div>
       </section>
 
-{/* Testimonials */}
-<section className="py-16 md:py-24" style={{ backgroundColor: colors.bg }}>
-  <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
-    <motion.h2 
-      className="text-2xl md:text-4xl font-bold text-center mb-12"
-      style={{ color: colors.text }}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
-      Истории наших клиентов
-    </motion.h2>
-    
-    <div className="flex items-center justify-center gap-4">
-      <button
-        onClick={handlePrev}
-        disabled={isAnimating}
-        className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 disabled:opacity-50 z-10"
-        style={{ 
-          backgroundColor: `${colors.accent}20`, 
-          color: colors.accent, 
-          border: `1px solid ${colors.accent}40` 
-        }}
-      >
-        <ChevronLeft className="w-5 h-5" />
-      </button>
-      
-      <div className="flex-1 flex justify-center overflow-hidden">
-        <div className="flex gap-6 w-full max-w-4xl">
-          <AnimatePresence mode="popLayout" initial={false}>
-            {getVisibleTestimonials().map((t) => {
-              // Расчет ширины карточек
-              // Общая доступная ширина: 100%
-              // Отступ между карточками: 1.5rem
-              // Делаем первую карточку на 10% шире
-              const baseWidth = 100 / visibleCount;
-              const widthAdjustment = t.position === 0 ? 10 : -10; // первая +10%, вторая -10%
-              const cardWidthPercentage = baseWidth + widthAdjustment;
-              
-              // Компенсируем gap
-              const gapCompensation = (1.5 * (visibleCount - 1)) / visibleCount;
-              
-              return (
-                <motion.div 
-                  key={`${t.id}-${testimonialIndex}-${t.position}`}
-                  className="rounded-2xl p-6 flex-shrink-0"
-                  style={{ 
-                    backgroundColor: colors.cardBg, 
-                    border: `1px solid ${colors.accentLight}`,
-                    height: "300px",
-                    display: "flex",
-                    flexDirection: "column",
-                    overflow: "hidden",
-                    width: `calc(${100 / visibleCount}% - ${(4 * (visibleCount - 1)) / visibleCount}rem)`
-                  }}
-                  custom={t.position}
-                  variants={cardVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <div className="font-bold text-lg mb-2" style={{ color: colors.text }}>{t.name}</div>
-                  <div className="text-sm mb-3" style={{ color: colors.textSecondary }}>{t.city}</div>
-                  <div className="flex gap-1 mb-3">
-                    {[1,2,3,4,5].map((s) => (
-                      <Star key={s} className="w-4 h-4 fill-current" style={{ color: "#FFD700" }} />
-                    ))}
-                  </div>
-                  <p 
-                    className="leading-relaxed flex-grow overflow-y-auto pr-2"
-                    style={{ color: colors.text }}
+      {/* Testimonials Carousel */}
+      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bg }}>
+        <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.h2 
+            className="text-2xl md:text-4xl font-bold text-center mb-12"
+            style={{ color: colors.text }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Истории наших клиентов
+          </motion.h2>
+          
+          <div style={{ position: 'relative' }}>
+            <Swiper
+              ref={swiperRef}
+              modules={[Navigation, Autoplay]}
+              spaceBetween={24}
+              slidesPerView={1}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              navigation={{
+                nextEl: '.swiper-button-next-custom',
+                prevEl: '.swiper-button-prev-custom',
+              }}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2,
+                },
+                1024: {
+                  slidesPerView: 2,
+                },
+              }}
+              className="pb-6"
+            >
+              {testimonials.map((testimonial) => (
+                <SwiperSlide key={testimonial.id}>
+                  <div
+                    className="rounded-2xl p-6 h-full flex flex-col overflow-hidden"
+                    style={{
+                      backgroundColor: colors.cardBg,
+                      border: `1px solid ${colors.accentLight}`,
+                    }}
+                    data-testid={`card-testimonial-${testimonial.id}`}
                   >
-                    "{t.text}"
-                  </p>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+                    {/* Image */}
+                    <div className="mb-4 w-full h-48 rounded-lg overflow-hidden flex-shrink-0">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Name */}
+                    <h3 
+                      className="font-bold text-lg mb-1"
+                      style={{ color: colors.text }}
+                      data-testid={`text-name-${testimonial.id}`}
+                    >
+                      {testimonial.name}
+                    </h3>
+
+                    {/* City */}
+                    <div
+                      className="text-sm mb-3"
+                      style={{ color: colors.textSecondary }}
+                      data-testid={`text-city-${testimonial.id}`}
+                    >
+                      {testimonial.city}
+                    </div>
+
+                    {/* Rating */}
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star 
+                          key={i}
+                          className="w-4 h-4 fill-current"
+                          style={{ color: "#FFD700" }}
+                          data-testid={`icon-star-${testimonial.id}-${i}`}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Text */}
+                    <p
+                      className="leading-relaxed flex-grow overflow-y-auto text-sm"
+                      style={{ color: colors.text }}
+                      data-testid={`text-review-${testimonial.id}`}
+                    >
+                      "{testimonial.text}"
+                    </p>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* Navigation Buttons */}
+            <button
+              className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 z-10"
+              style={{
+                backgroundColor: `${colors.accent}20`,
+                color: colors.accent,
+                border: `1px solid ${colors.accent}40`,
+              }}
+              data-testid="button-testimonial-prev"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            <button
+              className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 z-10"
+              style={{
+                backgroundColor: `${colors.accent}20`,
+                color: colors.accent,
+                border: `1px solid ${colors.accent}40`,
+              }}
+              data-testid="button-testimonial-next"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
-      </div>
-      
-      <button
-        onClick={handleNext}
-        disabled={isAnimating}
-        className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 disabled:opacity-50 z-10"
-        style={{ 
-          backgroundColor: `${colors.accent}20`, 
-          color: colors.accent, 
-          border: `1px solid ${colors.accent}40` 
-        }}
-      >
-        <ChevronRight className="w-5 h-5" />
-      </button>
-    </div>
-    
-    <div className="flex justify-center gap-2 mt-8">
-      {testimonials.map((_, idx) => (
-        <button
-          key={idx}
-          onClick={() => {
-            if (!isAnimating) {
-              setIsAnimating(true);
-              setTestimonialIndex(idx);
-              setTimeout(() => setIsAnimating(false), 300);
-            }
-          }}
-          className={`w-3 h-3 rounded-full transition-all ${testimonialIndex === idx ? 'scale-125' : ''}`}
-          style={{ 
-            backgroundColor: testimonialIndex === idx ? colors.accent : `${colors.accent}40`
-          }}
-        />
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
       {/* FAQ */}
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
         <div className="max-w-4xl xl:max-w-5xl mx-auto px-6 lg:px-8">

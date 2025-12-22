@@ -57,48 +57,36 @@ const testimonials = [
     name: "Мария К.",
     city: "Москва",
     text: "Пользуюсь пластырями уже три месяца. Забыла о болях в спине после долгого рабочего дня. Натуральный состав — это именно то, что я искала. Рекомендую всем своим друзьям и коллегам.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=400&fit=crop",
   },
   {
     id: 2,
     name: "Андрей С.",
     city: "Санкт-Петербург", 
     text: "Очелье стало моим спасением от мигреней. Надеваю при первых признаках — и боль отступает. Рекомендую всем, кто страдает головными болями.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
   },
   {
     id: 3,
     name: "Елена В.",
     city: "Казань",
     text: "Наочники — находка для тех, кто много работает за компьютером. Глаза отдыхают, отёки уходят. Использую каждый вечер и очень довольна результатом.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=400&fit=crop",
   },
   {
     id: 4,
     name: "Дмитрий П.",
     city: "Новосибирск",
     text: "Кушак помог с хронической болью в пояснице. Ношу на работе под одеждой — никто не замечает, а эффект ощутимый.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop",
   },
   {
     id: 5,
     name: "Светлана М.",
     city: "Екатеринбург",
     text: "Очиститель воды заметно улучшил качество воды из крана. Вода стала вкуснее, а организм получает только пользу. Спасибо за прекрасный продукт!",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=400&fit=crop",
   },
   {
     id: 6,
     name: "Петр В.",
     city: "Минск",
     text: "Комбинирую несколько продуктов из каталога. Натуральные ингредиенты не раздражают кожу, эффект заметен уже через несколько дней применения.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
   },
 ];
 
@@ -301,19 +289,17 @@ export default function DesignVariants() {
             <Swiper
               ref={swiperRef}
               modules={[Navigation]}
-              spaceBetween={24}
-              slidesPerView={2}
+              spaceBetween={20}
+              slidesPerView={1}
               loop={true}
               navigation={{
                 nextEl: '.swiper-button-next-custom',
                 prevEl: '.swiper-button-prev-custom',
               }}
               breakpoints={{
-                320: {
-                  slidesPerView: 1,
-                },
-                768: {
+                640: {
                   slidesPerView: 2,
+                  spaceBetween: 24,
                 },
               }}
               className="pb-6"
@@ -321,28 +307,16 @@ export default function DesignVariants() {
               {testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
                   <div
-                    className="rounded-2xl p-6 flex flex-col overflow-hidden"
+                    className="rounded-2xl p-5 flex flex-col"
                     style={{
                       backgroundColor: colors.cardBg,
                       border: `1px solid ${colors.accentLight}`,
-                      height: "520px",
-                      display: "flex",
-                      flexDirection: "column",
                     }}
                     data-testid={`card-testimonial-${testimonial.id}`}
                   >
-                    {/* Image */}
-                    <div className="mb-4 w-full h-48 rounded-lg overflow-hidden flex-shrink-0">
-                      <img
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
                     {/* Name */}
                     <h3 
-                      className="font-bold text-lg mb-1 flex-shrink-0"
+                      className="font-bold text-base mb-1"
                       style={{ color: colors.text }}
                       data-testid={`text-name-${testimonial.id}`}
                     >
@@ -351,35 +325,17 @@ export default function DesignVariants() {
 
                     {/* City */}
                     <div
-                      className="text-sm mb-3 flex-shrink-0"
+                      className="text-sm mb-3"
                       style={{ color: colors.textSecondary }}
                       data-testid={`text-city-${testimonial.id}`}
                     >
                       {testimonial.city}
                     </div>
 
-                    {/* Rating */}
-                    <div className="flex gap-1 mb-4 flex-shrink-0">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star 
-                          key={i}
-                          className="w-4 h-4 fill-current"
-                          style={{ color: "#FFD700" }}
-                          data-testid={`icon-star-${testimonial.id}-${i}`}
-                        />
-                      ))}
-                    </div>
-
                     {/* Text */}
                     <p
-                      className="leading-relaxed text-sm overflow-hidden"
-                      style={{ 
-                        color: colors.text,
-                        flex: 1,
-                        display: "-webkit-box",
-                        WebkitLineClamp: 4,
-                        WebkitBoxOrient: "vertical",
-                      }}
+                      className="leading-relaxed text-sm"
+                      style={{ color: colors.text }}
                       data-testid={`text-review-${testimonial.id}`}
                     >
                       "{testimonial.text}"

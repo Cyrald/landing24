@@ -1,9 +1,8 @@
 import { useState, useRef } from "react";
 import { ChevronDown, ExternalLink, Star, Shield, CircleDot, Droplets, Activity, Glasses, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import HeroVariants from "../components/HeroVariants";
@@ -301,22 +300,19 @@ export default function DesignVariants() {
           <div style={{ position: 'relative' }}>
             <Swiper
               ref={swiperRef}
-              modules={[Navigation, Autoplay]}
+              modules={[Navigation]}
               spaceBetween={24}
-              slidesPerView={1}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
+              slidesPerView={2}
+              loop={true}
               navigation={{
                 nextEl: '.swiper-button-next-custom',
                 prevEl: '.swiper-button-prev-custom',
               }}
               breakpoints={{
-                768: {
-                  slidesPerView: 2,
+                320: {
+                  slidesPerView: 1,
                 },
-                1024: {
+                768: {
                   slidesPerView: 2,
                 },
               }}
@@ -325,10 +321,13 @@ export default function DesignVariants() {
               {testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
                   <div
-                    className="rounded-2xl p-6 h-full flex flex-col overflow-hidden"
+                    className="rounded-2xl p-6 flex flex-col overflow-hidden"
                     style={{
                       backgroundColor: colors.cardBg,
                       border: `1px solid ${colors.accentLight}`,
+                      height: "520px",
+                      display: "flex",
+                      flexDirection: "column",
                     }}
                     data-testid={`card-testimonial-${testimonial.id}`}
                   >
@@ -343,7 +342,7 @@ export default function DesignVariants() {
 
                     {/* Name */}
                     <h3 
-                      className="font-bold text-lg mb-1"
+                      className="font-bold text-lg mb-1 flex-shrink-0"
                       style={{ color: colors.text }}
                       data-testid={`text-name-${testimonial.id}`}
                     >
@@ -352,7 +351,7 @@ export default function DesignVariants() {
 
                     {/* City */}
                     <div
-                      className="text-sm mb-3"
+                      className="text-sm mb-3 flex-shrink-0"
                       style={{ color: colors.textSecondary }}
                       data-testid={`text-city-${testimonial.id}`}
                     >
@@ -360,7 +359,7 @@ export default function DesignVariants() {
                     </div>
 
                     {/* Rating */}
-                    <div className="flex gap-1 mb-4">
+                    <div className="flex gap-1 mb-4 flex-shrink-0">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star 
                           key={i}
@@ -373,8 +372,14 @@ export default function DesignVariants() {
 
                     {/* Text */}
                     <p
-                      className="leading-relaxed flex-grow overflow-y-auto text-sm"
-                      style={{ color: colors.text }}
+                      className="leading-relaxed text-sm overflow-hidden"
+                      style={{ 
+                        color: colors.text,
+                        flex: 1,
+                        display: "-webkit-box",
+                        WebkitLineClamp: 4,
+                        WebkitBoxOrient: "vertical",
+                      }}
                       data-testid={`text-review-${testimonial.id}`}
                     >
                       "{testimonial.text}"

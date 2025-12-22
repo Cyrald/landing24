@@ -176,7 +176,6 @@ export const palettes: Palette[] = [
       buttonText: "#FFFFFF",
     },
   },
-
   {
     id: 11,
     name: "Тимьян",
@@ -217,7 +216,7 @@ export const palettes: Palette[] = [
       bgAlt: "#D0DCDA",
       card: "#E8F0EC",
       accent: "#649E88",
-      accentLight: "#98C6B4",
+      accentLight: "#98C4B4",
       accentDark: "#4A826E",
       text: "#2A4A3E",
       textSecondary: "#3E6A56",
@@ -337,7 +336,6 @@ export const palettes: Palette[] = [
       buttonText: "#FFFFFF",
     },
   },
-
   {
     id: 21,
     name: "Туя",
@@ -498,7 +496,6 @@ export const palettes: Palette[] = [
       buttonText: "#FFFFFF",
     },
   },
-
   {
     id: 31,
     name: "Лотос",
@@ -659,7 +656,6 @@ export const palettes: Palette[] = [
       buttonText: "#FFFFFF",
     },
   },
-
   {
     id: 41,
     name: "Серпентин",
@@ -824,4 +820,26 @@ export const palettes: Palette[] = [
 
 export function getPaletteById(id: number): Palette | undefined {
   return palettes.find((p) => p.id === id);
+}
+
+// Функция для получения пути к изображению с поддержкой разных форматов
+export function getImagePath(basePath: string, number: number, extension: 'webp' | 'png' | 'jpg' = 'webp'): string {
+  return `/images/${basePath}/${number}.${extension}`;
+}
+
+// Функция для получения массива путей к изображениям с автоматическим fallback
+export function getImageSources(basePath: string, number: number): string[] {
+  return [
+    getImagePath(basePath, number, 'webp'),
+    getImagePath(basePath, number, 'png'),
+    getImagePath(basePath, number, 'jpg'),
+  ];
+}
+
+// Функция для получения массива путей к изображениям
+export function getImages(basePath: string, count: number): Array<{ id: number; sources: string[] }> {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i + 1,
+    sources: getImageSources(basePath, i + 1),
+  }));
 }

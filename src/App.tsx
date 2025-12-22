@@ -1,6 +1,5 @@
 import { Route, Switch, Link } from "wouter";
-import { PaletteProvider, usePalette } from "./context/PaletteContext";
-import Home from "./pages/Home";
+import Home, { PaletteProvider, usePalette } from "./pages/Home";
 
 function NotFoundPage() {
   const { currentPalette } = usePalette();

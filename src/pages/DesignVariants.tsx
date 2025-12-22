@@ -230,11 +230,11 @@ export default function DesignVariants() {
             <div className="w-24 h-0.5 mx-auto" style={{ backgroundColor: colors.accent }}></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-8">
             {products.map((product, idx) => (
               <motion.div 
                 key={product.id}
-                className="flex flex-col rounded-xl overflow-hidden h-full"
+                className={`flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} rounded-xl overflow-hidden`}
                 style={{ backgroundColor: colors.bg, border: `1px solid ${colors.accentLight}` }}
                 data-testid={`card-product-${product.id}`}
                 initial={{ opacity: 0, y: 20 }}
@@ -243,35 +243,35 @@ export default function DesignVariants() {
                 transition={{ duration: 0.3, delay: idx * 0.05 }}
               >
                 <div 
-                  className="w-full md:w-[35%] aspect-[3/4] flex items-center justify-center flex-shrink-0"
+                  className="w-full md:w-[20%] aspect-[3/4] flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: colors.bgAlt }}
                   data-testid={`img-product-${product.id}`}
                 >
-                  <div className="text-center p-4">
-                    <product.icon className="w-12 h-12 mx-auto mb-2" style={{ color: colors.accent }} />
-                    <span className="text-xs" style={{ color: colors.accent }}>Фото {product.name}</span>
+                  <div className="text-center">
+                    <product.icon className="w-14 h-14 mx-auto mb-2" style={{ color: colors.accent }} />
+                    <span style={{ color: colors.accent }}>Фото {product.name}</span>
                   </div>
                 </div>
-                <div className="w-full md:w-[65%] p-5 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 mb-2">
+                <div className="w-full md:w-[80%] p-6 flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-3">
                     <span 
-                      className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold"
                       style={{ backgroundColor: colors.accent }}
                     >
                       {product.id}
                     </span>
-                    <h3 className="text-lg font-bold" style={{ color: colors.text }}>{product.name}</h3>
+                    <h3 className="text-xl md:text-2xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
                   </div>
-                  <p className="text-sm leading-relaxed mb-4" style={{ color: colors.textSecondary }}>
+                  <p className="mb-4 leading-relaxed" style={{ color: colors.textSecondary }}>
                     {product.description}
                   </p>
-                  <div className="mt-auto">
+                  <div className="mt-4 flex flex-wrap gap-3">
                     <button
-                      className="w-full px-4 py-2 text-sm font-medium rounded-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
+                      className="px-5 py-2.5 text-sm font-medium rounded-lg transition-all hover:scale-105"
                       style={{ backgroundColor: colors.button, color: colors.buttonText }}
                       data-testid={`button-order-${product.id}`}
                     >
-                      Подробнее
+                      Подробнее на нашем сайте
                     </button>
                   </div>
                 </div>

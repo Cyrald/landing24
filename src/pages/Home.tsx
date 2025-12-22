@@ -5,141 +5,87 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import HeroVariants from "../components/HeroVariants";
 import { usePalette } from "../context/PaletteContext";
+import { products, testimonials, faqItems, howItWorks } from "../data";
 
-const products = [
-  {
-    id: 1,
-    name: "Пластырь",
-    shortName: "Пластырь",
-    description: "Точечное воздействие на проблемные зоны. Активные компоненты проникают глубоко в ткани.",
-    benefits: ["Глубокое проникновение", "До 12 часов действия", "Удобное применение"],
-    icon: CircleDot,
-  },
-  {
-    id: 2,
-    name: "Очиститель воды",
-    shortName: "Вода",
-    description: "Структурирует и очищает воду, насыщая минералами. Улучшает вкус и биодоступность.",
-    benefits: ["Природная минерализация", "Улучшение вкуса воды", "Польза для организма"],
-    icon: Droplets,
-  },
-  {
-    id: 3,
-    name: "Очелье",
-    shortName: "Очелье",
-    description: "Снимает напряжение и головную боль. Улучшает кровообращение и расслабляет.",
-    benefits: ["Снятие головной боли", "Расслабление", "Улучшение сна"],
-    icon: Activity,
-  },
-  {
-    id: 4,
-    name: "Наочники",
-    shortName: "Наочники", 
-    description: "Снимают усталость глаз и отёчность. Освежают взгляд после работы за компьютером.",
-    benefits: ["Снятие усталости глаз", "Уменьшение отёков", "Освежающий эффект"],
-    icon: Glasses,
-  },
-  {
-    id: 5,
-    name: "Кушак",
-    shortName: "Кушак",
-    description: "Поддержка поясницы и мягкое тепло. Оздоравливает внутренние органы и поясницу.",
-    benefits: ["Поддержка поясницы", "Мягкое прогревание", "Комфорт в движении"],
-    icon: Shield,
-  },
-  {
-    id: 6,
-    name: "Тесьма",
-    shortName: "Тесьма",
-    description: "Универсальное средство. Легко фиксируется на суставах или дополняет другие продукты.",
-    benefits: ["Универсальность", "Легкость и прочность", "Природная фиксация"],
-    icon: Activity,
-  },
-];
+const HeroSection = () => {
+  const { currentPalette } = usePalette();
+  
+  const colors = {
+    bg: currentPalette.colors.bg,
+    accent: currentPalette.colors.accent,
+    accentDark: currentPalette.colors.accentDark,
+    text: currentPalette.colors.text,
+    textSecondary: currentPalette.colors.textSecondary,
+    button: currentPalette.colors.button,
+    buttonText: currentPalette.colors.buttonText,
+  };
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Мария К.",
-    city: "Москва",
-    text: "Пользуюсь пластырями уже три месяца. Забыла о болях в спине после долгого рабочего дня. Натуральный состав — это именно то, что я искала. Рекомендую всем своим друзьям и коллегам.",
-  },
-  {
-    id: 2,
-    name: "Андрей С.",
-    city: "Санкт-Петербург", 
-    text: "Очелье стало моим спасением от мигреней. Надеваю при первых признаках — и боль отступает. Рекомендую всем, кто страдает головными болями.",
-  },
-  {
-    id: 3,
-    name: "Елена В.",
-    city: "Казань",
-    text: "Наочники — находка для тех, кто много работает за компьютером. Глаза отдыхают, отёки уходят. Использую каждый вечер и очень довольна результатом.",
-  },
-  {
-    id: 4,
-    name: "Дмитрий П.",
-    city: "Новосибирск",
-    text: "Кушак помог с хронической болью в пояснице. Ношу на работе под одеждой — никто не замечает, а эффект ощутимый.",
-  },
-  {
-    id: 5,
-    name: "Светлана М.",
-    city: "Екатеринбург",
-    text: "Очиститель воды заметно улучшил качество воды из крана. Вода стала вкуснее, а организм получает только пользу. Спасибо за прекрасный продукт!",
-  },
-  {
-    id: 6,
-    name: "Петр В.",
-    city: "Минск",
-    text: "Комбинирую несколько продуктов из каталога. Натуральные ингредиенты не раздражают кожу, эффект заметен уже через несколько дней применения.",
-  },
-];
+  return (
+    <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden" style={{ backgroundColor: colors.bg }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-sm font-medium mb-6">
+            <Star className="w-4 h-4 fill-current" />
+            <span>История исцеления: путь к гармонии</span>
+          </div>
+          <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.1]" style={{ color: colors.text }}>
+            Верните себе <span style={{ color: colors.accent }}>природную</span> силу и баланс
+          </h1>
+          <p className="text-xl mb-10 leading-relaxed max-w-xl" style={{ color: colors.textSecondary }}>
+            Мы объединили древние знания о травах с современными технологиями, чтобы создать продукты, которые действительно работают.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+              style={{ backgroundColor: colors.button, color: colors.buttonText }}
+            >
+              Перейти в каталог
+              <ChevronDown className="w-5 h-5" />
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-8 py-4 rounded-xl font-bold text-lg border-2 transition-all"
+              style={{ borderColor: colors.accent, color: colors.accent }}
+            >
+              Узнать больше
+            </motion.button>
+          </div>
+        </motion.div>
 
-const faqItems = [
-  {
-    q: "Из чего сделаны ваши продукты?",
-    a: "Все наши изделия созданы на основе натуральных компонентов: целебных трав, минералов и природных экстрактов. Мы не используем синтетические добавки.",
-  },
-  {
-    q: "Как быстро наступает эффект?",
-    a: "Первые ощущения появляются уже через 15-20 минут применения. Для достижения стойкого результата рекомендуем курсовое использование.",
-  },
-  {
-    q: "Можно ли использовать при чувствительной коже?",
-    a: "Да, наши продукты гипоаллергенны и подходят для чувствительной кожи. При индивидуальной непереносимости рекомендуем проконсультироваться с врачом.",
-  },
-  {
-    q: "Как долго длится эффект одного применения?",
-    a: "В зависимости от продукта, эффект сохраняется от 6 до 12 часов. Подробные рекомендации указаны в инструкции к каждому изделию.",
-  },
-  {
-    q: "Где можно приобрести вашу продукцию?",
-    a: "Полный каталог с ценами и возможностью заказа доступен на нашем основном сайте. Там же вы найдёте актуальные акции и специальные предложения.",
-  },
-];
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="relative hidden lg:block"
+        >
+          <div 
+            className="absolute -inset-4 bg-emerald-200/20 rounded-[2rem] blur-3xl"
+            style={{ backgroundColor: `${colors.accent}15` }}
+          ></div>
+          <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-white shadow-2xl border border-emerald-100 flex items-center justify-center">
+             <div className="text-center p-12">
+                <div className="w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                   <Activity className="w-12 h-12" style={{ color: colors.accent }} />
+                </div>
+                <h3 className="text-2xl font-bold mb-4" style={{ color: colors.text }}>Wellness продукт</h3>
+                <p style={{ color: colors.textSecondary }}>Натуральные компоненты для вашего здоровья</p>
+             </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
 
-const howItWorks = [
-  {
-    step: 1,
-    title: "Природные компоненты",
-    desc: "Активные вещества из целебных растений и минералов начинают работать сразу при контакте с телом.",
-  },
-  {
-    step: 2,
-    title: "Постепенное высвобождение",
-    desc: "Компоненты медленно проникают в ткани, обеспечивая длительное и равномерное воздействие.",
-  },
-  {
-    step: 3,
-    title: "Целебный эффект",
-    desc: "Улучшение кровообращения, снятие напряжения и восстановление естественного баланса организма.",
-  },
-];
-
-export default function DesignVariants() {
+export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const swiperRef = useRef<any>(null);
@@ -163,7 +109,7 @@ export default function DesignVariants() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: colors.bg }}>
       {/* Hero Section */}
-      <HeroVariants />
+      <HeroSection />
 
       {/* How It Works */}
       <section className="py-16 md:py-24" style={{ backgroundColor: colors.bg }}>

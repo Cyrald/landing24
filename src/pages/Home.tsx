@@ -131,123 +131,7 @@ const HeroSection = () => {
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [howItWorksVariant, setHowItWorksVariant] = useState(1);
   const swiperRef = useRef<any>(null);
-
-  const renderHowItWorks = () => {
-    switch (howItWorksVariant) {
-      case 1:
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-            <motion.div 
-              className="md:col-span-7 flex flex-col justify-center bg-white p-10 shadow-sm rounded-2xl border-l-[8px]"
-              style={{ borderColor: colors.accent }}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-            >
-              <p className="text-lg font-light leading-relaxed" style={{ color: colors.text }}>
-                Наши wellness-продукты основаны на принципах биорезонансного воздействия и натурального восстановления организма. 
-                Процесс начинается с мягкого очищения на клеточном уровне, что подготавливает тело к глубокой регенерации. 
-                Благодаря уникальному сочетанию природных компонентов и современных технологий, продукты активируют внутренние 
-                ресурсы здоровья.
-              </p>
-            </motion.div>
-            <div className="md:col-span-5">
-              <motion.div 
-                className="w-full aspect-[3/4] flex items-center justify-center rounded-2xl bg-white shadow-sm overflow-hidden"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-              >
-                <div className="w-full h-full flex items-center justify-center bg-slate-50/50">
-                  <Leaf className="w-20 h-20 opacity-20" style={{ color: colors.accent }} />
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        );
-      case 2:
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-0 items-stretch overflow-hidden rounded-[3rem] shadow-xl border" style={{ borderColor: colors.accentLight }}>
-            <motion.div 
-              className="md:col-span-7 flex flex-col justify-center bg-white p-12"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              <p className="text-lg font-light leading-relaxed" style={{ color: colors.text }}>
-                Наши wellness-продукты основаны на принципах биорезонансного воздействия и натурального восстановления организма. 
-                Процесс начинается с мягкого очищения на клеточном уровне, что подготавливает тело к глубокой регенерации. 
-              </p>
-            </motion.div>
-            <div className="md:col-span-5">
-              <motion.div className="w-full h-full aspect-[3/4] bg-slate-100 flex items-center justify-center">
-                 <Leaf className="w-24 h-24 opacity-30" style={{ color: colors.accent }} />
-              </motion.div>
-            </div>
-          </div>
-        );
-      case 3:
-        return (
-          <div className="flex flex-col md:flex-row gap-6 items-stretch">
-            <motion.div 
-              className="flex-1 bg-white p-10 rounded-3xl shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)]"
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-            >
-              <p className="text-lg font-light" style={{ color: colors.text }}>
-                Наши wellness-продукты основаны на принципах биорезонансного воздействия и натурального восстановления организма. 
-                Регулярное использование помогает не только устранить симптомы, но и воздействует на первопричину дискомфорта.
-              </p>
-            </motion.div>
-            <div className="flex-1">
-              <div className="w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-lg">
-                <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: colors.accentLight }}>
-                  <Leaf className="w-20 h-20 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      case 4:
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
-            <motion.div 
-              className="bg-white p-12 rounded-tr-[100px] rounded-bl-[100px] border-2"
-              style={{ borderColor: colors.accent }}
-            >
-              <p className="text-lg italic" style={{ color: colors.text }}>
-                Наши wellness-продукты основаны на принципах биорезонансного воздействия и натурального восстановления организма. 
-                Возвращая вам природную энергию и жизненный тонус.
-              </p>
-            </motion.div>
-            <div className="w-full aspect-[3/4] rounded-tl-[100px] rounded-br-[100px] overflow-hidden">
-               <div className="w-full h-full flex items-center justify-center bg-slate-200">
-                  <Leaf className="w-16 h-16 opacity-40" />
-               </div>
-            </div>
-          </div>
-        );
-      case 5:
-      default:
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-stretch">
-             <div className="md:col-span-8 flex items-stretch">
-                <div className="w-2 bg-accent rounded-full mr-6" style={{ backgroundColor: colors.accent }}></div>
-                <motion.div className="flex-1 bg-slate-50 p-10 rounded-xl">
-                  <p className="text-xl font-light" style={{ color: colors.text }}>
-                    Процесс начинается с мягкого очищения на клеточном уровне, что подготавливает тело к глубокой регенерации. 
-                    Активируют внутренние ресурсы здоровья и гармонизируют работу всех систем.
-                  </p>
-                </motion.div>
-             </div>
-             <div className="md:col-span-4">
-                <div className="w-full aspect-[3/4] rounded-xl bg-white border-2 border-dashed flex items-center justify-center" style={{ borderColor: colors.accentLight }}>
-                   <Leaf className="w-12 h-12 opacity-50" style={{ color: colors.accent }} />
-                </div>
-             </div>
-          </div>
-        );
-    }
-  };
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: colors.bg }}>
@@ -255,25 +139,34 @@ export default function Home() {
 
       <section className="py-10 md:py-14" style={{ backgroundColor: colors.bg }}>
         <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between mb-10 gap-4">
-            <motion.h2 className="text-2xl md:text-3xl font-bold" style={{ color: colors.text }}>
-              Как это работает
-            </motion.h2>
-            
-            <div className="flex gap-2 p-1 bg-slate-100 rounded-lg">
-              {[1, 2, 3, 4, 5].map((v) => (
-                <button
-                  key={v}
-                  onClick={() => setHowItWorksVariant(v)}
-                  className={`px-3 py-1 text-sm rounded-md transition-all ${howItWorksVariant === v ? 'bg-white shadow-sm font-bold' : 'text-slate-500 hover:text-slate-800'}`}
+          <motion.h2 className="text-2xl md:text-3xl font-bold text-center mb-10" style={{ color: colors.text }}>
+            Как это работает
+          </motion.h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-stretch">
+             <div className="md:col-span-8 flex items-stretch">
+                <div className="w-2 bg-accent rounded-full mr-6" style={{ backgroundColor: colors.accent }}></div>
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="flex-1 bg-slate-50 p-10 rounded-xl shadow-sm"
                 >
-                  Вариант {v}
-                </button>
-              ))}
-            </div>
+                  <p className="text-xl font-light leading-relaxed" style={{ color: colors.text }}>
+                    Наши wellness-продукты основаны на принципах биорезонансного воздействия и натурального восстановления организма. 
+                    Процесс начинается с мягкого очищения на клеточном уровне, что подготавливает тело к глубокой регенерации. 
+                    Благодаря уникальному сочетанию природных компонентов и современных технологий, продукты активируют внутренние 
+                    ресурсы здоровья, нормализуют обмен веществ и гармонизируют работу всех систем. Регулярное использование 
+                    помогает не только устранить симптомы, но и воздействует на первопричину дискомфорта, возвращая вам 
+                    природную энергию и жизненный тонус.
+                  </p>
+                </motion.div>
+             </div>
+             <div className="md:col-span-4">
+                <div className="w-full aspect-[3/4] rounded-xl bg-white border-2 border-dashed flex items-center justify-center" style={{ borderColor: colors.accentLight }}>
+                   <Leaf className="w-20 h-20 opacity-20" style={{ color: colors.accent }} />
+                </div>
+             </div>
           </div>
-          
-          {renderHowItWorks()}
         </div>
       </section>
 

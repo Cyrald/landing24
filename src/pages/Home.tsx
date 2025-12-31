@@ -1,11 +1,11 @@
 import { useState, useRef } from "react";
-import { ChevronDown, ExternalLink, Star, ChevronLeft, ChevronRight, Leaf, Quote } from "lucide-react";
-import { motion } from "framer-motion";
+import { ChevronDown, ExternalLink, Star, ChevronLeft, ChevronRight, Leaf, Quote, Layout, ChevronUp } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { products, testimonials, faqItems, howItWorks } from "../data";
+import { products, testimonials, faqItems } from "../data";
 import { getImageSources, palettes } from "../lib";
 
 // --- SmartImage Component ---
@@ -83,7 +83,7 @@ function ProductImage({ text = "Продукт", aspectRatio = "1/1", className 
 
 const HeroSection = () => {
   return (
-    <section className="pt-8 pb-16 md:pt-12 md:pb-24" style={{ backgroundColor: colors.bg }}>
+    <section className="pt-8 pb-12 md:pt-10 md:pb-16" style={{ backgroundColor: colors.bg }}>
       <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -129,26 +129,167 @@ const HeroSection = () => {
   );
 };
 
+// --- How It Works Variants ---
+const howItWorksVariants = [
+  {
+    id: 1,
+    name: "Минимализм",
+    wrapperClass: "bg-transparent",
+    textCardClass: "p-0",
+    imageCardClass: "bg-white/50 backdrop-blur-sm card-shadow",
+    imageScale: 0.8
+  },
+  {
+    id: 2,
+    name: "Мягкая карта",
+    wrapperClass: "bg-white/30 rounded-3xl p-8 card-shadow",
+    textCardClass: "pr-8",
+    imageCardClass: "bg-white card-shadow",
+    imageScale: 0.75
+  },
+  {
+    id: 3,
+    name: "Акцентная рамка",
+    wrapperClass: "border-2 rounded-2xl p-6",
+    wrapperStyle: { borderColor: colors.accentLight },
+    textCardClass: "pl-4",
+    imageCardClass: "bg-accent-light/20 shadow-inner",
+    imageScale: 0.8
+  },
+  {
+    id: 4,
+    name: "Градиентный фон",
+    wrapperClass: "rounded-[2rem] p-10 text-white",
+    wrapperStyle: { background: `linear-gradient(135deg, ${colors.accent} 0%, ${colors.accentDark} 100%)` },
+    textCardClass: "text-white opacity-90",
+    imageCardClass: "bg-white/10 backdrop-blur-md border border-white/20",
+    imageScale: 0.7
+  },
+  {
+    id: 5,
+    name: "Сплит-дизайн",
+    wrapperClass: "flex flex-col md:flex-row gap-0 rounded-2xl overflow-hidden card-shadow",
+    textCardClass: "bg-white p-12 w-full md:w-1/2",
+    imageCardClass: "bg-accent-light/30 w-full md:w-1/2 rounded-none",
+    imageScale: 0.65,
+    isSplit: true
+  },
+  {
+    id: 6,
+    name: "Элегантный штрих",
+    wrapperClass: "border-l-4 p-8 bg-white/40",
+    wrapperStyle: { borderLeftColor: colors.accent },
+    textCardClass: "max-w-lg",
+    imageCardClass: "bg-white shadow-2xl rotate-2",
+    imageScale: 0.8
+  },
+  {
+    id: 7,
+    name: "Стеклянная панель",
+    wrapperClass: "backdrop-blur-xl border border-white/40 rounded-3xl p-12 card-shadow",
+    wrapperStyle: { backgroundColor: `${colors.cardBg}99` },
+    textCardClass: "space-y-4",
+    imageCardClass: "bg-gradient-to-br from-white to-transparent shadow-lg",
+    imageScale: 0.75
+  },
+  {
+    id: 8,
+    name: "Темный акцент",
+    wrapperClass: "bg-slate-900 rounded-3xl p-12 text-slate-100",
+    textCardClass: "opacity-80",
+    imageCardClass: "bg-slate-800 border border-slate-700",
+    imageScale: 0.7
+  },
+  {
+    id: 9,
+    name: "Природный хаос",
+    wrapperClass: "relative p-10",
+    textCardClass: "relative z-10 bg-white/80 backdrop-blur p-8 rounded-2xl card-shadow",
+    imageCardClass: "absolute -right-4 -top-4 w-64 h-64 opacity-40 rounded-full blur-3xl",
+    imageScale: 0.9,
+    isOrganic: true
+  },
+  {
+    id: 10,
+    name: "Журнальный стиль",
+    wrapperClass: "grid-cols-12 gap-0 items-start",
+    textCardClass: "col-span-7 pt-10",
+    imageCardClass: "col-span-5 bg-white p-4 card-shadow",
+    imageScale: 1,
+    isJournal: true
+  }
+];
+
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [variantIndex, setVariantIndex] = useState(0);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
   const swiperRef = useRef<any>(null);
+
+  const v = howItWorksVariants[variantIndex];
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: colors.bg }}>
       <HeroSection />
 
-      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bg }}>
+      {/* Контроллер вариантов (плавающая панель) */}
+      <div className="fixed bottom-4 left-4 z-[100]">
+        <motion.div 
+          className="bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl border p-4 w-64"
+          animate={{ height: isPanelOpen ? "auto" : "56px" }}
+        >
+          <button 
+            onClick={() => setIsPanelOpen(!isPanelOpen)}
+            className="flex items-center justify-between w-full mb-2 font-bold text-sm uppercase tracking-wider opacity-60 hover:opacity-100"
+          >
+            <span>Варианты блока ({v.name})</span>
+            {isPanelOpen ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
+          </button>
+          
+          <AnimatePresence>
+            {isPanelOpen && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="grid grid-cols-5 gap-2 pt-2"
+              >
+                {howItWorksVariants.map((item, idx) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setVariantIndex(idx)}
+                    className={`w-10 h-10 rounded-lg text-xs font-bold transition-all ${variantIndex === idx ? 'bg-black text-white scale-110 shadow-lg' : 'bg-slate-100 hover:bg-slate-200 text-slate-600'}`}
+                  >
+                    {item.id}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+
+      <section className="py-10 md:py-14" style={{ backgroundColor: colors.bg }}>
         <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>Как это работает</motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <motion.h2 className="text-2xl md:text-3xl font-bold text-center mb-10" style={{ color: variantIndex === 3 || variantIndex === 7 ? "#fff" : colors.text }}>
+            Как это работает
+          </motion.h2>
+          
+          <div 
+            className={`grid items-center transition-all duration-500 ${v.wrapperClass}`}
+            style={v.wrapperStyle}
+          >
             <motion.div 
+              key={`text-${variantIndex}`}
               initial={{ opacity: 0, y: 20 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
-              viewport={{ once: true }} 
-              className="flex flex-col justify-center"
+              animate={{ opacity: 1, y: 0 }} 
+              className={`flex flex-col justify-center ${v.textCardClass}`}
             >
-              <div className="prose prose-lg max-w-none" style={{ color: colors.textSecondary }}>
-                <p className="leading-relaxed text-lg">
+              <div className="prose prose-lg max-w-none">
+                <p 
+                  className="leading-relaxed text-lg"
+                  style={{ color: variantIndex === 3 || variantIndex === 7 ? "rgba(255,255,255,0.9)" : colors.textSecondary }}
+                >
                   Наши wellness-продукты основаны на принципах биорезонансного воздействия и натурального восстановления организма. 
                   Процесс начинается с мягкого очищения на клеточном уровне, что подготавливает тело к глубокой регенерации. 
                   Благодаря уникальному сочетанию природных компонентов и современных технологий, продукты активируют внутренние 
@@ -158,25 +299,29 @@ export default function Home() {
                 </p>
               </div>
             </motion.div>
+            
             <motion.div 
-              className="w-full flex items-center justify-center order-first md:order-last"
+              key={`img-${variantIndex}`}
+              className={`w-full flex items-center justify-center ${v.isJournal ? "col-span-5" : "order-first md:order-last"}`}
               initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 0.8 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, scale: v.imageScale }}
               transition={{ duration: 0.5 }}
             >
-              <div className="w-full aspect-[3/4] rounded-xl flex items-center justify-center backdrop-blur-sm card-shadow" style={{ backgroundColor: `${colors.cardBg}ee` }}>
-                <Leaf className="w-16 h-16 opacity-20" style={{ color: colors.accent }} />
+              <div 
+                className={`w-full aspect-[3/4] rounded-xl flex items-center justify-center transition-all duration-500 ${v.imageCardClass}`}
+                style={{ backgroundColor: v.imageCardClass.includes('bg-') ? undefined : `${colors.cardBg}ee` }}
+              >
+                <Leaf className="w-16 h-16 opacity-20" style={{ color: variantIndex === 3 || variantIndex === 7 ? "#fff" : colors.accent }} />
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
+      <section className="py-12 md:py-16" style={{ backgroundColor: colors.bgAlt }}>
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: colors.text }}>Каталог продуктов</h2>
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: colors.text }}>Каталог продуктов</h2>
             <div className="w-24 h-0.5 mx-auto" style={{ backgroundColor: colors.accent }}></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -199,9 +344,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bg }}>
+      <section className="py-12 md:py-16" style={{ backgroundColor: colors.bg }}>
         <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 lg:px-8">
-          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>Истории наших клиентов</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10" style={{ color: colors.text }}>Истории наших клиентов</h2>
           <div className="relative group">
             <Swiper 
               ref={swiperRef} 
@@ -248,9 +393,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
+      <section className="py-12 md:py-16" style={{ backgroundColor: colors.bgAlt }}>
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12" style={{ color: colors.text }}>Вопросы и ответы</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10" style={{ color: colors.text }}>Вопросы и ответы</h2>
           <div className="space-y-4">
             {faqItems.map((item, idx) => (
               <motion.div key={idx} className="rounded-xl overflow-hidden card-shadow" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}>
@@ -269,9 +414,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 relative overflow-hidden" style={{ background: colors.gradient }}>
+      <section className="py-12 md:py-16 relative overflow-hidden" style={{ background: colors.gradient }}>
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">Добро пожаловать в мир здоровья</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Добро пожаловать в мир здоровья</h2>
           <p className="text-white/90 text-lg mb-8">Откройте для себя полный ассортимент продукции на нашем сайте.</p>
           <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:scale-105 bg-white shadow-lg active-elevate-2" style={{ color: colors.accent }}>
             Перейти в каталог <ExternalLink className="w-5 h-5" />

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { ChevronDown, ExternalLink, Star, ChevronLeft, ChevronRight, Leaf, Quote, X } from "lucide-react";
+import { ChevronDown, ExternalLink, Star, ChevronLeft, ChevronRight, Leaf, Quote } from "lucide-react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";

@@ -1,8 +1,9 @@
 import { Route, Switch, Link } from "wouter";
-import Home, { PaletteProvider, usePalette } from "./pages/Home";
+import Home from "./pages/Home";
+import { palettes } from "./lib";
 
 function NotFoundPage() {
-  const { currentPalette } = usePalette();
+  const currentPalette = palettes[0];
   
   return (
     <div 
@@ -46,8 +47,6 @@ function AppContent() {
 
 export default function App() {
   return (
-    <PaletteProvider>
-      <AppContent />
-    </PaletteProvider>
+    <AppContent />
   );
 }

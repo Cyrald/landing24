@@ -129,44 +129,71 @@ const HeroSection = () => {
   );
 };
 
-// --- How It Works Typography Variants ---
-const howItWorksVariants = [
-  {
-    id: 1,
-    name: "Шестиугольная гармония",
-    pClass: "text-lg md:text-xl font-light leading-relaxed",
-    accent: "clip-path-hexagon bg-accent/5 border-2 border-white p-16 md:p-24",
-    pStyle: { color: colors.accentDark }
-  },
-  {
-    id: 2,
-    name: "Дыхание леса",
-    pClass: "text-lg md:text-xl font-medium italic leading-loose",
-    accent: "clip-path-hexagon bg-gradient-to-br from-accent-light/20 to-transparent p-16 md:p-24 shadow-inner",
-    pStyle: { color: colors.text }
-  },
-  {
-    id: 3,
-    name: "Природный кристалл",
-    pClass: "text-lg md:text-xl tracking-tight leading-relaxed font-semibold",
-    accent: "clip-path-hexagon bg-white/40 backdrop-blur-md border-2 border-accent-light/30 p-16 md:p-24",
-    pStyle: { color: colors.accentDark }
-  },
-  {
-    id: 4,
-    name: "Органический штрих",
-    pClass: "text-lg md:text-xl font-light leading-relaxed",
-    accent: "clip-path-hexagon border-4 border-double border-accent/20 p-16 md:p-24 bg-white/20",
-    pStyle: { color: colors.textSecondary }
-  },
-  {
-    id: 5,
-    name: "Эфирное единство",
-    pClass: "text-lg md:text-xl tracking-widest uppercase font-light",
-    accent: "clip-path-hexagon bg-accent-light/10 p-16 md:p-24 flex items-center justify-center",
-    pStyle: { color: colors.accentDark }
-  }
-];
+// --- How It Works Typography Variants (50 Unique Designs) ---
+const howItWorksVariants = Array.from({ length: 50 }, (_, i) => {
+  const id = i + 1;
+  const styles = [
+    { name: "Чистый холст", wrapper: "p-0", p: "text-xl font-light", accent: "" },
+    { name: "Левый акцент", wrapper: "border-l-4 pl-10", p: "text-lg italic", accent: "border-accent" },
+    { name: "Мягкая тень", wrapper: "bg-white p-10 rounded-3xl shadow-sm", p: "text-lg", accent: "" },
+    { name: "Градиентный штрих", wrapper: "relative pl-8", p: "text-xl font-medium", accent: "before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1.5 before:bg-gradient-to-b before:from-accent before:to-transparent" },
+    { name: "Журнальная буквица", wrapper: "p-0", p: "text-lg leading-relaxed first-letter:text-6xl first-letter:font-bold first-letter:mr-3 first-letter:float-left first-letter:text-accent", accent: "" },
+    { name: "Стеклянная подложка", wrapper: "bg-white/40 backdrop-blur-md p-12 rounded-[2rem] border border-white/60", p: "text-lg font-medium", accent: "" },
+    { name: "Дзен-пустота", wrapper: "p-0 text-center md:text-left", p: "text-2xl font-extralight tracking-tight", accent: "" },
+    { name: "Тонкая рамка", wrapper: "border-2 p-8 rounded-2xl", p: "text-lg", accent: "border-accent-light/30" },
+    { name: "Акцент на фразах", wrapper: "p-0", p: "text-lg leading-loose selection:bg-accent selection:text-white", accent: "" },
+    { name: "Классический Serif", wrapper: "p-0", p: "text-xl font-serif italic", accent: "" },
+    { name: "Современный Mono", wrapper: "bg-slate-50 p-8 rounded-xl", p: "text-base font-mono", accent: "" },
+    { name: "Цитатный блок", wrapper: "relative py-10", p: "text-xl leading-relaxed italic before:content-['“'] before:text-8xl before:absolute before:-left-10 before:-top-6 before:opacity-10", accent: "before:text-accent" },
+    { name: "Двойная линия", wrapper: "border-y-2 py-12", p: "text-lg font-medium tracking-wide", accent: "border-accent-light/20" },
+    { name: "Эфирный свет", wrapper: "p-0 opacity-80", p: "text-xl font-light tracking-widest uppercase", accent: "" },
+    { name: "Органический шум", wrapper: "bg-accent/5 p-10 rounded-[3rem] border-2 border-white", p: "text-lg font-medium", accent: "" },
+    { name: "Минимал Текст", wrapper: "p-0", p: "text-lg underline decoration-accent/30 decoration-4 underline-offset-8", accent: "" },
+    { name: "Геометрический ритм", wrapper: "p-12 bg-white/80 rounded-tr-[5rem] rounded-bl-[5rem] card-shadow", p: "text-lg", accent: "" },
+    { name: "Теневой фокус", wrapper: "p-0", p: "text-xl font-bold drop-shadow-sm", accent: "" },
+    { name: "Природный контраст", wrapper: "bg-accent-dark text-white p-12 rounded-3xl", p: "text-lg opacity-90", accent: "" },
+    { name: "Золотое сечение", wrapper: "max-w-md", p: "text-lg leading-relaxed font-medium", accent: "" },
+    { name: "Пульсация цвета", wrapper: "p-0", p: "text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent-dark", accent: "" },
+    { name: "Мягкий курсив", wrapper: "p-0 border-b-4 pb-6", p: "text-xl italic", accent: "border-accent-light/20" },
+    { name: "Брутализм", wrapper: "border-4 p-8 shadow-[10px_10px_0px_0px_rgba(61,107,79,0.1)]", p: "text-lg font-bold uppercase", accent: "border-accent" },
+    { name: "Шепот леса", wrapper: "p-0", p: "text-lg font-light tracking-tight opacity-70", accent: "" },
+    { name: "Акцентный заголовок", wrapper: "space-y-4", p: "text-lg leading-relaxed", accent: "before:content-['ПРОЦЕСС'] before:text-xs before:font-bold before:tracking-[0.3em] before:text-accent" },
+    { name: "Тонкий штрих", wrapper: "border-t-2 pt-10", p: "text-lg font-medium", accent: "border-accent-light" },
+    { name: "Эстетика велнеса", wrapper: "p-10 bg-accent-light/10 rounded-2xl flex items-center", p: "text-lg italic font-light", accent: "" },
+    { name: "Глубокое дыхание", wrapper: "p-0", p: "text-3xl font-extrabold tracking-tighter leading-none", accent: "text-accent-dark" },
+    { name: "Природный кристалл", wrapper: "p-8 border-2 rounded-lg", p: "text-lg font-semibold", accent: "border-accent/20 shadow-inner" },
+    { name: "Лесной туман", wrapper: "bg-gradient-to-r from-white to-transparent p-10", p: "text-lg font-medium italic", accent: "" },
+    { name: "Вертикальный акцент", wrapper: "flex gap-6", p: "text-lg", accent: "before:content-[''] before:w-1 before:h-20 before:bg-accent" },
+    { name: "Современная антиква", wrapper: "p-0", p: "text-xl font-serif leading-loose", accent: "" },
+    { name: "Минимал лофт", wrapper: "bg-slate-100/50 p-12 rounded", p: "text-base font-mono tracking-tight", accent: "" },
+    { name: "Атмосфера покоя", wrapper: "p-0", p: "text-xl font-light leading-snug", accent: "text-textSecondary" },
+    { name: "Гармония сфер", wrapper: "p-16 border-2 border-dashed rounded-full aspect-square flex items-center justify-center text-center", p: "text-base", accent: "border-accent/30" },
+    { name: "Чистый ритм", wrapper: "p-0 space-y-6", p: "text-lg leading-relaxed", accent: "after:content-[''] after:block after:w-12 after:h-1 after:bg-accent" },
+    { name: "Элегантный шлейф", wrapper: "bg-gradient-to-b from-white/80 to-transparent p-10 rounded-t-3xl", p: "text-lg font-medium", accent: "" },
+    { name: "Теневой брутализм", wrapper: "bg-white p-8 border-2 shadow-[4px_4px_0px_0px_black]", p: "text-lg", accent: "border-black" },
+    { name: "Природная симметрия", wrapper: "p-0 text-center", p: "text-lg font-medium tracking-wide", accent: "" },
+    { name: "Журнальный сплин", wrapper: "columns-2 gap-8", p: "text-sm leading-relaxed", accent: "" },
+    { name: "Акцент на деталях", wrapper: "p-0", p: "text-lg leading-relaxed", accent: "first-line:text-accent first-line:font-bold" },
+    { name: "Мягкий контур", wrapper: "p-10 border-2 rounded-[4rem]", p: "text-lg italic", accent: "border-accent-light/10" },
+    { name: "Эфирный Mono", wrapper: "p-0", p: "text-base font-mono uppercase tracking-widest opacity-60", accent: "" },
+    { name: "Природный паттерн", wrapper: "bg-white p-12 shadow-2xl rounded-none border-l-8", p: "text-xl font-light", accent: "border-accent" },
+    { name: "Минимал Шик", wrapper: "p-0", p: "text-4xl font-thin tracking-tighter leading-tight", accent: "" },
+    { name: "Лесной контраст", wrapper: "bg-accent p-12 text-white rounded-tr-[10rem]", p: "text-lg font-medium", accent: "" },
+    { name: "Эстетика тишины", wrapper: "p-0 opacity-40 hover:opacity-100 transition-opacity duration-1000", p: "text-lg italic", accent: "" },
+    { name: "Золотое сечение 2", wrapper: "p-14 border-4 border-double", p: "text-lg font-serif", accent: "border-accent-light/20" },
+    { name: "Акцентный Serif", wrapper: "p-0", p: "text-2xl font-serif font-bold italic text-accent-dark", accent: "" },
+    { name: "Финальная гармония", wrapper: "p-12 bg-white/90 backdrop-blur-2xl rounded-3xl border border-white card-shadow", p: "text-xl font-light leading-relaxed", accent: "" },
+  ][i];
+
+  return {
+    id,
+    name: styles.name,
+    wrapperClass: styles.wrapper,
+    pClass: styles.p,
+    accentClass: styles.accent,
+    pStyle: { color: !styles.p.includes('text-') ? (id % 2 === 0 ? colors.textSecondary : colors.text) : undefined }
+  };
+});
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -180,17 +207,17 @@ export default function Home() {
     <div className="min-h-screen" style={{ backgroundColor: colors.bg }}>
       <HeroSection />
 
-      {/* Панель выбора */}
+      {/* Панель выбора (50 вариантов) */}
       <div className="fixed bottom-4 left-4 z-[100]">
         <motion.div 
-          className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border p-4 w-64"
-          animate={{ height: isPanelOpen ? "auto" : "56px" }}
+          className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border p-4 w-72"
+          animate={{ height: isPanelOpen ? "400px" : "56px" }}
         >
           <button 
             onClick={() => setIsPanelOpen(!isPanelOpen)}
             className="flex items-center justify-between w-full mb-2 font-bold text-sm uppercase tracking-wider opacity-60 hover:opacity-100"
           >
-            <span>Варианты (Шестиугольник)</span>
+            <span>Дизайн текста (Вариант {v.id})</span>
             {isPanelOpen ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
           </button>
           
@@ -200,13 +227,13 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="grid grid-cols-5 gap-2 pt-2"
+                className="grid grid-cols-5 gap-2 pt-2 h-[320px] overflow-y-auto pr-2 custom-scrollbar"
               >
                 {howItWorksVariants.map((item, idx) => (
                   <button
                     key={item.id}
                     onClick={() => setVariantIndex(idx)}
-                    className={`w-10 h-10 rounded-lg text-xs font-bold transition-all ${variantIndex === idx ? 'bg-black text-white scale-110 shadow-lg' : 'bg-slate-100 hover:bg-slate-200 text-slate-600'}`}
+                    className={`w-10 h-10 rounded-lg text-xs font-bold transition-all flex-shrink-0 ${variantIndex === idx ? 'bg-black text-white scale-110 shadow-lg' : 'bg-slate-100 hover:bg-slate-200 text-slate-600'}`}
                   >
                     {item.id}
                   </button>
@@ -224,22 +251,16 @@ export default function Home() {
           </motion.h2>
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            {/* ТЕКСТ СЛЕВА */}
             <motion.div 
               key={`text-${variantIndex}`}
-              initial={{ opacity: 0, scale: 0.9 }} 
-              animate={{ opacity: 1, scale: 1 }} 
-              className="md:col-span-7 flex items-center justify-center"
+              initial={{ opacity: 0, x: -20 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              className={`md:col-span-7 flex flex-col justify-center transition-all duration-500 ${v.wrapperClass}`}
             >
-              <div 
-                className={`transition-all duration-700 flex items-center justify-center text-center ${v.accent}`}
-                style={{ 
-                  clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-                  width: "100%",
-                  aspectRatio: "1.15/1"
-                }}
-              >
+              <div className={v.accentClass}>
                 <p 
-                  className={v.pClass}
+                  className={`leading-relaxed transition-all duration-500 ${v.pClass}`}
                   style={v.pStyle}
                 >
                   Наши wellness-продукты основаны на принципах биорезонансного воздействия и натурального восстановления организма. 
@@ -252,21 +273,18 @@ export default function Home() {
               </div>
             </motion.div>
             
-            <motion.div 
-              key={`img-${variantIndex}`}
-              className="md:col-span-5 w-full flex items-center justify-center"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+            {/* КАРТИНКА СПРАВА (ФИКСИРОВАННАЯ) */}
+            <div className="md:col-span-5 w-full flex items-center justify-center">
               <motion.div 
-                className="w-full aspect-[3/4] flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm hover:shadow-[0_20px_50px_rgba(61,107,79,0.15)] bg-white scale-[0.83]"
+                className="w-full aspect-[3/4] flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm hover:shadow-[0_20px_50px_rgba(61,107,79,0.15)] bg-white p-4 scale-[0.83]"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
               >
-                <div className="w-full h-full flex items-center justify-center bg-accent-light/5 rounded-xl">
+                <div className="w-full h-full flex items-center justify-center bg-accent-light/5 rounded-lg border border-accent-light/10">
                   <Leaf className="w-20 h-20 opacity-20" style={{ color: colors.accent }} />
                 </div>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>

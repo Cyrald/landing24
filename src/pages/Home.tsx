@@ -129,90 +129,112 @@ const HeroSection = () => {
   );
 };
 
-// --- How It Works Variants (STRICT Skeleton: Text Left, Photo Right) ---
+// --- How It Works Typography Variants (Strict Layout: Text Left, Photo Right) ---
 const howItWorksVariants = [
   {
     id: 1,
-    name: "Классический Журнал",
-    wrapperClass: "grid grid-cols-1 md:grid-cols-12 gap-12",
-    textClass: "md:col-span-7 pt-4",
-    imageCardClass: "md:col-span-5 bg-white p-4 shadow-xl rotate-1",
-    imageScale: 1
+    name: "Эстетичный заголовок",
+    textClass: "space-y-4",
+    pClass: "text-lg leading-relaxed first-line:uppercase first-line:tracking-widest first-line:font-bold",
+    accent: "border-l-2 pl-6"
   },
   {
     id: 2,
-    name: "Элегантная Линия",
-    wrapperClass: "grid grid-cols-1 md:grid-cols-12 gap-16 items-center",
-    textClass: "md:col-span-6 border-l-4 pl-8",
-    textStyle: { borderLeftColor: colors.accent },
-    imageCardClass: "md:col-span-6 bg-transparent",
-    imageScale: 0.8
+    name: "Дзен-минимализм",
+    textClass: "space-y-6",
+    pClass: "text-xl font-light italic leading-loose",
+    accent: "opacity-80"
   },
   {
     id: 3,
-    name: "Мягкое Свечение",
-    wrapperClass: "grid grid-cols-1 md:grid-cols-12 gap-12 items-center p-8 rounded-3xl bg-white/30",
-    textClass: "md:col-span-7",
-    imageCardClass: "md:col-span-5 bg-white p-4 shadow-2xl rounded-2xl",
-    imageScale: 0.9
+    name: "Журнальный акцент",
+    textClass: "space-y-2",
+    pClass: "text-lg font-medium bg-accent-light/10 p-6 rounded-r-3xl border-l-4",
+    accent: "border-accent"
   },
   {
     id: 4,
-    name: "Акцентная Тень",
-    wrapperClass: "grid grid-cols-1 md:grid-cols-12 gap-12 items-start",
-    textClass: "md:col-span-7",
-    imageCardClass: "md:col-span-5 bg-white p-2 shadow-[15px_15px_0px_0px_rgba(61,107,79,0.1)]",
-    imageScale: 1
+    name: "Современный блок",
+    textClass: "space-y-4",
+    pClass: "text-lg border-2 p-8 rounded-2xl shadow-inner bg-white/40",
+    accent: "border-white"
   },
   {
     id: 5,
-    name: "Природный Матовый",
-    wrapperClass: "grid grid-cols-1 md:grid-cols-12 gap-12 items-center",
-    textClass: "md:col-span-7 bg-white/60 backdrop-blur-sm p-10 rounded-2xl border border-accent-light/30",
-    imageCardClass: "md:col-span-5 bg-accent/10 p-10 rounded-full",
-    imageScale: 0.85
+    name: "Типографика 1",
+    textClass: "space-y-3",
+    pClass: "text-2xl font-bold tracking-tight leading-tight uppercase",
+    accent: "text-accent"
   },
   {
     id: 6,
-    name: "Минималистичный Бордюр",
-    wrapperClass: "grid grid-cols-1 md:grid-cols-12 gap-12 py-10 border-y",
-    wrapperStyle: { borderColor: colors.accentLight },
-    textClass: "md:col-span-7",
-    imageCardClass: "md:col-span-5 bg-white p-6 shadow-sm",
-    imageScale: 0.95
+    name: "Типографика 2",
+    textClass: "space-y-4",
+    pClass: "text-lg font-serif",
+    accent: "underline decoration-accent decoration-2 underline-offset-8"
   },
   {
     id: 7,
-    name: "Легкий Градиент",
-    wrapperClass: "grid grid-cols-1 md:grid-cols-12 gap-12 items-center",
-    textClass: "md:col-span-7",
-    imageCardClass: "md:col-span-5 bg-gradient-to-br from-accent-light/40 to-white/10 p-8 rounded-[3rem] shadow-inner",
-    imageScale: 0.8
+    name: "Цитатный стиль",
+    textClass: "relative",
+    pClass: "text-xl leading-relaxed before:content-['“'] before:text-6xl before:absolute before:-left-8 before:-top-4 before:opacity-20",
+    accent: "before:text-accent"
   },
   {
     id: 8,
-    name: "Журнальный Отступ",
-    wrapperClass: "grid grid-cols-1 md:grid-cols-12 gap-20",
-    textClass: "md:col-span-8",
-    imageCardClass: "md:col-span-4 bg-white p-3 shadow-lg rotate-2",
-    imageScale: 1
+    name: "Акцент на фразах",
+    textClass: "space-y-4",
+    pClass: "text-lg leading-relaxed",
+    accent: "selection:bg-accent selection:text-white"
   },
   {
     id: 9,
-    name: "Стеклянный Слой",
-    wrapperClass: "grid grid-cols-1 md:grid-cols-12 gap-0 rounded-3xl overflow-hidden shadow-xl",
-    textClass: "md:col-span-7 bg-white p-12",
-    imageCardClass: "md:col-span-5 bg-accent-light/20 h-full flex items-center justify-center",
-    imageScale: 0.7
+    name: "Градиентный текст",
+    textClass: "space-y-4",
+    pClass: "text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent-dark",
+    accent: ""
   },
   {
     id: 10,
-    name: "Тонкий Штрих",
-    wrapperClass: "grid grid-cols-1 md:grid-cols-12 gap-12 items-center",
-    textClass: "md:col-span-7 border-t-2 pt-8",
-    textStyle: { borderTopColor: colors.accentLight },
-    imageCardClass: "md:col-span-5 bg-white p-4 shadow-xl rounded-lg",
-    imageScale: 0.9
+    name: "Мягкий курсив",
+    textClass: "space-y-2",
+    pClass: "text-lg italic opacity-90 border-b pb-4",
+    accent: "border-accent-light"
+  },
+  {
+    id: 11,
+    name: "Брутализм",
+    textClass: "space-y-4",
+    pClass: "text-lg font-mono border-4 p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.1)]",
+    accent: "border-black"
+  },
+  {
+    id: 12,
+    name: "Легкий штрих",
+    textClass: "space-y-6",
+    pClass: "text-lg tracking-wide border-r-4 pr-10",
+    accent: "border-accent"
+  },
+  {
+    id: 13,
+    name: "Эфирный стиль",
+    textClass: "space-y-4",
+    pClass: "text-lg font-light tracking-widest opacity-70",
+    accent: "blur-[0.5px]"
+  },
+  {
+    id: 14,
+    name: "Геометрический",
+    textClass: "space-y-4 p-8 bg-accent/5 rounded-full aspect-square flex items-center justify-center text-center",
+    pClass: "text-sm md:text-base",
+    accent: ""
+  },
+  {
+    id: 15,
+    name: "Финальный акцент",
+    textClass: "space-y-4",
+    pClass: "text-xl leading-relaxed first-letter:text-5xl first-letter:font-bold first-letter:mr-2 first-letter:float-left",
+    accent: "first-letter:text-accent"
   }
 ];
 
@@ -238,7 +260,7 @@ export default function Home() {
             onClick={() => setIsPanelOpen(!isPanelOpen)}
             className="flex items-center justify-between w-full mb-2 font-bold text-sm uppercase tracking-wider opacity-60 hover:opacity-100"
           >
-            <span>Варианты дизайна</span>
+            <span>Варианты текста (15)</span>
             {isPanelOpen ? <ChevronDown size={18} /> : <ChevronUp size={18} />}
           </button>
           
@@ -271,21 +293,17 @@ export default function Home() {
             Как это работает
           </motion.h2>
           
-          <div 
-            className={`transition-all duration-500 ${v.wrapperClass}`}
-            style={v.wrapperStyle}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
             <motion.div 
               key={`text-${variantIndex}`}
               initial={{ opacity: 0, x: -20 }} 
               animate={{ opacity: 1, x: 0 }} 
-              className={`flex flex-col justify-center ${v.textClass}`}
-              style={v.textStyle}
+              className={`md:col-span-7 ${v.textClass}`}
             >
-              <div className="prose prose-lg max-w-none">
+              <div className={v.accent}>
                 <p 
-                  className="leading-relaxed text-lg"
-                  style={{ color: colors.textSecondary }}
+                  className={v.pClass}
+                  style={{ color: !v.pClass.includes('text-') ? colors.textSecondary : undefined }}
                 >
                   Наши wellness-продукты основаны на принципах биорезонансного воздействия и натурального восстановления организма. 
                   Процесс начинается с мягкого очищения на клеточном уровне, что подготавливает тело к глубокой регенерации. 
@@ -299,18 +317,18 @@ export default function Home() {
             
             <motion.div 
               key={`img-${variantIndex}`}
-              className={`w-full flex items-center justify-center ${v.imageCardClass}`}
+              className="md:col-span-5 w-full flex items-center justify-center"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <motion.div 
-                animate={{ scale: v.imageScale }}
-                className="w-full aspect-[3/4] flex items-center justify-center rounded-xl"
-                style={{ backgroundColor: v.imageCardClass.includes('bg-white') ? undefined : `${colors.cardBg}ee` }}
+              <div 
+                className="w-full aspect-[3/4] flex items-center justify-center rounded-xl scale-[0.85] bg-white p-4 shadow-xl rotate-1"
               >
-                <Leaf className="w-16 h-16 opacity-20" style={{ color: colors.accent }} />
-              </motion.div>
+                <div className="w-full h-full flex items-center justify-center bg-accent-light/10 rounded-lg">
+                  <Leaf className="w-16 h-16 opacity-20" style={{ color: colors.accent }} />
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>

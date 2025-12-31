@@ -260,7 +260,7 @@ export default function Home() {
               transition={{ duration: 0.5 }}
             >
               <motion.div 
-                className="w-full aspect-[3/4] flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm hover:shadow-[0_20px_50px_rgba(61,107,79,0.15)] bg-white scale-[0.98]"
+                className="w-full aspect-[3/4] flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm hover:shadow-[0_20px_50px_rgba(61,107,79,0.15)] bg-white scale-[0.83]"
               >
                 <div className="w-full h-full flex items-center justify-center bg-accent-light/5 rounded-xl">
                   <Leaf className="w-20 h-20 opacity-20" style={{ color: colors.accent }} />

@@ -178,10 +178,10 @@ export default function Home() {
       <section className="py-20 md:py-28" style={{ backgroundColor: colors.bg }}>
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-5" style={{ color: colors.text }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: colors.text }}>
               Как это <span style={{ color: colors.accent }}>работает</span>
             </h2>
-            <div className="w-28 h-1.5 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
+            <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
 
           <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-md border border-slate-100">
@@ -216,9 +216,9 @@ export default function Home() {
             </h2>
             <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {products.map((product) => (
-              <motion.div key={product.id} className="flex flex-row rounded-xl overflow-hidden card-shadow" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}>
+              <motion.div key={product.id} className="flex flex-row rounded-xl overflow-hidden card-shadow scale-[0.9] origin-center" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}>
                 <div className="w-[40%] aspect-[3/4] flex items-center justify-center flex-shrink-0" style={{ backgroundColor: colors.bgAlt }}>
                   <product.icon className="w-16 h-16 mx-auto mb-3" style={{ color: colors.accent }} />
                 </div>

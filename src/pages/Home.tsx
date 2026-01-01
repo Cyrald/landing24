@@ -162,7 +162,7 @@ export default function Home() {
     ),
     // 2. Modern Wide (Minimalist)
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row rounded-2xl overflow-hidden bg-white/40 backdrop-blur-md border border-slate-200 hover:border-primary/40 transition-all duration-500 w-full md:w-[115%] md:-ml-[7.5%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row rounded-2xl overflow-hidden bg-white/40 backdrop-blur-md border border-slate-200 hover:border-primary/40 transition-all duration-500 w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[35%] aspect-[3/4] bg-slate-50 flex items-center justify-center">
           <product.icon className="w-16 h-16 text-primary/30" />
         </div>
@@ -176,7 +176,7 @@ export default function Home() {
     ),
     // 3. Brutalist Edge
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row border-4 border-black bg-white shadow-[12px_12px_0px_0px_#000] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all w-full md:w-[110%] md:-ml-[5%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row border-4 border-black bg-white shadow-[12px_12px_0px_0px_#000] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[30%] aspect-[3/4] bg-primary border-r-4 border-black flex items-center justify-center">
           <product.icon className="w-20 h-20 text-black" />
         </div>
@@ -191,7 +191,7 @@ export default function Home() {
     ),
     // 4. Floating Glass
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row rounded-[2rem] overflow-hidden bg-white/5 backdrop-blur-2xl border border-white/20 shadow-2xl w-full md:w-[120%] md:-ml-[10%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row rounded-[2rem] overflow-hidden bg-white/5 backdrop-blur-2xl border border-white/20 shadow-2xl w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[40%] aspect-[3/4] bg-gradient-to-br from-white/10 to-transparent flex items-center justify-center relative">
           <div className="absolute w-32 h-32 bg-primary/20 blur-[60px] rounded-full" />
           <product.icon className="w-24 h-24 text-white relative z-10 drop-shadow-2xl" />
@@ -207,7 +207,7 @@ export default function Home() {
     ),
     // 5. Dark Edge Premium
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row bg-slate-950 rounded-lg border border-white/10 hover:border-primary/40 transition-all group w-full md:w-[105%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row bg-slate-950 rounded-lg border border-white/10 hover:border-primary/40 transition-all group w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[35%] aspect-[3/4] bg-slate-900 overflow-hidden relative">
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent opacity-60" />
           <div className="w-full h-full flex items-center justify-center group-hover:scale-110 transition-transform duration-1000">
@@ -228,7 +228,7 @@ export default function Home() {
     ),
     // 6. Bio-Organic Wide
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row rounded-[50px] bg-emerald-50/50 border border-emerald-100 p-6 gap-8 w-full md:w-[112%] md:-ml-[6%] shadow-lg shadow-emerald-900/5">
+      <motion.div key={product.id} className="flex flex-col md:flex-row rounded-[50px] bg-emerald-50/50 border border-emerald-100 p-6 gap-8 w-full md:w-[125%] md:-ml-[12.5%] shadow-lg shadow-emerald-900/5 relative z-0 hover:z-10">
         <div className="w-full md:w-[38%] aspect-[3/4] bg-white rounded-[40px] shadow-inner flex items-center justify-center">
           <product.icon className="w-20 h-20 text-emerald-500" />
         </div>
@@ -247,7 +247,7 @@ export default function Home() {
     ),
     // 7. Tech Frame
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row relative group bg-black border border-primary/20 hover:border-primary transition-colors w-full md:w-[118%] md:-ml-[9%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row relative group bg-black border border-primary/20 hover:border-primary transition-colors w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary" />
         <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary" />
         <div className="w-full md:w-[40%] aspect-[3/4] bg-slate-900/50 flex items-center justify-center relative">
@@ -266,7 +266,7 @@ export default function Home() {
     ),
     // 8. Studio White
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row bg-white rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.06)] hover:shadow-[0_50px_100px_rgba(0,0,0,0.12)] transition-all duration-700 p-4 w-full md:w-[108%] md:-ml-[4%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row bg-white rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.06)] hover:shadow-[0_50px_100px_rgba(0,0,0,0.12)] transition-all duration-700 p-4 w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[35%] aspect-[3/4] bg-slate-50 rounded-[2.5rem] flex items-center justify-center">
           <product.icon className="w-28 h-28 text-slate-900" />
         </div>
@@ -282,7 +282,7 @@ export default function Home() {
     ),
     // 9. Newspaper Bold
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row bg-[#fdf6e3] border-y-4 border-black p-4 w-full md:w-[114%] md:-ml-[7%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row bg-[#fdf6e3] border-y-4 border-black p-4 w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[40%] aspect-[3/4] border-4 border-black bg-white flex items-center justify-center">
           <product.icon className="w-24 h-24 text-black grayscale" />
         </div>
@@ -302,7 +302,7 @@ export default function Home() {
     ),
     // 10. Aurora Glow
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row rounded-3xl overflow-hidden bg-white shadow-2xl shadow-primary/10 hover:-translate-y-4 transition-all duration-500 w-full md:w-[116%] md:-ml-[8%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row rounded-3xl overflow-hidden bg-white shadow-2xl shadow-primary/10 hover:-translate-y-4 transition-all duration-500 w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[35%] aspect-[3/4] bg-gradient-to-tr from-primary via-accentDark to-indigo-900 flex items-center justify-center relative overflow-hidden">
            <div className="absolute inset-0 bg-white/10 backdrop-blur-3xl animate-pulse" />
            <product.icon className="w-24 h-24 text-white relative z-10 drop-shadow-2xl" />
@@ -316,7 +316,7 @@ export default function Home() {
     ),
     // 11. Kinetic Split
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row bg-slate-900 text-white overflow-hidden group w-full md:w-[125%] md:-ml-[12.5%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row bg-slate-900 text-white overflow-hidden group w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[45%] aspect-[3/4] bg-white flex items-center justify-center group-hover:bg-primary transition-colors duration-700">
           <product.icon className="w-32 h-32 text-slate-900 group-hover:text-white group-hover:scale-125 transition-all duration-700" />
         </div>
@@ -329,7 +329,7 @@ export default function Home() {
     ),
     // 12. Neumorphic Deep
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row bg-[#e0e0e0] rounded-[60px] p-8 shadow-[30px_30px_60px_#bebebe,-30px_-30px_60px_#ffffff] gap-10 w-full md:w-[110%] md:-ml-[5%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row bg-[#e0e0e0] rounded-[60px] p-8 shadow-[30px_30px_60px_#bebebe,-30px_-30px_60px_#ffffff] gap-10 w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[35%] aspect-[3/4] bg-[#e0e0e0] rounded-[50px] shadow-[inset_15px_15px_30px_#bebebe,inset_-15px_-15px_30px_#ffffff] flex items-center justify-center">
           <product.icon className="w-24 h-24 text-slate-700" />
         </div>
@@ -342,7 +342,7 @@ export default function Home() {
     ),
     // 13. Grid Line
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row border border-slate-200 bg-white group hover:bg-slate-50 transition-colors w-full md:w-[118%] md:-ml-[9%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row border border-slate-200 bg-white group hover:bg-slate-50 transition-colors w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[40%] aspect-[3/4] bg-slate-50 flex items-center justify-center relative border-r border-slate-200">
            <div className="absolute inset-0 grid grid-cols-4 grid-rows-4 opacity-[0.03]">
              {[...Array(16)].map((_, i) => <div key={i} className="border border-black" />)}
@@ -359,7 +359,7 @@ export default function Home() {
     ),
     // 14. Bento Wide
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row gap-4 p-4 bg-slate-100 rounded-[40px] w-full md:w-[115%] md:-ml-[7.5%] shadow-xl shadow-black/5">
+      <motion.div key={product.id} className="flex flex-col md:flex-row gap-4 p-4 bg-slate-100 rounded-[40px] w-full md:w-[125%] md:-ml-[12.5%] shadow-xl shadow-black/5 relative z-0 hover:z-10">
         <div className="w-full md:w-[35%] aspect-[3/4] bg-white rounded-[32px] flex items-center justify-center shadow-sm">
           <product.icon className="w-24 h-24 text-primary animate-pulse" />
         </div>
@@ -379,7 +379,7 @@ export default function Home() {
     ),
     // 15. Typographic Giant
     (product: any) => (
-      <motion.div key={product.id} className="flex flex-col md:flex-row border-b-2 border-slate-100 py-20 group w-full md:w-[120%] md:-ml-[10%]">
+      <motion.div key={product.id} className="flex flex-col md:flex-row border-b-2 border-slate-100 py-20 group w-full md:w-[125%] md:-ml-[12.5%] relative z-0 hover:z-10">
         <div className="w-full md:w-[40%] aspect-[3/4] flex items-center justify-center relative overflow-hidden">
           <span className="absolute text-[180px] font-black text-slate-100 group-hover:text-primary/5 transition-colors select-none leading-none -translate-x-12">0{product.id}</span>
           <product.icon className="w-40 h-40 relative z-10 text-slate-900 group-hover:scale-110 transition-transform duration-700" />

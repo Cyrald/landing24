@@ -209,18 +209,18 @@ export default function Home() {
       </section>
 
       <section id="catalog" className="py-12 md:py-16" style={{ backgroundColor: colors.bgAlt }}>
-        <div className="max-w-[100rem] mx-auto px-4 lg:px-6">
+        <div className="max-w-[115rem] mx-auto px-4 lg:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: colors.text }}>
               Каталог <span style={{ color: colors.accent }}>продуктов</span>
             </h2>
             <div className="w-[6rem] h-[0.25rem] mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-8 max-w-7xl mx-auto px-4 md:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-8 max-w-[85rem] mx-auto px-4 md:px-0">
             {products.map((product) => (
               <motion.div 
                 key={product.id} 
-                className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 md:mb-0 relative" 
+                className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[1.05] origin-center mb-0 md:mb-0 relative" 
                 style={{ backgroundColor: colors.cardBg, border: `0.0625rem solid ${colors.accentLight}`, zIndex: 1 }}
               >
                 <div className="w-full md:w-[40%] shrink-0" style={{ backgroundColor: colors.bgAlt }}>

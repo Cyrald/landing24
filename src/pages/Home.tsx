@@ -507,8 +507,12 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4 md:px-0">
-            {products.map((product) => cardVariants[designVariant](product))}
+          <div className="flex flex-col gap-16 max-w-4xl mx-auto px-4 md:px-0">
+            {products.map((product) => (
+              <div key={product.id} className="w-full">
+                {cardVariants[designVariant](product)}
+              </div>
+            ))}
           </div>
         </div>
       </section>

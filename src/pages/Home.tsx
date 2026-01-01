@@ -175,19 +175,24 @@ export default function Home() {
   const ctaVariants = [
     {
       id: 1,
-      name: "Классический Минимализм",
+      name: "Modern Wellness Hub",
       content: (
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-xl md:text-2xl font-bold mb-4" style={{ color: colors.text }}>
-            Начните новую главу вашего здоровья
-          </h2>
-          <button className="px-10 py-3 rounded-xl font-bold transition-all hover-elevate active-elevate-2 shadow-lg shadow-accent/10 mb-8" 
-                  style={{ backgroundColor: colors.button, color: colors.buttonText }}>
-            Магазин Wellness
-          </button>
-          <div className="pt-4 border-t border-slate-50 flex justify-center items-center">
-            <div className="text-[10px] uppercase tracking-widest font-bold opacity-40" style={{ color: colors.text }}>
-              © 2026 Wellness Products. Природная энергия.
+        <div className="w-full bg-[#f8faf8] border-t border-slate-100 py-16">
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+            <div className="md:col-span-2">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: colors.text }}>Ваше путешествие к здоровью начинается здесь</h2>
+              <p className="text-lg opacity-70 mb-8" style={{ color: colors.textSecondary }}>Присоединяйтесь к сообществу людей, выбравших осознанный путь к долголетию.</p>
+              <div className="flex flex-wrap gap-4">
+                <button className="px-8 py-4 rounded-xl font-bold shadow-lg hover-elevate active-elevate-2 transition-all" style={{ backgroundColor: colors.button, color: colors.buttonText }}>В каталог магазина</button>
+                <button className="px-8 py-4 rounded-xl font-bold border-2 transition-all hover:bg-slate-50" style={{ borderColor: colors.accent, color: colors.accent }}>О продуктах</button>
+              </div>
+            </div>
+            <div className="flex flex-col gap-4 text-sm opacity-60">
+              <div className="flex items-center gap-2 font-bold uppercase tracking-widest text-xs mb-2">Навигация</div>
+              <a href="#" className="hover:text-accent transition-colors">Главная</a>
+              <a href="#catalog" className="hover:text-accent transition-colors">Продукты</a>
+              <a href="#" className="hover:text-accent transition-colors">Доставка</a>
+              <a href="#" className="hover:text-accent transition-colors">Контакты</a>
             </div>
           </div>
         </div>
@@ -195,91 +200,272 @@ export default function Home() {
     },
     {
       id: 2,
-      name: "Акцентный Градиент",
+      name: "Nature's Whisper",
       content: (
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="p-8 rounded-[2rem] text-center text-white relative overflow-hidden shadow-2xl shadow-accent/20" style={{ background: colors.gradient }}>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">Готовы к переменам?</h2>
-            <button className="px-12 py-4 bg-white rounded-xl font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-xl" style={{ color: colors.accent }}>
-              В магазин
-            </button>
+        <div className="w-full bg-[#eef4ee] py-20">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <Leaf className="w-12 h-12 mx-auto mb-8 opacity-20" style={{ color: colors.accent }} />
+            <h2 className="text-4xl font-serif italic mb-6" style={{ color: colors.text }}>Энергия природы в каждом движении</h2>
+            <p className="text-xl mb-10 opacity-80" style={{ color: colors.textSecondary }}>Откройте для себя силу натуральных компонентов.</p>
+            <button className="px-12 py-5 bg-black text-white rounded-full font-bold text-lg hover:bg-accent transition-all shadow-2xl">Смотреть каталог</button>
+            <div className="mt-16 pt-8 border-t border-black/5 grid grid-cols-3 gap-8 text-xs uppercase tracking-[0.2em] opacity-40">
+              <div>Экологичность</div>
+              <div>Традиции</div>
+              <div>Инновации</div>
+            </div>
           </div>
         </div>
       )
     },
     {
       id: 3,
-      name: "Чистая Эстетика",
+      name: "Dark Transformation",
       content: (
-        <div className="max-w-2xl mx-auto px-6 text-center flex flex-col items-center">
-          <Leaf className="w-8 h-8 text-accent mb-6 opacity-40" />
-          <h2 className="text-2xl font-light italic mb-8" style={{ color: colors.text }}>
-            Чистая энергия природы в каждой капле
-          </h2>
-          <button className="px-12 py-3 border-b-2 border-accent font-bold tracking-widest uppercase text-sm hover:opacity-70 transition-opacity" style={{ color: colors.accent }}>
-            Перейти в магазин
-          </button>
+        <div className="w-full bg-[#1a2e1f] py-24 text-white">
+          <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
+            <div className="md:w-1/2">
+              <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">Готовы изменить жизнь сегодня?</h2>
+              <p className="text-xl opacity-60">Наши решения проверены временем и тысячами довольных клиентов по всей стране.</p>
+            </div>
+            <div className="md:w-1/3 flex flex-col gap-6">
+              <button className="w-full py-5 bg-white text-[#1a2e1f] rounded-none font-black text-xl hover:bg-accent hover:text-white transition-all">МАГАЗИН</button>
+              <p className="text-xs text-center opacity-40 uppercase tracking-widest">Бесплатная консультация доступна 24/7</p>
+            </div>
+          </div>
         </div>
       )
     },
     {
       id: 4,
-      name: "Социальный Отклик",
+      name: "Geometric Grid",
       content: (
-        <div className="max-w-4xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-left">
-          <div>
-            <h2 className="text-2xl font-bold mb-4" style={{ color: colors.text }}>Присоединяйтесь к 10,000+ довольных клиентов</h2>
-            <p className="text-sm opacity-60" style={{ color: colors.textSecondary }}>Начните свой путь к здоровью вместе с нами сегодня.</p>
-          </div>
-          <div className="flex justify-end">
-            <button className="px-10 py-4 rounded-full font-bold shadow-xl hover-elevate active-elevate-2" style={{ backgroundColor: colors.button, color: colors.buttonText }}>
-              Wellness Магазин
-            </button>
+        <div className="w-full border-t border-slate-100">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 h-full">
+            <div className="p-12 bg-white flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-50">
+              <Activity className="w-8 h-8 text-accent mb-4" />
+              <div className="font-bold">Эффективность</div>
+            </div>
+            <div className="p-12 bg-[#f4f9f5] flex flex-col justify-center gap-6 col-span-1 md:col-span-2">
+              <h2 className="text-2xl font-bold">Выберите свой путь к совершенству</h2>
+              <button className="self-start px-8 py-3 bg-accent text-white font-bold rounded-lg" onClick={() => window.location.hash = 'catalog'}>В каталог</button>
+            </div>
+            <div className="p-12 bg-black text-white flex items-end">
+              <div className="text-4xl font-black">2026</div>
+            </div>
           </div>
         </div>
       )
     },
     {
       id: 5,
-      name: "Геометрический Порядок",
+      name: "Minimalist Border",
       content: (
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 py-4">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
-              <Activity className="text-accent" />
+        <div className="w-full py-16 bg-white">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="border-[1px] border-slate-200 p-12 md:p-20 flex flex-col items-center text-center gap-8">
+              <div className="text-xs uppercase tracking-[0.5em] opacity-40">Next Step</div>
+              <h2 className="text-3xl md:text-5xl font-light" style={{ color: colors.text }}>Почувствуйте разницу уже сегодня</h2>
+              <button className="mt-4 px-12 py-4 border-b-2 border-accent text-accent font-bold uppercase tracking-widest hover:opacity-60 transition-opacity">Перейти в магазин</button>
             </div>
-            <h2 className="text-xl font-bold uppercase tracking-tighter" style={{ color: colors.text }}>Wellness Era</h2>
           </div>
-          <button className="px-8 py-3 bg-black text-white rounded-md font-bold text-sm tracking-widest uppercase hover:bg-accent transition-colors">
-            Shop Now
-          </button>
         </div>
       )
     },
     {
       id: 6,
-      name: "Мягкая Тень",
+      name: "Split Experience",
       content: (
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="bg-white p-10 rounded-3xl shadow-lg border border-slate-50 text-center">
-            <h2 className="text-2xl font-bold mb-8" style={{ color: colors.text }}>Почувствуйте разницу с первого дня</h2>
-            <button className="px-12 py-4 rounded-2xl font-black text-white hover-elevate active-elevate-2 shadow-xl shadow-accent/20" style={{ backgroundColor: colors.accent }}>
-              ВИТРИНА ПРОДУКТОВ
-            </button>
+        <div className="w-full h-[400px] flex flex-col md:flex-row">
+          <div className="flex-1 bg-accent/5 p-16 flex flex-col justify-center items-center text-center">
+            <h3 className="text-xl font-bold mb-4">Для новичков</h3>
+            <p className="text-sm opacity-60 mb-6">Начните с наших базовых наборов для очищения</p>
+            <button className="px-6 py-2 border border-accent text-accent font-bold rounded-full text-xs uppercase tracking-wider">Начать путь</button>
+          </div>
+          <div className="flex-1 bg-accent p-16 flex flex-col justify-center items-center text-center text-white">
+            <h3 className="text-xl font-bold mb-4">Для профессионалов</h3>
+            <p className="text-white/70 text-sm mb-6">Продвинутые системы биорезонансной терапии</p>
+            <button className="px-6 py-2 bg-white text-accent font-bold rounded-full text-xs uppercase tracking-wider">В каталог</button>
           </div>
         </div>
       )
     },
     {
       id: 7,
-      name: "Финальный Штрих",
+      name: "Gradient Flow",
       content: (
-        <div className="max-w-xl mx-auto px-6 text-center">
-          <p className="text-[10px] uppercase tracking-[0.4em] mb-4 opacity-40">The Final Step</p>
-          <h2 className="text-3xl font-serif italic mb-8" style={{ color: colors.text }}>Ваше тело скажет вам спасибо</h2>
-          <button className="w-full py-5 rounded-none border-2 border-slate-800 font-bold hover:bg-slate-800 hover:text-white transition-all">
-            ПЕРЕЙТИ В МАГАЗИН
-          </button>
+        <div className="w-full py-24 relative overflow-hidden" style={{ background: colors.gradient }}>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          <div className="max-w-4xl mx-auto px-6 text-center text-white relative z-10">
+            <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">Ваше тело заслуживает лучшего</h2>
+            <button className="px-16 py-5 bg-white text-accent rounded-2xl font-black text-2xl shadow-2xl hover:scale-105 active:scale-95 transition-transform" onClick={() => window.location.hash = 'catalog'}>В МАГАЗИН</button>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 8,
+      name: "Social Trust",
+      content: (
+        <div className="w-full bg-[#f8faf8] py-16 border-t border-slate-100">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+              <div>
+                <div className="flex -space-x-4 mb-4">
+                  {[1,2,3,4,5].map(i => (
+                    <div key={i} className="w-12 h-12 rounded-full border-4 border-white bg-slate-200 overflow-hidden">
+                      <div className="w-full h-full bg-accent/20 flex items-center justify-center text-accent text-xs font-bold">{i}</div>
+                    </div>
+                  ))}
+                </div>
+                <h2 className="text-2xl font-bold mb-2">10,000+ довольных клиентов</h2>
+                <p className="opacity-60">Присоединяйтесь к тем, кто уже вернул себе здоровье</p>
+              </div>
+              <button className="px-12 py-4 bg-accent text-white rounded-xl font-bold text-lg hover-elevate shadow-xl" onClick={() => window.location.hash = 'catalog'}>Выбрать продукт</button>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 9,
+      name: "Bento Layout",
+      content: (
+        <div className="w-full py-12 px-6">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[200px]">
+            <div className="md:col-span-2 bg-[#f4f9f5] rounded-3xl p-8 flex flex-col justify-end">
+              <h2 className="text-2xl font-bold mb-2">Натуральность</h2>
+              <p className="text-sm opacity-60">100% природных компонентов в каждом изделии</p>
+            </div>
+            <div className="bg-accent rounded-3xl p-8 flex flex-col justify-between text-white cursor-pointer hover:opacity-90" onClick={() => window.location.hash = 'catalog'}>
+              <div className="font-bold uppercase tracking-widest text-xs">Магазин</div>
+              <ChevronRight className="w-10 h-10" />
+            </div>
+            <div className="bg-black text-white rounded-3xl p-8 flex items-center justify-center text-center">
+              <div className="text-xs uppercase tracking-[0.4em]">Биорезонанс 2026</div>
+            </div>
+            <div className="md:col-span-2 bg-slate-50 rounded-3xl p-8 flex items-center justify-between">
+              <h2 className="text-xl font-bold">Остались вопросы?</h2>
+              <button className="px-6 py-2 border-2 border-black rounded-full font-bold text-sm">Связаться</button>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 10,
+      name: "Floating Action",
+      content: (
+        <div className="w-full py-20 bg-white">
+          <div className="max-w-3xl mx-auto px-6 text-center">
+            <div className="inline-block p-1 px-4 rounded-full bg-accent/10 text-accent text-xs font-bold uppercase tracking-widest mb-6">Limited Edition</div>
+            <h2 className="text-4xl font-bold mb-6">Эксклюзивная коллекция Wellness 2026</h2>
+            <p className="text-lg opacity-60 mb-10">Только в этом сезоне — специальные наборы для комплексного восстановления.</p>
+            <button className="px-12 py-5 bg-accent text-white rounded-2xl font-black text-xl hover:shadow-2xl hover:shadow-accent/40 transition-all active:scale-95" onClick={() => window.location.hash = 'catalog'}>ЗАБРАТЬ СВОЙ НАБОР</button>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 11,
+      name: "Technical Specs",
+      content: (
+        <div className="w-full bg-[#eef4ee] py-16">
+          <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-end gap-12">
+            <div className="max-w-xl">
+              <h2 className="text-3xl font-bold mb-8">Научный подход к вашему комфорту</h2>
+              <div className="grid grid-cols-2 gap-8 text-sm">
+                <div>
+                  <div className="font-black text-accent mb-1">ISO 9001</div>
+                  <div className="opacity-60 font-medium">Международный стандарт качества</div>
+                </div>
+                <div>
+                  <div className="font-black text-accent mb-1">Eco-Cert</div>
+                  <div className="opacity-60 font-medium">Чистота и безопасность материалов</div>
+                </div>
+              </div>
+            </div>
+            <button className="px-10 py-10 bg-white border-4 border-accent rounded-full text-accent font-black text-center hover:bg-accent hover:text-white transition-all leading-tight" onClick={() => window.location.hash = 'catalog'}>В КАТАЛОГ<br/>МАГАЗИНА</button>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 12,
+      name: "Serene Minimal",
+      content: (
+        <div className="w-full py-32 bg-[#f8faf8] text-center">
+          <div className="max-w-2xl mx-auto px-6">
+            <h2 className="text-5xl font-light mb-12 tracking-tight" style={{ color: colors.text }}>Простота. Здоровье. Вы.</h2>
+            <button className="text-accent font-black text-2xl border-b-4 border-accent pb-2 hover:opacity-50 transition-opacity" onClick={() => window.location.hash = 'catalog'}>Перейти в каталог</button>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 13,
+      name: "Dynamic Banner",
+      content: (
+        <div className="w-full bg-black py-12 overflow-hidden whitespace-nowrap border-y border-white/10">
+          <motion.div 
+            animate={{ x: [0, -1000] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="flex gap-20 text-white text-6xl font-black opacity-20"
+          >
+            <span>WELLNESS 2026</span>
+            <span>PURE ENERGY</span>
+            <span>HEALTH FIRST</span>
+            <span>NATURE POWER</span>
+          </motion.div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <button className="px-16 py-6 bg-white text-black font-black text-2xl rounded-full hover:bg-accent hover:text-white transition-all shadow-2xl" onClick={() => window.location.hash = 'catalog'}>КАТАЛОГ</button>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 14,
+      name: "Classic Footnote",
+      content: (
+        <div className="w-full bg-white border-t border-slate-100 pt-20 pb-10">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-20">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-2">
+                  <Leaf className="text-accent w-6 h-6" />
+                  <span className="font-black text-xl uppercase tracking-tighter">Wellness</span>
+                </div>
+                <p className="max-w-xs opacity-50 text-sm">Мы верим в силу природы и инноваций, создавая продукты, которые меняют жизни.</p>
+              </div>
+              <div className="grid grid-cols-2 gap-20">
+                <div className="flex flex-col gap-3 text-sm">
+                  <div className="font-bold mb-2">Магазин</div>
+                  <a href="#catalog" className="opacity-60 hover:text-accent transition-colors">Каталог</a>
+                  <a href="#" className="opacity-60 hover:text-accent transition-colors">Бестселлеры</a>
+                  <a href="#" className="opacity-60 hover:text-accent transition-colors">Новинки</a>
+                </div>
+                <div className="flex flex-col gap-3 text-sm">
+                  <div className="font-bold mb-2">Помощь</div>
+                  <a href="#" className="opacity-60 hover:text-accent transition-colors">FAQ</a>
+                  <a href="#" className="opacity-60 hover:text-accent transition-colors">Доставка</a>
+                  <a href="#" className="opacity-60 hover:text-accent transition-colors">Возврат</a>
+                </div>
+              </div>
+              <button className="px-8 py-3 bg-black text-white font-bold rounded-lg hover:bg-accent transition-colors" onClick={() => window.location.hash = 'catalog'}>Перейти в магазин</button>
+            </div>
+            <div className="text-center text-[10px] uppercase tracking-[0.5em] opacity-20">© 2026 Все права защищены</div>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 15,
+      name: "The Final Statement",
+      content: (
+        <div className="w-full bg-accent py-24 text-white text-center">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-5xl md:text-7xl font-black mb-12 italic leading-none uppercase tracking-tighter">Сделай шаг к новой версии себя</h2>
+            <button className="px-20 py-6 bg-white text-accent rounded-full font-black text-2xl hover:bg-black hover:text-white transition-all shadow-2xl" onClick={() => window.location.hash = 'catalog'}>В КАТАЛОГ</button>
+          </div>
         </div>
       )
     }
@@ -444,7 +630,7 @@ export default function Home() {
       </section>
 
       {/* Footer Section */}
-      <footer className="py-12 border-t border-slate-200/50" style={{ backgroundColor: colors.bgAlt }}>
+      <footer className="w-full border-t border-slate-200/50">
         {ctaVariants.find(v => v.id === ctaVariant)?.content}
       </footer>
     </div>

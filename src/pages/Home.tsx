@@ -184,17 +184,17 @@ export default function Home() {
             <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
 
-          <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-md border border-slate-100">
+          <div className="rounded-3xl overflow-hidden shadow-sm border border-slate-100" style={{ backgroundColor: colors.bgAlt }}>
             <div className="flex flex-col md:flex-row items-stretch">
               <div className="w-full md:w-5/12 shrink-0">
                 <div className="aspect-[4/5] h-full">
                   <SmartImage
                     sources={getImageSources('how-it-works', 1)}
                     alt="How it works"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover grayscale opacity-80"
                     placeholderContent={
-                      <div className="w-full h-full flex items-center justify-center bg-slate-50">
-                        <Activity className="w-14 h-14 text-slate-300" />
+                      <div className="w-full h-full flex items-center justify-center bg-slate-100">
+                        <Activity className="w-14 h-14 text-slate-400" />
                       </div>
                     }
                   />
@@ -309,19 +309,19 @@ export default function Home() {
       </section>
 
       {/* Footer Section */}
-      <footer className="py-6 bg-white border-t border-slate-100">
+      <footer className="py-10 border-t border-slate-200/50" style={{ backgroundColor: colors.bgAlt }}>
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-xl md:text-2xl font-bold mb-3" style={{ color: colors.text }}>
+          <h2 className="text-xl md:text-2xl font-bold mb-5" style={{ color: colors.text }}>
             Начните новую главу вашего здоровья
           </h2>
           
-          <button className="px-10 py-3 rounded-xl font-bold transition-all hover-elevate active-elevate-2 shadow-lg shadow-accent/10 mb-6" 
+          <button className="px-10 py-3 rounded-xl font-bold transition-all hover-elevate active-elevate-2 shadow-lg shadow-accent/10 mb-8" 
                   style={{ backgroundColor: colors.button, color: colors.buttonText }}>
             Магазин Wellness
           </button>
 
-          <div className="pt-4 border-t border-slate-50 flex justify-center items-center">
-            <div className="text-[10px] uppercase tracking-widest font-bold text-slate-400">
+          <div className="pt-6 border-t border-accent/10 flex justify-center items-center">
+            <div className="text-[10px] uppercase tracking-widest font-bold opacity-40" style={{ color: colors.text }}>
               © 2026 Wellness Products. Природная энергия.
             </div>
           </div>

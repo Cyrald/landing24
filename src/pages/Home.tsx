@@ -223,16 +223,17 @@ export default function Home() {
                 className="grid grid-cols-1 md:grid-cols-[220px_1fr] rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 md:mb-0 relative items-stretch" 
                 style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}`, zIndex: 1 }}
               >
-                {/* Система "Геометрический Якорь" с фиксацией 3:4 */}
-                <div className="bg-[#f4f9f5] shrink-0 w-[220px] relative flex items-start" style={{ backgroundColor: colors.bgAlt }}>
-                  <div className="w-full relative" style={{ paddingBottom: '133.33%' }}>
-                    <div className="absolute inset-0 flex items-center justify-center p-6">
-                      <product.icon className="w-full h-full max-w-[5rem] max-h-[5rem] object-contain" style={{ color: colors.accent }} />
-                    </div>
+                {/* 
+                  Инновационная система "Геометрический Якорь":
+                  Блок фотки (левая колонка) ВСЕГДА 3:4.
+                */}
+                <div className="md:w-[220px] md:h-[293.33px] shrink-0 relative bg-[#f4f9f5]" style={{ backgroundColor: colors.bgAlt }}>
+                  <div className="absolute inset-0 flex items-center justify-center p-6">
+                    <product.icon className="w-full h-full max-w-[5rem] max-h-[5rem] object-contain" style={{ color: colors.accent }} />
                   </div>
                 </div>
                 
-                <div className="p-10 md:p-12 flex flex-col justify-center">
+                <div className="p-10 md:p-12 flex flex-col justify-center min-h-[293.33px]">
                   <div className="flex items-center gap-4 mb-4">
                     <span className="w-10 h-10 rounded-full flex items-center justify-center text-white text-base font-bold" style={{ backgroundColor: colors.accent }}>{product.id}</span>
                     <h3 className="text-2xl font-bold" style={{ color: colors.text }}>{product.name}</h3>

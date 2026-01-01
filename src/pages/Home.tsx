@@ -210,9 +210,11 @@ export default function Home() {
 
       <section id="catalog" className="py-12 md:py-16" style={{ backgroundColor: colors.bgAlt }}>
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
-          <div className="text-center mb-10 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: colors.text }}>Каталог продуктов</h2>
-            <div className="w-24 h-0.5 mx-auto" style={{ backgroundColor: colors.accent }}></div>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: colors.text }}>
+              Каталог <span style={{ color: colors.accent }}>продуктов</span>
+            </h2>
+            <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {products.map((product) => (

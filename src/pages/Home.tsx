@@ -140,7 +140,7 @@ export default function Home() {
     (product: any) => (
       <motion.div 
         key={product.id} 
-        className="flex flex-row h-full rounded-lg overflow-hidden card-shadow mb-0 relative" 
+        className="flex flex-row h-full rounded-lg overflow-hidden card-shadow mb-0 relative w-[120%]" 
         style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}`, zIndex: 1 }}
       >
         <div className="w-[40%] shrink-0" style={{ backgroundColor: colors.bgAlt }}>
@@ -507,7 +507,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="grid grid-cols-2 gap-8 max-w-6xl mx-auto px-4 md:px-0 scale-[0.7] origin-top">
+          <div className="grid grid-cols-2 gap-12 max-w-7xl mx-auto px-4 md:px-0 scale-[0.8] origin-top">
             {products.map((product) => (
               <div key={product.id} className="w-full h-full">
                 {cardVariants[designVariant](product)}

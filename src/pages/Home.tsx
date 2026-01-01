@@ -65,7 +65,7 @@ import { ctaVariantsData } from "../ctaVariants";
 function ProductImage({ text = "Продукт", aspectRatio = "3/4", className = "", bgColor }: { text?: string; aspectRatio?: string; className?: string; bgColor: string }) {
   return (
     <div
-      className={`rounded-xl overflow-hidden ${className}`}
+      className={`rounded-lg overflow-hidden ${className}`}
       style={{ aspectRatio, backgroundColor: bgColor }}
     >
       <SmartImage
@@ -123,7 +123,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <ProductImage text="Продукт" aspectRatio="3/4" className="shadow-xl rounded-2xl" bgColor={colors.accentLight} />
+            <ProductImage text="Продукт" aspectRatio="3/4" className="shadow-xl rounded-lg" bgColor={colors.accentLight} />
           </motion.div>
         </div>
       </div>
@@ -179,7 +179,7 @@ export default function Home() {
       {/* Switcher UI in Dev Mode - Fixed at bottom */}
       <div className="fixed bottom-4 left-4 z-[100] bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-xl border border-slate-200 flex gap-2">
         <select 
-          className="text-xs p-1 rounded border border-slate-300 outline-none"
+          className="text-xs p-1 rounded-md border border-slate-300 outline-none"
           value={ctaVariant}
           onChange={(e) => setCtaVariant(Number(e.target.value))}
         >
@@ -200,7 +200,7 @@ export default function Home() {
             <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
 
-          <div className="rounded-3xl overflow-hidden shadow-sm border" style={{ backgroundColor: colors.cardBg, borderColor: colors.accentLight }}>
+          <div className="rounded-lg overflow-hidden shadow-sm border" style={{ backgroundColor: colors.cardBg, borderColor: colors.accentLight }}>
             <div className="flex flex-col md:flex-row items-stretch">
               <div className="w-full md:w-5/12 shrink-0">
                 <div className="aspect-[4/5] h-full">
@@ -236,7 +236,7 @@ export default function Home() {
             {products.map((product) => (
               <motion.div 
                 key={product.id} 
-                className="flex flex-col md:flex-row rounded-xl overflow-hidden card-shadow scale-[0.9] origin-center mb-0 md:mb-0 relative" 
+                className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 md:mb-0 relative" 
                 style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}`, zIndex: 1 }}
               >
                 <div className="w-full md:w-[40%] shrink-0" style={{ backgroundColor: colors.bgAlt }}>
@@ -280,7 +280,7 @@ export default function Home() {
             >
               {testimonials.map((testimonial) => (
                 <SwiperSlide key={testimonial.id}>
-                  <div className="rounded-2xl p-5 flex flex-col h-80 card-shadow" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}>
+                  <div className="rounded-lg p-5 flex flex-col h-80 card-shadow" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}>
                     <h3 className="font-bold text-base mb-1" style={{ color: colors.text }}>{testimonial.name}</h3>
                     <div className="text-sm mb-2" style={{ color: colors.textSecondary }}>{testimonial.city}</div>
                     <div className="flex gap-1 mb-3">
@@ -316,7 +316,7 @@ export default function Home() {
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10" style={{ color: colors.text }}>Вопросы и ответы</h2>
           <div className="space-y-4">
             {faqItems.map((item, idx) => (
-              <motion.div key={idx} className="rounded-xl overflow-hidden card-shadow" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}>
+              <motion.div key={idx} className="rounded-lg overflow-hidden card-shadow" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}>
                 <button onClick={() => setOpenFaq(openFaq === idx ? null : idx)} className="w-full flex items-center justify-between p-5 text-left">
                   <span className="font-semibold pr-4" style={{ color: colors.text }}>{item.q}</span>
                   <ChevronDown className={`w-5 h-5 flex-shrink-0 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`} style={{ color: colors.accent }} />

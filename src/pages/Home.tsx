@@ -215,7 +215,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: colors.text }}>Каталог <span style={{ color: colors.accent }}>продуктов</span></h2>
             <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
-          <div className="grid grid-cols-1 gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product, index) => (
               <motion.div 
                 key={product.id} 
@@ -223,37 +223,33 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-sm border border-slate-100 bg-white items-stretch"
+                className="flex flex-col rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white hover-elevate transition-all"
               >
-                <div className="w-full md:w-[40%] lg:w-[35%] shrink-0">
-                  <div className="aspect-[3/4] h-full">
-                    <SmartImage
-                      sources={getImageSources('product', index + 1)}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                      placeholderContent={
-                        <div className="w-full h-full flex items-center justify-center bg-slate-50">
-                          <Leaf className="w-12 h-12 text-slate-300" />
-                        </div>
-                      }
-                    />
+                <div className="aspect-[4/5] relative overflow-hidden">
+                  <SmartImage
+                    sources={getImageSources('product', index + 1)}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                    placeholderContent={
+                      <div className="w-full h-full flex items-center justify-center bg-slate-50">
+                        <Leaf className="w-10 h-10 text-slate-300" />
+                      </div>
+                    }
+                  />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                    <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                    <span className="text-xs font-bold text-yellow-700">4.9</span>
                   </div>
                 </div>
-                <div className="w-full md:w-[60%] lg:w-[65%] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="flex items-center gap-4">
-                      <span className="w-10 h-10 rounded-full flex items-center justify-center text-white text-base font-bold shrink-0" style={{ backgroundColor: colors.accent }}>{product.id}</span>
-                      <h3 className="text-2xl md:text-3xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
-                    </div>
-                    <div className="hidden sm:flex items-center gap-1 bg-yellow-50 px-3 py-1 rounded-full">
-                      <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                      <span className="text-sm font-bold text-yellow-700">4.9</span>
-                    </div>
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0" style={{ backgroundColor: colors.accent }}>{product.id}</span>
+                    <h3 className="text-xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
                   </div>
-                  <p className="text-lg leading-relaxed mb-8" style={{ color: colors.textSecondary }}>{product.description}</p>
-                  <div className="flex items-center justify-between mt-auto pt-8 border-t border-slate-50">
-                    <span className="text-3xl font-bold" style={{ color: colors.accent }}>{product.price}</span>
-                    <button className="px-10 py-4 text-lg font-bold rounded-xl transition-all hover-elevate active-elevate-2 shadow-sm" style={{ backgroundColor: colors.button, color: colors.buttonText }}>Купить сейчас</button>
+                  <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: colors.textSecondary }}>{product.description}</p>
+                  <div className="flex items-center justify-between pt-4 border-t border-slate-50">
+                    <span className="text-xl font-bold" style={{ color: colors.accent }}>1500 ₽</span>
+                    <button className="px-5 py-2.5 text-sm font-bold rounded-lg transition-all hover-elevate active-elevate-2 shadow-sm" style={{ backgroundColor: colors.button, color: colors.buttonText }}>Купить</button>
                   </div>
                 </div>
               </motion.div>

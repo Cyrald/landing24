@@ -223,8 +223,8 @@ export default function Home() {
                 className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 md:mb-0 relative" 
                 style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}`, zIndex: 1 }}
               >
-                <div className="w-full md:w-[40%] shrink-0">
-                  <div className="w-full relative" style={{ paddingBottom: '133.33%', backgroundColor: colors.bgAlt }}>
+                <div className="w-full md:w-[40%] shrink-0 flex">
+                  <div className="w-full relative aspect-[3/4] bg-slate-50 flex items-center justify-center">
                     <div className="absolute inset-0 flex items-center justify-center p-4">
                       <product.icon className="w-12 h-12 md:w-16 md:h-16" style={{ color: colors.accent }} />
                     </div>

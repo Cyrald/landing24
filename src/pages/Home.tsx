@@ -208,49 +208,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Product Catalog Section */}
-      <section id="catalog" className="py-16 md:py-24" style={{ backgroundColor: colors.bgAlt }}>
+      <section id="catalog" className="py-12 md:py-16" style={{ backgroundColor: colors.bgAlt }}>
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: colors.text }}>Каталог <span style={{ color: colors.accent }}>продуктов</span></h2>
-            <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: colors.text }}>Каталог продуктов</h2>
+            <div className="w-24 h-0.5 mx-auto" style={{ backgroundColor: colors.accent }}></div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, index) => (
-              <motion.div 
-                key={product.id} 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="flex flex-col rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white hover-elevate transition-all"
-              >
-                <div className="aspect-[4/5] relative overflow-hidden">
-                  <SmartImage
-                    sources={getImageSources('product', index + 1)}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                    placeholderContent={
-                      <div className="w-full h-full flex items-center justify-center bg-slate-50">
-                        <Leaf className="w-10 h-10 text-slate-300" />
-                      </div>
-                    }
-                  />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                    <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                    <span className="text-xs font-bold text-yellow-700">4.9</span>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {products.map((product) => (
+              <motion.div key={product.id} className="flex flex-row rounded-xl overflow-hidden card-shadow" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}>
+                <div className="w-[40%] aspect-[3/4] flex items-center justify-center flex-shrink-0" style={{ backgroundColor: colors.bgAlt }}>
+                  <product.icon className="w-16 h-16 mx-auto mb-3" style={{ color: colors.accent }} />
                 </div>
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0" style={{ backgroundColor: colors.accent }}>{product.id}</span>
-                    <h3 className="text-xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
+                <div className="w-[60%] p-8 flex flex-col justify-center">
+                  <div className="flex items-center gap-4 mb-4">
+                    <span className="w-10 h-10 rounded-full flex items-center justify-center text-white text-base font-bold" style={{ backgroundColor: colors.accent }}>{product.id}</span>
+                    <h3 className="text-2xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
                   </div>
-                  <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: colors.textSecondary }}>{product.description}</p>
-                  <div className="flex items-center justify-between pt-4 border-t border-slate-50">
-                    <span className="text-xl font-bold" style={{ color: colors.accent }}>1500 ₽</span>
-                    <button className="px-5 py-2.5 text-sm font-bold rounded-lg transition-all hover-elevate active-elevate-2 shadow-sm" style={{ backgroundColor: colors.button, color: colors.buttonText }}>Купить</button>
-                  </div>
+                  <p className="text-base leading-relaxed mb-6" style={{ color: colors.textSecondary }}>{product.description}</p>
+                  <button className="px-6 py-3 text-base font-medium rounded-lg transition-all hover:scale-105 active-elevate-2" style={{ backgroundColor: colors.button, color: colors.buttonText }}>Подробнее</button>
                 </div>
               </motion.div>
             ))}

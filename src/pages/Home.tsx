@@ -217,29 +217,111 @@ export default function Home() {
             <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-8 max-w-6xl mx-auto px-4 md:px-0">
-            {products.map((product) => (
-              <motion.div 
-                key={product.id} 
-                className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 md:mb-0 relative min-h-[400px]" 
-                style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}`, zIndex: 1 }}
-              >
-                <div className="w-full md:w-[40%] shrink-0" style={{ backgroundColor: colors.bgAlt }}>
-                  <div className="w-full aspect-[3/4] flex items-center justify-center relative overflow-hidden h-full">
-                    <div className="absolute inset-0 flex items-center justify-center p-4">
-                      <product.icon className="w-full h-full max-w-[4.5rem] max-h-[4.5rem]" style={{ color: colors.accent }} />
+            {products.map((product, index) => {
+              // 6 different implementations to satisfy: 
+              // 1. Forced 3:4 aspect ratio for image/container
+              // 2. Text block increased in width (flex-grow/flex-basis logic)
+              
+              const variants = [
+                // Variant 1: Pure Aspect Ratio with Flex Basis
+                <motion.div 
+                  key={product.id} 
+                  className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 relative bg-white border border-[#d4e5d8]"
+                >
+                  <div className="md:w-[30%] shrink-0 aspect-[3/4] bg-[#f4f9f5] flex items-center justify-center">
+                    <product.icon className="w-16 h-16 text-[#3d6b4f]" />
+                  </div>
+                  <div className="md:w-[70%] p-8 flex flex-col justify-center">
+                    <h3 className="text-2xl font-bold mb-4 text-[#1a2e1f]">{product.name}</h3>
+                    <p className="text-[#4a6b52] leading-relaxed mb-6">{product.description}</p>
+                    <button className="w-fit px-8 py-3 bg-[#3d6b4f] text-white rounded-lg">Вариант 1</button>
+                  </div>
+                </motion.div>,
+
+                // Variant 2: CSS Grid with explicit columns
+                <motion.div 
+                  key={product.id} 
+                  className="grid grid-cols-1 md:grid-cols-[1fr_2.5fr] rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 relative bg-white border border-[#d4e5d8]"
+                >
+                  <div className="aspect-[3/4] bg-[#f4f9f5] flex items-center justify-center w-full">
+                    <product.icon className="w-16 h-16 text-[#3d6b4f]" />
+                  </div>
+                  <div className="p-8 flex flex-col justify-center">
+                    <h3 className="text-2xl font-bold mb-4 text-[#1a2e1f]">{product.name}</h3>
+                    <p className="text-[#4a6b52] leading-relaxed mb-6">{product.description}</p>
+                    <button className="w-fit px-8 py-3 bg-[#3d6b4f] text-white rounded-lg">Вариант 2</button>
+                  </div>
+                </motion.div>,
+
+                // Variant 3: Absolute Container for Image
+                <motion.div 
+                  key={product.id} 
+                  className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 relative bg-white border border-[#d4e5d8] min-h-[300px]"
+                >
+                  <div className="relative md:w-[25%] shrink-0 bg-[#f4f9f5]">
+                    <div className="absolute inset-0 aspect-[3/4] w-full flex items-center justify-center">
+                      <product.icon className="w-16 h-16 text-[#3d6b4f]" />
                     </div>
                   </div>
-                </div>
-                <div className="w-full md:w-[60%] p-8 md:p-10 flex flex-col justify-center">
-                  <div className="flex items-center gap-4 mb-5">
-                    <span className="w-11 h-11 rounded-full flex items-center justify-center text-white text-lg font-bold" style={{ backgroundColor: colors.accent }}>{product.id}</span>
-                    <h3 className="text-2xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
+                  <div className="md:w-[75%] p-8 flex flex-col justify-center">
+                    <h3 className="text-2xl font-bold mb-4 text-[#1a2e1f]">{product.name}</h3>
+                    <p className="text-[#4a6b52] leading-relaxed mb-6">{product.description}</p>
+                    <button className="w-fit px-8 py-3 bg-[#3d6b4f] text-white rounded-lg">Вариант 3</button>
                   </div>
-                  <p className="text-base leading-relaxed mb-8 flex-1" style={{ color: colors.textSecondary }}>{product.description}</p>
-                  <button className="w-fit px-8 py-3.5 text-base font-medium rounded-lg transition-all hover:scale-105 active-elevate-2" style={{ backgroundColor: colors.button, color: colors.buttonText }}>Подробнее</button>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>,
+
+                // Variant 4: Padding-bottom hack for Aspect Ratio
+                <motion.div 
+                  key={product.id} 
+                  className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 relative bg-white border border-[#d4e5d8]"
+                >
+                  <div className="md:w-[28%] shrink-0 bg-[#f4f9f5]">
+                    <div className="w-full relative" style={{ paddingBottom: '133.33%' }}>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <product.icon className="w-16 h-16 text-[#3d6b4f]" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="md:w-[72%] p-8 flex flex-col justify-center">
+                    <h3 className="text-2xl font-bold mb-4 text-[#1a2e1f]">{product.name}</h3>
+                    <p className="text-[#4a6b52] leading-relaxed mb-6">{product.description}</p>
+                    <button className="w-fit px-8 py-3 bg-[#3d6b4f] text-white rounded-lg">Вариант 4</button>
+                  </div>
+                </motion.div>,
+
+                // Variant 5: Inline-style forced dimensions
+                <motion.div 
+                  key={product.id} 
+                  className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 relative bg-white border border-[#d4e5d8]"
+                >
+                  <div className="shrink-0 bg-[#f4f9f5] flex items-center justify-center" style={{ width: '25%', aspectRatio: '3/4' }}>
+                    <product.icon className="w-16 h-16 text-[#3d6b4f]" />
+                  </div>
+                  <div className="p-8 flex flex-col justify-center flex-grow" style={{ width: '75%' }}>
+                    <h3 className="text-2xl font-bold mb-4 text-[#1a2e1f]">{product.name}</h3>
+                    <p className="text-[#4a6b52] leading-relaxed mb-6">{product.description}</p>
+                    <button className="w-fit px-8 py-3 bg-[#3d6b4f] text-white rounded-lg">Вариант 5</button>
+                  </div>
+                </motion.div>,
+
+                // Variant 6: Calc-based sizing
+                <motion.div 
+                  key={product.id} 
+                  className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 relative bg-white border border-[#d4e5d8]"
+                >
+                  <div className="shrink-0 bg-[#f4f9f5] flex items-center justify-center" style={{ width: 'clamp(150px, 20%, 300px)', aspectRatio: '3/4' }}>
+                    <product.icon className="w-16 h-16 text-[#3d6b4f]" />
+                  </div>
+                  <div className="p-8 flex flex-col justify-center" style={{ width: 'calc(100% - clamp(150px, 20%, 300px))' }}>
+                    <h3 className="text-2xl font-bold mb-4 text-[#1a2e1f]">{product.name}</h3>
+                    <p className="text-[#4a6b52] leading-relaxed mb-6">{product.description}</p>
+                    <button className="w-fit px-8 py-3 bg-[#3d6b4f] text-white rounded-lg">Вариант 6</button>
+                  </div>
+                </motion.div>
+              ];
+
+              return variants[index % variants.length];
+            })}
           </div>
         </div>
       </section>

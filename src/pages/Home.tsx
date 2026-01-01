@@ -343,15 +343,15 @@ export default function Home() {
             </h2>
             <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4 md:px-0">
             {products.map((product) => (
-              <motion.div key={product.id} className="flex flex-row rounded-xl overflow-hidden card-shadow scale-[0.9] origin-center" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}>
-                <div className="w-[40%] aspect-[3/4] flex items-center justify-center flex-shrink-0 relative overflow-hidden" style={{ backgroundColor: colors.bgAlt }}>
+              <motion.div key={product.id} className="flex flex-col md:flex-row rounded-xl overflow-hidden card-shadow scale-[0.9] origin-center mb-8 md:mb-0" style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}>
+                <div className="w-full md:w-[40%] aspect-[3/4] flex items-center justify-center flex-shrink-0 relative overflow-hidden" style={{ backgroundColor: colors.bgAlt }}>
                   <div className="absolute inset-0 flex items-center justify-center p-4">
-                    <product.icon className="w-full h-full max-w-[4rem] max-h-[4rem]" style={{ color: colors.accent }} />
+                    <product.icon className="w-full h-full max-w-[4rem] max-h-[4rem] md:max-w-[4rem] md:max-h-[4rem]" style={{ color: colors.accent }} />
                   </div>
                 </div>
-                <div className="w-[60%] p-8 flex flex-col justify-center">
+                <div className="w-full md:w-[60%] p-6 md:p-8 flex flex-col justify-center">
                   <div className="flex items-center gap-4 mb-4">
                     <span className="w-10 h-10 rounded-full flex items-center justify-center text-white text-base font-bold" style={{ backgroundColor: colors.accent }}>{product.id}</span>
                     <h3 className="text-2xl font-bold" style={{ color: colors.text }}>{product.name}</h3>

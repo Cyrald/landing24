@@ -220,25 +220,27 @@ export default function Home() {
             {products.map((product) => (
               <motion.div 
                 key={product.id} 
-                className="grid grid-cols-1 md:grid-cols-[220px_1fr] rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 md:mb-0 relative items-stretch" 
+                className="flex flex-col md:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 md:mb-0 relative" 
                 style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}`, zIndex: 1 }}
               >
                 {/* 
-                  Инновационная система "Геометрический Якорь":
-                  Блок фотки (левая колонка) ВСЕГДА 3:4.
+                  Блок фото управляет высотой карточки. 
+                  Ширина фиксирована, высота следует за ней по 3:4.
                 */}
-                <div className="md:w-[220px] md:h-[293.33px] shrink-0 relative bg-[#f4f9f5]" style={{ backgroundColor: colors.bgAlt }}>
-                  <div className="absolute inset-0 flex items-center justify-center p-6">
-                    <product.icon className="w-full h-full max-w-[5rem] max-h-[5rem] object-contain" style={{ color: colors.accent }} />
+                <div className="md:w-[220px] shrink-0" style={{ backgroundColor: colors.bgAlt }}>
+                  <div className="w-full aspect-[3/4] flex items-center justify-center relative overflow-hidden bg-[#f4f9f5]">
+                    <div className="absolute inset-0 flex items-center justify-center p-6">
+                      <product.icon className="w-full h-full max-w-[5rem] max-h-[5rem] object-contain" style={{ color: colors.accent }} />
+                    </div>
                   </div>
                 </div>
                 
-                <div className="p-10 md:p-12 flex flex-col justify-center min-h-[293.33px]">
+                <div className="flex-1 p-10 md:p-12 flex flex-col justify-center min-w-0">
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="w-10 h-10 rounded-full flex items-center justify-center text-white text-base font-bold" style={{ backgroundColor: colors.accent }}>{product.id}</span>
-                    <h3 className="text-2xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
+                    <span className="w-10 h-10 rounded-full flex items-center justify-center text-white text-base font-bold shrink-0" style={{ backgroundColor: colors.accent }}>{product.id}</span>
+                    <h3 className="text-2xl font-bold truncate" style={{ color: colors.text }}>{product.name}</h3>
                   </div>
-                  <p className="text-base leading-relaxed mb-6" style={{ color: colors.textSecondary }}>{product.description}</p>
+                  <p className="text-base leading-relaxed mb-6 line-clamp-3 md:line-clamp-none" style={{ color: colors.textSecondary }}>{product.description}</p>
                   <button className="px-6 py-3 text-base font-medium rounded-lg transition-all hover:scale-105 active-elevate-2 w-fit" style={{ backgroundColor: colors.button, color: colors.buttonText }}>Подробнее</button>
                 </div>
               </motion.div>

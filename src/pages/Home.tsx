@@ -220,22 +220,22 @@ export default function Home() {
             {products.map((product) => (
               <motion.div 
                 key={product.id} 
-                className="flex flex-col sm:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 relative min-h-[280px]" 
+                className="flex flex-col sm:flex-row rounded-lg overflow-hidden card-shadow scale-[0.9] origin-center mb-0 relative" 
                 style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}`, zIndex: 1 }}
               >
-                <div className="w-full sm:w-[28%] shrink-0 bg-[#f4f9f5]" style={{ backgroundColor: colors.bgAlt }}>
-                  <div className="w-full aspect-[3/4] flex items-center justify-center relative overflow-hidden h-full">
+                <div className="w-full sm:w-[280px] shrink-0 bg-[#f4f9f5]" style={{ backgroundColor: colors.bgAlt }}>
+                  <div className="w-full h-full relative" style={{ paddingBottom: '133.33%' }}>
                     <div className="absolute inset-0 flex items-center justify-center p-4">
-                      <product.icon className="w-full h-full max-w-[3.5rem] max-h-[3.5rem]" style={{ color: colors.accent }} />
+                      <product.icon className="w-full h-full max-w-[4rem] max-h-[4rem]" style={{ color: colors.accent }} />
                     </div>
                   </div>
                 </div>
-                <div className="w-full sm:w-[72%] p-6 md:p-8 flex flex-col justify-center">
+                <div className="flex-1 p-6 md:p-8 flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="w-9 h-9 shrink-0 rounded-full flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: colors.accent }}>{product.id}</span>
-                    <h3 className="text-xl md:text-2xl font-bold truncate" style={{ color: colors.text }}>{product.name}</h3>
+                    <h3 className="text-xl md:text-2xl font-bold" style={{ color: colors.text }}>{product.name}</h3>
                   </div>
-                  <p className="text-sm md:text-base leading-relaxed mb-5 flex-1 line-clamp-3 md:line-clamp-none" style={{ color: colors.textSecondary }}>{product.description}</p>
+                  <p className="text-sm md:text-base leading-relaxed mb-5" style={{ color: colors.textSecondary }}>{product.description}</p>
                   <button className="px-6 py-2.5 text-sm md:text-base font-medium rounded-lg transition-all hover:scale-105 active-elevate-2 w-fit" style={{ backgroundColor: colors.button, color: colors.buttonText }}>Подробнее</button>
                 </div>
               </motion.div>

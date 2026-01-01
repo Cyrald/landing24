@@ -343,12 +343,12 @@ export default function Home() {
             </h2>
             <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8 max-w-6xl mx-auto px-4 md:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-8 max-w-6xl mx-auto px-4 md:px-0">
             {products.map((product) => (
               <motion.div 
                 key={product.id} 
-                className="flex flex-col md:flex-row rounded-xl overflow-hidden card-shadow scale-[0.9] origin-center mb-0 md:mb-0" 
-                style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}` }}
+                className="flex flex-col md:flex-row rounded-xl overflow-hidden card-shadow scale-[0.9] origin-center mb-0 md:mb-0 relative" 
+                style={{ backgroundColor: colors.cardBg, border: `1px solid ${colors.accentLight}`, zIndex: 1 }}
               >
                 <div className="w-full md:w-[40%] shrink-0" style={{ backgroundColor: colors.bgAlt }}>
                   <div className="w-full aspect-[3/4] flex items-center justify-center relative overflow-hidden">

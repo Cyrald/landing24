@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { ChevronDown, Star, ChevronLeft, ChevronRight, Leaf, Quote, Activity } from "lucide-react";
+import { ChevronDown, Star, ChevronLeft, ChevronRight, Leaf, Quote, Activity, Waves } from "lucide-react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -58,8 +58,6 @@ const colors = {
   buttonText: currentPalette.colors.buttonText,
   gradient: `linear-gradient(135deg, ${currentPalette.colors.accent} 0%, ${currentPalette.colors.accentDark} 50%, ${currentPalette.colors.text} 100%)`,
 };
-
-import { ctaVariantsData } from "../ctaVariants";
 
 // --- Page Components ---
 function ProductImage({ text = "Продукт", aspectRatio = "3/4", className = "", bgColor }: { text?: string; aspectRatio?: string; className?: string; bgColor: string }) {
@@ -172,22 +170,8 @@ export default function Home() {
     }
   ];
 
-  const [ctaVariant, setCtaVariant] = useState(1);
-
   return (
     <div className="min-h-screen" style={{ backgroundColor: colors.bg }}>
-      {/* Switcher UI in Dev Mode - Fixed at bottom */}
-      <div className="fixed bottom-4 left-4 z-[100] bg-white/80 backdrop-blur-md p-2 rounded-lg shadow-xl border border-slate-200 flex gap-2">
-        <select 
-          className="text-xs p-1 rounded-md border border-slate-300 outline-none"
-          value={ctaVariant}
-          onChange={(e) => setCtaVariant(Number(e.target.value))}
-        >
-          {ctaVariantsData.map(v => (
-            <option key={v.id} value={v.id}>{v.name}</option>
-          ))}
-        </select>
-      </div>
       <HeroSection />
 
       {/* How it Works Section */}
@@ -334,7 +318,18 @@ export default function Home() {
 
       {/* Footer Section */}
       <footer className="w-full border-t border-slate-200/50">
-        {ctaVariantsData.find(v => v.id === ctaVariant)?.content(colors)}
+        <div className="w-full py-16 px-6" style={{ backgroundColor: colors.accentDark }}>
+          <div className="max-w-3xl mx-auto text-center text-white relative overflow-hidden">
+            <Waves className="absolute bottom-0 left-0 w-full h-40 opacity-10 -z-10" style={{ color: "#ffffff" }} />
+            <h2 className="text-4xl font-bold mb-6">Ваше здоровье — наш приоритет</h2>
+            <p className="text-xl opacity-80 mb-10">Простой шаг к качественной жизни.</p>
+            <button className="px-12 py-4 bg-white rounded-lg font-bold text-xl hover-elevate active-elevate-2 transition-all" 
+                    style={{ color: colors.accentDark }}
+                    onClick={() => window.location.hash = 'catalog'}>
+              Оформить доставку
+            </button>
+          </div>
+        </div>
       </footer>
     </div>
   );

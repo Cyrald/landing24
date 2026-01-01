@@ -318,15 +318,17 @@ export default function Home() {
 
       {/* Footer Section */}
       <footer className="w-full border-t border-slate-200/50">
-        <div className="w-full py-16 px-6" style={{ backgroundColor: colors.accentDark }}>
-          <div className="max-w-3xl mx-auto text-center text-white relative overflow-hidden">
-            <Waves className="absolute bottom-0 left-0 w-full h-40 opacity-10 -z-10" style={{ color: "#ffffff" }} />
-            <h2 className="text-4xl font-bold mb-6">Ваше здоровье — наш приоритет</h2>
-            <p className="text-xl opacity-80 mb-10">Простой шаг к качественной жизни.</p>
-            <button className="px-12 py-4 bg-white rounded-lg font-bold text-xl hover-elevate active-elevate-2 transition-all" 
+        <div className="w-full py-20 px-6" style={{ backgroundColor: colors.accentDark }}>
+          <div className="max-w-4xl mx-auto text-center text-white relative">
+            <Waves className="absolute -top-10 left-1/2 -translate-x-1/2 w-full h-48 opacity-5 pointer-events-none" style={{ color: "#ffffff" }} />
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Ваше здоровье в ваших руках</h2>
+            <p className="text-lg md:text-xl opacity-80 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+              Присоединяйтесь к тысячам людей, которые уже выбрали натуральный путь к долголетию и жизненной энергии.
+            </p>
+            <button className="px-14 py-4 bg-white rounded-lg font-bold text-lg hover-elevate active-elevate-2 transition-all shadow-xl" 
                     style={{ color: colors.accentDark }}
                     onClick={() => window.location.hash = 'catalog'}>
-              Оформить доставку
+              Перейти в магазин
             </button>
           </div>
         </div>

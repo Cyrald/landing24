@@ -140,7 +140,7 @@ export default function Home() {
       content: (
         <div className="h-full flex flex-col justify-center py-2 space-y-6">
           <div className="space-y-6">
-            <h3 className="text-2xl font-light leading-tight" style={{ color: colors.accent }}>
+            <h3 className="text-2xl font-light leading-tight" style={{ color: colors.text }}>
               Биорезонансная синергия и клеточный баланс
             </h3>
             <div className="space-y-4 text-sm leading-relaxed opacity-90" style={{ color: colors.textSecondary }}>
@@ -311,7 +311,7 @@ export default function Home() {
             <div className="w-24 h-1 mx-auto rounded-full" style={{ background: colors.gradient }}></div>
           </div>
 
-          <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+          <div className="rounded-3xl overflow-hidden shadow-sm border" style={{ backgroundColor: colors.cardBg, borderColor: colors.accentLight }}>
             <div className="flex flex-col md:flex-row items-stretch">
               <div className="w-full md:w-5/12 shrink-0">
                 <div className="aspect-[4/5] h-full">

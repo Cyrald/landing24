@@ -309,29 +309,20 @@ export default function Home() {
       </section>
 
       {/* Footer Section */}
-      <footer className="py-12 bg-white border-t border-slate-100">
+      <footer className="py-6 bg-white border-t border-slate-100">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: colors.text }}>
+          <h2 className="text-xl md:text-2xl font-bold mb-3" style={{ color: colors.text }}>
             Начните новую главу вашего здоровья
           </h2>
           
-          <p className="text-base mb-8 text-slate-500 max-w-lg mx-auto leading-relaxed">
-            Присоединяйтесь к нашему сообществу и откройте для себя силу природного восстановления.
-          </p>
-          
-          <button className="px-10 py-3.5 rounded-xl font-bold transition-all hover-elevate active-elevate-2 shadow-lg shadow-accent/10 mb-12" 
+          <button className="px-10 py-3 rounded-xl font-bold transition-all hover-elevate active-elevate-2 shadow-lg shadow-accent/10 mb-6" 
                   style={{ backgroundColor: colors.button, color: colors.buttonText }}>
             Магазин Wellness
           </button>
 
-          <div className="pt-8 border-t border-slate-50 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div className="text-xs font-medium text-slate-400">
-              © 2026 Wellness Products.
-            </div>
-            <div className="flex gap-6 text-[10px] uppercase tracking-widest font-bold text-slate-400">
-              <a href="#" className="hover:text-accent transition-colors">Политика</a>
-              <a href="#" className="hover:text-accent transition-colors">Контакты</a>
-              <a href="#catalog" className="hover:text-accent transition-colors">Каталог</a>
+          <div className="pt-4 border-t border-slate-50 flex justify-center items-center">
+            <div className="text-[10px] uppercase tracking-widest font-bold text-slate-400">
+              © 2026 Wellness Products. Природная энергия.
             </div>
           </div>
         </div>
